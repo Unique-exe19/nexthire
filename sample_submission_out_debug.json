@@ -1,0 +1,2127 @@
+{
+  "CAND_0000031": {
+    "rank": 1,
+    "score": 0.99,
+    "dimensions": {
+      "semantic": {
+        "score": 1.0,
+        "bm25": 1.0,
+        "tfidf": 1.0,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.9657,
+        "must_have_hits": [
+          "Embeddings",
+          "Ranking",
+          "Nlp",
+          "Retrieval",
+          "Sentence Transformers",
+          "Transformers",
+          "Faiss",
+          "Pinecone"
+        ],
+        "nice_hits": [
+          "Hugging Face",
+          "Scikit-Learn",
+          "Go",
+          "Search Engine",
+          "Recommendation System"
+        ],
+        "must_hit_count": 9,
+        "assessment_score": 0.657
+      },
+      "career": {
+        "score": 0.6964
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.0
+      },
+      "behavioral": {
+        "score": 0.7654,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #1 with an overall match score of 99%. Strong semantic alignment with the JD (semantic score: 100%). Matched 8 must-have JD skills: Embeddings, Ranking, Nlp, Retrieval. Also matched nice-to-have: Hugging Face, Scikit-Learn, Go. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, 91% recruiter response rate.",
+    "penalty": 1.0
+  },
+  "CAND_0000001": {
+    "rank": 2,
+    "score": 0.9557,
+    "dimensions": {
+      "semantic": {
+        "score": 0.9408,
+        "bm25": 0.3941,
+        "tfidf": 0.381,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.8902,
+        "must_have_hits": [
+          "Milvus",
+          "Python",
+          "Nlp",
+          "Fine-Tuning",
+          "Rag",
+          "Llm",
+          "Lora"
+        ],
+        "nice_hits": [
+          "Spark",
+          "Kafka",
+          "Data Pipeline",
+          "Airflow"
+        ],
+        "must_hit_count": 7,
+        "assessment_score": 0.402
+      },
+      "career": {
+        "score": 0.7743
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.9
+      },
+      "behavioral": {
+        "score": 0.6511,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #2 with an overall match score of 96%. Strong semantic alignment with the JD (semantic score: 94%). Matched 7 must-have JD skills: Milvus, Python, Nlp, Fine-Tuning. Also matched nice-to-have: Spark, Kafka, Data Pipeline. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000010": {
+    "rank": 3,
+    "score": 0.8718,
+    "dimensions": {
+      "semantic": {
+        "score": 0.8951,
+        "bm25": 0.3374,
+        "tfidf": 0.3191,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.8054,
+        "must_have_hits": [
+          "Python",
+          "Fine-Tuning",
+          "Rag",
+          "Bm25",
+          "Elasticsearch"
+        ],
+        "nice_hits": [
+          "Java",
+          "Spark",
+          "Sklearn",
+          "Startup",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 5,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.7281
+      },
+      "experience": {
+        "score": 0.72,
+        "years": 4.6
+      },
+      "behavioral": {
+        "score": 0.5326,
+        "open_to_work": false,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #3 with an overall match score of 87%. Strong semantic alignment with the JD (semantic score: 90%). Matched 5 must-have JD skills: Python, Fine-Tuning, Rag, Bm25. Also matched nice-to-have: Java, Spark, Sklearn. Career history has relevant AI/ML exposure with some product company experience.",
+    "penalty": 1.0
+  },
+  "CAND_0000015": {
+    "rank": 4,
+    "score": 0.8172,
+    "dimensions": {
+      "semantic": {
+        "score": 0.7211,
+        "bm25": 0.2108,
+        "tfidf": 0.2327,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.5348,
+        "must_have_hits": [
+          "Qdrant",
+          "Rag"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Distributed Systems",
+          "Go",
+          "Kafka"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.9076
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 5.4
+      },
+      "behavioral": {
+        "score": 0.5934,
+        "open_to_work": true,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #4 with an overall match score of 82%. Strong semantic alignment with the JD (semantic score: 72%). Matched 2 must-have JD skills: Qdrant, Rag. Also matched nice-to-have: Saas, Java, Distributed Systems. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000014": {
+    "rank": 5,
+    "score": 0.7715,
+    "dimensions": {
+      "semantic": {
+        "score": 0.7022,
+        "bm25": 0.207,
+        "tfidf": 0.242,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.5526,
+        "must_have_hits": [
+          "Opensearch",
+          "Rag",
+          "Faiss"
+        ],
+        "nice_hits": [
+          "Java"
+        ],
+        "must_hit_count": 3,
+        "assessment_score": 0.776
+      },
+      "career": {
+        "score": 0.7117
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 8.4
+      },
+      "behavioral": {
+        "score": 0.5744,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #5 with an overall match score of 77%. Strong semantic alignment with the JD (semantic score: 70%). Matched 3 must-have JD skills: Opensearch, Rag, Faiss. Also matched nice-to-have: Java. Career history has relevant AI/ML exposure with some product company experience. Platform signals: 80% recruiter response rate.",
+    "penalty": 1.0
+  },
+  "CAND_0000043": {
+    "rank": 6,
+    "score": 0.7707,
+    "dimensions": {
+      "semantic": {
+        "score": 0.8093,
+        "bm25": 0.2823,
+        "tfidf": 0.2897,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.8086,
+        "must_have_hits": [
+          "Opensearch",
+          "Fine-Tuning",
+          "Rag",
+          "Llm",
+          "Elasticsearch",
+          "Peft"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Go",
+          "Feature Engineering",
+          "Kubernetes"
+        ],
+        "must_hit_count": 6,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3515
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 8.3
+      },
+      "behavioral": {
+        "score": 0.3808,
+        "open_to_work": false,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #6 with an overall match score of 77%. Strong semantic alignment with the JD (semantic score: 81%). Matched 6 must-have JD skills: Opensearch, Fine-Tuning, Rag, Llm. Also matched nice-to-have: Saas, Java, Go. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000021": {
+    "rank": 7,
+    "score": 0.7536,
+    "dimensions": {
+      "semantic": {
+        "score": 0.9291,
+        "bm25": 0.3196,
+        "tfidf": 0.4435,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.7937,
+        "must_have_hits": [
+          "Embeddings",
+          "Vector Search",
+          "Fine-Tuning",
+          "Rag",
+          "Llm",
+          "Faiss",
+          "Vector Database",
+          "Pinecone"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Go",
+          "Recommendation System",
+          "Scala"
+        ],
+        "must_hit_count": 8,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2437
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 14.5
+      },
+      "behavioral": {
+        "score": 0.3992,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #7 with an overall match score of 75%. Strong semantic alignment with the JD (semantic score: 93%). Matched 8 must-have JD skills: Embeddings, Vector Search, Fine-Tuning, Rag. Also matched nice-to-have: Saas, Product Company, Go. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000032": {
+    "rank": 8,
+    "score": 0.7281,
+    "dimensions": {
+      "semantic": {
+        "score": 0.8196,
+        "bm25": 0.2796,
+        "tfidf": 0.3176,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.6099,
+        "must_have_hits": [
+          "Embeddings",
+          "Python",
+          "Rag"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Distributed Systems",
+          "Spark",
+          "Go"
+        ],
+        "must_hit_count": 3,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3691
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 8.1
+      },
+      "behavioral": {
+        "score": 0.4328,
+        "open_to_work": false,
+        "notice_days": 150
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #8 with an overall match score of 73%. Strong semantic alignment with the JD (semantic score: 82%). Matched 3 must-have JD skills: Embeddings, Python, Rag. Also matched nice-to-have: Saas, Java, Distributed Systems. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000038": {
+    "rank": 9,
+    "score": 0.6885,
+    "dimensions": {
+      "semantic": {
+        "score": 0.5974,
+        "bm25": 0.1662,
+        "tfidf": 0.1828,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.5255,
+        "must_have_hits": [
+          "Weaviate",
+          "Rag"
+        ],
+        "nice_hits": [
+          "Java",
+          "Distributed Systems",
+          "Go",
+          "Docker",
+          "Kafka"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4588
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.7
+      },
+      "behavioral": {
+        "score": 0.654,
+        "open_to_work": true,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #9 with an overall match score of 69%. Moderate semantic overlap with the JD (score: 60%). Matched 2 must-have JD skills: Weaviate, Rag. Also matched nice-to-have: Java, Distributed Systems, Go. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000023": {
+    "rank": 10,
+    "score": 0.6718,
+    "dimensions": {
+      "semantic": {
+        "score": 0.6483,
+        "bm25": 0.1805,
+        "tfidf": 0.2249,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2464,
+        "must_have_hits": [
+          "Rag"
+        ],
+        "nice_hits": [
+          "Java",
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.8347
+      },
+      "experience": {
+        "score": 0.57,
+        "years": 3.7
+      },
+      "behavioral": {
+        "score": 0.6745,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #10 with an overall match score of 67%. Moderate semantic overlap with the JD (score: 65%). Matched 1 must-have JD skills: Rag. Also matched nice-to-have: Java, Go. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
+    "penalty": 1.0
+  },
+  "CAND_0000011": {
+    "rank": 11,
+    "score": 0.659,
+    "dimensions": {
+      "semantic": {
+        "score": 0.7689,
+        "bm25": 0.2288,
+        "tfidf": 0.2702,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4324,
+        "must_have_hits": [
+          "Rag",
+          "Transformers"
+        ],
+        "nice_hits": [
+          "Java",
+          "Hugging Face",
+          "Recommendation System"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.298
+      },
+      "career": {
+        "score": 0.5731
+      },
+      "experience": {
+        "score": 0.4,
+        "years": 2.0
+      },
+      "behavioral": {
+        "score": 0.4732,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #11 with an overall match score of 66%. Strong semantic alignment with the JD (semantic score: 77%). Matched 2 must-have JD skills: Rag, Transformers. Also matched nice-to-have: Java, Hugging Face, Recommendation System. Career history has relevant AI/ML exposure with some product company experience.",
+    "penalty": 1.0
+  },
+  "CAND_0000044": {
+    "rank": 12,
+    "score": 0.6481,
+    "dimensions": {
+      "semantic": {
+        "score": 0.7116,
+        "bm25": 0.2015,
+        "tfidf": 0.2558,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4186,
+        "must_have_hits": [
+          "Python",
+          "Rag"
+        ],
+        "nice_hits": [
+          "Java",
+          "Distributed Systems",
+          "Go",
+          "Kafka"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3742
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 5.7
+      },
+      "behavioral": {
+        "score": 0.4551,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #12 with an overall match score of 65%. Strong semantic alignment with the JD (semantic score: 71%). Matched 2 must-have JD skills: Python, Rag. Also matched nice-to-have: Java, Distributed Systems, Go. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000035": {
+    "rank": 13,
+    "score": 0.6315,
+    "dimensions": {
+      "semantic": {
+        "score": 0.6397,
+        "bm25": 0.1911,
+        "tfidf": 0.2169,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.414,
+        "must_have_hits": [
+          "Rag"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Go",
+          "Recommendation System",
+          "Docker",
+          "Kafka"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.5336
+      },
+      "experience": {
+        "score": 0.66,
+        "years": 4.3
+      },
+      "behavioral": {
+        "score": 0.4442,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #13 with an overall match score of 63%. Moderate semantic overlap with the JD (score: 64%). Matched 1 must-have JD skills: Rag. Also matched nice-to-have: Saas, Go, Recommendation System. Career history has relevant AI/ML exposure with some product company experience.",
+    "penalty": 1.0
+  },
+  "CAND_0000048": {
+    "rank": 14,
+    "score": 0.6028,
+    "dimensions": {
+      "semantic": {
+        "score": 0.5185,
+        "bm25": 0.1392,
+        "tfidf": 0.1658,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.325,
+        "must_have_hits": [
+          "Rag"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Distributed Systems",
+          "Go",
+          "Kafka"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.5178
+      },
+      "experience": {
+        "score": 0.829,
+        "years": 9.7
+      },
+      "behavioral": {
+        "score": 0.5838,
+        "open_to_work": true,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #14 with an overall match score of 60%. Moderate semantic overlap with the JD (score: 52%). Matched 1 must-have JD skills: Rag. Also matched nice-to-have: Saas, Java, Distributed Systems. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000018": {
+    "rank": 15,
+    "score": 0.5852,
+    "dimensions": {
+      "semantic": {
+        "score": 0.5651,
+        "bm25": 0.1488,
+        "tfidf": 0.1819,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2625,
+        "must_have_hits": [
+          "Rag"
+        ],
+        "nice_hits": [
+          "Java",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.498
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.6
+      },
+      "behavioral": {
+        "score": 0.4097,
+        "open_to_work": false,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #15 with an overall match score of 59%. Moderate semantic overlap with the JD (score: 57%). Matched 1 must-have JD skills: Rag. Also matched nice-to-have: Java, Data Pipeline. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000002": {
+    "rank": 16,
+    "score": 0.5748,
+    "dimensions": {
+      "semantic": {
+        "score": 0.4633,
+        "bm25": 0.1018,
+        "tfidf": 0.1823,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4972,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Product Company",
+          "Go",
+          "Feature Engineering"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3622
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 12.5
+      },
+      "behavioral": {
+        "score": 0.4704,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #16 with an overall match score of 57%. Moderate semantic overlap with the JD (score: 46%). Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Java, Product Company. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000050": {
+    "rank": 17,
+    "score": 0.5524,
+    "dimensions": {
+      "semantic": {
+        "score": 0.3922,
+        "bm25": 0.1055,
+        "tfidf": 0.1505,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4823,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Product Company",
+          "Feature Engineering",
+          "Kafka",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.608
+      },
+      "career": {
+        "score": 0.4067
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 13.5
+      },
+      "behavioral": {
+        "score": 0.4028,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #17 with an overall match score of 55%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Product Company, Feature Engineering, Kafka. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000041": {
+    "rank": 18,
+    "score": 0.4956,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0934,
+        "bm25": 0.0519,
+        "tfidf": 0.0903,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4906,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Go",
+          "Scala",
+          "Kubernetes"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4121
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 13.7
+      },
+      "behavioral": {
+        "score": 0.5971,
+        "open_to_work": true,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #18 with an overall match score of 50%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Product Company, Go. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000034": {
+    "rank": 19,
+    "score": 0.486,
+    "dimensions": {
+      "semantic": {
+        "score": 0.4531,
+        "bm25": 0.1259,
+        "tfidf": 0.1633,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.25,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3389
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 14.5
+      },
+      "behavioral": {
+        "score": 0.3733,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #19 with an overall match score of 49%. Moderate semantic overlap with the JD (score: 45%). Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Product Company. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000037": {
+    "rank": 20,
+    "score": 0.4806,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0857,
+        "bm25": 0.0572,
+        "tfidf": 0.0537,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4671,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Go",
+          "Docker",
+          "Machine Learning"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4266
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 14.3
+      },
+      "behavioral": {
+        "score": 0.5178,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #20 with an overall match score of 48%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Go, Docker. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period, 78% recruiter response rate.",
+    "penalty": 1.0
+  },
+  "CAND_0000049": {
+    "rank": 21,
+    "score": 0.4748,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1675,
+        "bm25": 0.0747,
+        "tfidf": 0.0906,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.38,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Go",
+          "Kubernetes",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3737
+      },
+      "experience": {
+        "score": 0.766,
+        "years": 11.8
+      },
+      "behavioral": {
+        "score": 0.5234,
+        "open_to_work": false,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #21 with an overall match score of 47%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Go, Kubernetes, Data Pipeline. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000009": {
+    "rank": 22,
+    "score": 0.4702,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2943,
+        "bm25": 0.0938,
+        "tfidf": 0.1254,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3689,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Product Company",
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2747
+      },
+      "experience": {
+        "score": 0.79,
+        "years": 11.0
+      },
+      "behavioral": {
+        "score": 0.3776,
+        "open_to_work": false,
+        "notice_days": 150
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #22 with an overall match score of 47%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Java, Product Company. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000045": {
+    "rank": 23,
+    "score": 0.467,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1205,
+        "bm25": 0.0576,
+        "tfidf": 0.0868,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4346,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Go",
+          "Scala",
+          "Airflow"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3025
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 12.2
+      },
+      "behavioral": {
+        "score": 0.6263,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #23 with an overall match score of 47%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Product Company, Go. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000006": {
+    "rank": 24,
+    "score": 0.4509,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2839,
+        "bm25": 0.0984,
+        "tfidf": 0.1214,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2075,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3374
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.0
+      },
+      "behavioral": {
+        "score": 0.3684,
+        "open_to_work": false,
+        "notice_days": 150
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #24 with an overall match score of 45%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Go. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000020": {
+    "rank": 25,
+    "score": 0.4378,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2329,
+        "bm25": 0.076,
+        "tfidf": 0.1246,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2844
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.3
+      },
+      "behavioral": {
+        "score": 0.493,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #25 with an overall match score of 44%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period.",
+    "penalty": 1.0
+  },
+  "CAND_0000019": {
+    "rank": 26,
+    "score": 0.4315,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1525,
+        "bm25": 0.0693,
+        "tfidf": 0.0929,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.225,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Product Company",
+          "Go",
+          "Machine Learning"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3293
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.5
+      },
+      "behavioral": {
+        "score": 0.4872,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #26 with an overall match score of 43%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Product Company, Go, Machine Learning. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000046": {
+    "rank": 27,
+    "score": 0.429,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0153,
+        "bm25": 0.0148,
+        "tfidf": 0.0327,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.25,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Scala"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.451
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 7.8
+      },
+      "behavioral": {
+        "score": 0.5054,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #27 with an overall match score of 43%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Scala. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period.",
+    "penalty": 1.0
+  },
+  "CAND_0000036": {
+    "rank": 28,
+    "score": 0.4122,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0552,
+        "bm25": 0.0489,
+        "tfidf": 0.0611,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2724,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3678
+      },
+      "experience": {
+        "score": 0.781,
+        "years": 11.3
+      },
+      "behavioral": {
+        "score": 0.5133,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #28 with an overall match score of 41%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Product Company, Go. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles.",
+    "penalty": 1.0
+  },
+  "CAND_0000029": {
+    "rank": 29,
+    "score": 0.4092,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1588,
+        "bm25": 0.0542,
+        "tfidf": 0.1178,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.225,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Scala"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2541
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 7.2
+      },
+      "behavioral": {
+        "score": 0.4246,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [],
+    "reasoning_long": "Ranked #29 with an overall match score of 41%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Product Company, Scala. Limited direct AI/ML product company experience in career history.",
+    "penalty": 1.0
+  },
+  "CAND_0000027": {
+    "rank": 30,
+    "score": 0.366,
+    "dimensions": {
+      "semantic": {
+        "score": 0.8841,
+        "bm25": 0.3083,
+        "tfidf": 0.4054,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.7288,
+        "must_have_hits": [
+          "Retrieval",
+          "Rag",
+          "Peft",
+          "Information Retrieval"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Distributed Systems",
+          "Go",
+          "Docker"
+        ],
+        "must_hit_count": 4,
+        "assessment_score": 0.505
+      },
+      "career": {
+        "score": 0.3491
+      },
+      "experience": {
+        "score": 0.59,
+        "years": 3.9
+      },
+      "behavioral": {
+        "score": 0.6483,
+        "open_to_work": true,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #30 with an overall match score of 37%. Strong semantic alignment with the JD (semantic score: 88%). Matched 4 must-have JD skills: Retrieval, Rag, Peft, Information Retrieval. Also matched nice-to-have: Saas, Java, Distributed Systems. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles. \u26a0 Flags: Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.4
+  },
+  "CAND_0000022": {
+    "rank": 31,
+    "score": 0.3171,
+    "dimensions": {
+      "semantic": {
+        "score": 0.5361,
+        "bm25": 0.1091,
+        "tfidf": 0.1949,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3069,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Java",
+          "Go"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.5476
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.1
+      },
+      "behavioral": {
+        "score": 0.5243,
+        "open_to_work": true,
+        "notice_days": 150
+      }
+    },
+    "disqualifiers": [
+      "Insufficient experience (1.1 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #31 with an overall match score of 32%. Moderate semantic overlap with the JD (score: 54%). Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Java, Go. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles. \u26a0 Flags: Insufficient experience (1.1 yrs) for a Senior role.",
+    "penalty": 0.5
+  },
+  "CAND_0000025": {
+    "rank": 32,
+    "score": 0.2936,
+    "dimensions": {
+      "semantic": {
+        "score": 0.4891,
+        "bm25": 0.1292,
+        "tfidf": 0.164,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3797,
+        "must_have_hits": [
+          "Rag"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Spark",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2991
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 7.3
+      },
+      "behavioral": {
+        "score": 0.6677,
+        "open_to_work": true,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #32 with an overall match score of 29%. Moderate semantic overlap with the JD (score: 49%). Matched 1 must-have JD skills: Rag. Also matched nice-to-have: Saas, Java, Spark. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles, 74% recruiter response rate. \u26a0 Flags: Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.4
+  },
+  "CAND_0000047": {
+    "rank": 33,
+    "score": 0.2195,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0594,
+        "bm25": 0.0451,
+        "tfidf": 0.0718,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3096,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Java"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4011
+      },
+      "experience": {
+        "score": 0.44,
+        "years": 2.4
+      },
+      "behavioral": {
+        "score": 0.5278,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #33 with an overall match score of 22%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Java. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.4
+  },
+  "CAND_0000008": {
+    "rank": 34,
+    "score": 0.2051,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0,
+        "bm25": 0.0,
+        "tfidf": 0.0,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3394,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Spark",
+          "Kubernetes"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2841
+      },
+      "experience": {
+        "score": 0.56,
+        "years": 3.6
+      },
+      "behavioral": {
+        "score": 0.4108,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #34 with an overall match score of 21%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Java, Spark. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.4
+  },
+  "CAND_0000012": {
+    "rank": 35,
+    "score": 0.1922,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0192,
+        "bm25": 0.0322,
+        "tfidf": 0.0269,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2001,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Airflow"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2811
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.1
+      },
+      "behavioral": {
+        "score": 0.3854,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [
+      "Insufficient experience (1.1 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #35 with an overall match score of 19%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Airflow. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Insufficient experience (1.1 yrs) for a Senior role.",
+    "penalty": 0.5
+  },
+  "CAND_0000026": {
+    "rank": 36,
+    "score": 0.1526,
+    "dimensions": {
+      "semantic": {
+        "score": 0.4404,
+        "bm25": 0.1023,
+        "tfidf": 0.1715,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4955,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Go",
+          "Docker",
+          "Scala",
+          "Kubernetes"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4967
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 6.8
+      },
+      "behavioral": {
+        "score": 0.4981,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Graphic Designer' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #36 with an overall match score of 15%. Moderate semantic overlap with the JD (score: 44%). Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Go, Docker. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period. \u26a0 Flags: Current title 'Graphic Designer' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000030": {
+    "rank": 37,
+    "score": 0.1473,
+    "dimensions": {
+      "semantic": {
+        "score": 0.405,
+        "bm25": 0.1041,
+        "tfidf": 0.159,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3422,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Java"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.5751
+      },
+      "experience": {
+        "score": 0.82,
+        "years": 10.0
+      },
+      "behavioral": {
+        "score": 0.466,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Marketing Manager' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #37 with an overall match score of 15%. Moderate semantic overlap with the JD (score: 40%). Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Java. Career history has relevant AI/ML exposure with some product company experience. \u26a0 Flags: Current title 'Marketing Manager' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000004": {
+    "rank": 38,
+    "score": 0.1438,
+    "dimensions": {
+      "semantic": {
+        "score": 0.3114,
+        "bm25": 0.0863,
+        "tfidf": 0.1405,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.5003,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Java",
+          "Product Company",
+          "Airflow",
+          "Machine Learning"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4512
+      },
+      "experience": {
+        "score": 0.58,
+        "years": 3.8
+      },
+      "behavioral": {
+        "score": 0.4504,
+        "open_to_work": false,
+        "notice_days": 120
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Marketing Manager' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #38 with an overall match score of 14%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Java, Product Company, Airflow. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Current title 'Marketing Manager' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000033": {
+    "rank": 39,
+    "score": 0.1438,
+    "dimensions": {
+      "semantic": {
+        "score": 0.3636,
+        "bm25": 0.1185,
+        "tfidf": 0.1321,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3439,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Go",
+          "Kubernetes",
+          "Data Pipeline",
+          "Airflow"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3483
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 8.6
+      },
+      "behavioral": {
+        "score": 0.5726,
+        "open_to_work": true,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Graphic Designer' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #39 with an overall match score of 14%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Go, Kubernetes, Data Pipeline. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles, 30-day notice period. \u26a0 Flags: Current title 'Graphic Designer' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000028": {
+    "rank": 40,
+    "score": 0.1422,
+    "dimensions": {
+      "semantic": {
+        "score": 0.0349,
+        "bm25": 0.0355,
+        "tfidf": 0.0513,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3038,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Java",
+          "Go",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.1741
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.1
+      },
+      "behavioral": {
+        "score": 0.5261,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [
+      "Career predominantly in IT services/consulting (>85%)",
+      "Insufficient experience (1.1 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #40 with an overall match score of 14%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Java, Go, Data Pipeline. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Career predominantly in IT services/consulting (>85%); Insufficient experience (1.1 yrs) for a Senior role.",
+    "penalty": 0.2
+  },
+  "CAND_0000007": {
+    "rank": 41,
+    "score": 0.1404,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1432,
+        "bm25": 0.0568,
+        "tfidf": 0.1011,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3824,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Spark",
+          "Go",
+          "Scala"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3627
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 5.5
+      },
+      "behavioral": {
+        "score": 0.682,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Civil Engineer' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #41 with an overall match score of 14%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Spark, Go. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period. \u26a0 Flags: Current title 'Civil Engineer' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000005": {
+    "rank": 42,
+    "score": 0.1395,
+    "dimensions": {
+      "semantic": {
+        "score": 0.4769,
+        "bm25": 0.1394,
+        "tfidf": 0.1578,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.175,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Scala"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3181
+      },
+      "experience": {
+        "score": 0.79,
+        "years": 11.0
+      },
+      "behavioral": {
+        "score": 0.5266,
+        "open_to_work": true,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Accountant' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #42 with an overall match score of 14%. Moderate semantic overlap with the JD (score: 48%). Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Scala. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles, 30-day notice period. \u26a0 Flags: Current title 'Accountant' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000039": {
+    "rank": 43,
+    "score": 0.1394,
+    "dimensions": {
+      "semantic": {
+        "score": 0.3814,
+        "bm25": 0.0929,
+        "tfidf": 0.1651,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3549,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Spark",
+          "Product Company",
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2811
+      },
+      "experience": {
+        "score": 0.59,
+        "years": 3.9
+      },
+      "behavioral": {
+        "score": 0.5596,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Marketing Manager' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #43 with an overall match score of 14%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Spark, Product Company, Go. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period. \u26a0 Flags: Current title 'Marketing Manager' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000042": {
+    "rank": 44,
+    "score": 0.1386,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2768,
+        "bm25": 0.0862,
+        "tfidf": 0.1399,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.25,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Go"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.3845
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 5.0
+      },
+      "behavioral": {
+        "score": 0.4965,
+        "open_to_work": false,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'HR Manager' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #44 with an overall match score of 14%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Go. Limited direct AI/ML product company experience in career history. Platform signals: 30-day notice period. \u26a0 Flags: Current title 'HR Manager' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000017": {
+    "rank": 45,
+    "score": 0.1359,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1916,
+        "bm25": 0.0729,
+        "tfidf": 0.1078,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.4717,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Java",
+          "Product Company",
+          "Go",
+          "Scala"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.305
+      },
+      "experience": {
+        "score": 0.7,
+        "years": 12.3
+      },
+      "behavioral": {
+        "score": 0.3054,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Accountant' is unrelated to AI/ML"
+    ],
+    "reasoning_long": "Ranked #45 with an overall match score of 14%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Java, Product Company. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Current title 'Accountant' is unrelated to AI/ML.",
+    "penalty": 0.1
+  },
+  "CAND_0000024": {
+    "rank": 46,
+    "score": 0.117,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2615,
+        "bm25": 0.0759,
+        "tfidf": 0.1437,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3591,
+        "must_have_hits": [
+          "Llm",
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Docker",
+          "Kubernetes"
+        ],
+        "must_hit_count": 2,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.4111
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 7.5
+      },
+      "behavioral": {
+        "score": 0.5439,
+        "open_to_work": false,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [
+      "Current title 'HR Manager' is unrelated to AI/ML",
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #46 with an overall match score of 12%. Matched 2 must-have JD skills: Llm, Gpt. Also matched nice-to-have: Saas, Docker, Kubernetes. Limited direct AI/ML product company experience in career history. Platform signals: 78% recruiter response rate. \u26a0 Flags: Current title 'HR Manager' is unrelated to AI/ML; Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.04
+  },
+  "CAND_0000016": {
+    "rank": 47,
+    "score": 0.116,
+    "dimensions": {
+      "semantic": {
+        "score": 0.3007,
+        "bm25": 0.0816,
+        "tfidf": 0.1475,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3525,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Product Company",
+          "Go",
+          "Scala",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2541
+      },
+      "experience": {
+        "score": 0.95,
+        "years": 5.3
+      },
+      "behavioral": {
+        "score": 0.5588,
+        "open_to_work": true,
+        "notice_days": 60
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Accountant' is unrelated to AI/ML",
+      "Career predominantly in IT services/consulting (>85%)"
+    ],
+    "reasoning_long": "Ranked #47 with an overall match score of 12%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Product Company, Go. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles. \u26a0 Flags: Current title 'Accountant' is unrelated to AI/ML; Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.04
+  },
+  "CAND_0000013": {
+    "rank": 48,
+    "score": 0.1142,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1117,
+        "bm25": 0.05,
+        "tfidf": 0.0947,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.3955,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Saas",
+          "Spark",
+          "Scala",
+          "Data Pipeline"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2436
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.1
+      },
+      "behavioral": {
+        "score": 0.6097,
+        "open_to_work": true,
+        "notice_days": 30
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Civil Engineer' is unrelated to AI/ML",
+      "Insufficient experience (1.1 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #48 with an overall match score of 11%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Saas, Spark, Scala. Limited direct AI/ML product company experience in career history. Platform signals: actively open to new roles, 30-day notice period. \u26a0 Flags: Current title 'Civil Engineer' is unrelated to AI/ML; Insufficient experience (1.1 yrs) for a Senior role.",
+    "penalty": 0.05
+  },
+  "CAND_0000040": {
+    "rank": 49,
+    "score": 0.1108,
+    "dimensions": {
+      "semantic": {
+        "score": 0.1021,
+        "bm25": 0.0552,
+        "tfidf": 0.0889,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.2266,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Spark",
+          "Go"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.2661
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.6
+      },
+      "behavioral": {
+        "score": 0.4167,
+        "open_to_work": false,
+        "notice_days": 90
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Customer Support' is unrelated to AI/ML",
+      "Insufficient experience (1.6 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #49 with an overall match score of 11%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Spark, Go. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Current title 'Customer Support' is unrelated to AI/ML; Insufficient experience (1.6 yrs) for a Senior role.",
+    "penalty": 0.05
+  },
+  "CAND_0000003": {
+    "rank": 50,
+    "score": 0.1042,
+    "dimensions": {
+      "semantic": {
+        "score": 0.2178,
+        "bm25": 0.084,
+        "tfidf": 0.1045,
+        "dense": 0.0
+      },
+      "skills": {
+        "score": 0.164,
+        "must_have_hits": [
+          "Gpt"
+        ],
+        "nice_hits": [
+          "Kubernetes"
+        ],
+        "must_hit_count": 1,
+        "assessment_score": 0.0
+      },
+      "career": {
+        "score": 0.1516
+      },
+      "experience": {
+        "score": 0.15,
+        "years": 1.1
+      },
+      "behavioral": {
+        "score": 0.4665,
+        "open_to_work": false,
+        "notice_days": 150
+      }
+    },
+    "disqualifiers": [
+      "Current title 'Customer Support' is unrelated to AI/ML",
+      "Career predominantly in IT services/consulting (>85%)",
+      "Insufficient experience (1.1 yrs) for a Senior role"
+    ],
+    "reasoning_long": "Ranked #50 with an overall match score of 10%. Matched 1 must-have JD skills: Gpt. Also matched nice-to-have: Kubernetes. Limited direct AI/ML product company experience in career history. \u26a0 Flags: Current title 'Customer Support' is unrelated to AI/ML; Career predominantly in IT services/consulting (>85%).",
+    "penalty": 0.02
+  }
+}

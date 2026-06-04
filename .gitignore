@@ -1,0 +1,37 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+
+# build outputs
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Python artifacts
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Large Datasets (strictly exclude the 487MB candidates.json)
+dataset/**/candidates.json
+*.npy
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env*
