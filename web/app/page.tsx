@@ -209,33 +209,192 @@ function CorePillarsSection() {
   );
 }
 
-// ── Pipeline badge ────────────────────────────────────────────────────────────
+// ── Interactive Connected Pipeline Graph ─────────────────────────────────────
 
-const PIPELINE_STAGES = [
-  { icon: <BookIcon />, label: 'Corpus Build' },
-  { icon: <GitBranchIcon />, label: 'BM25 + TF-IDF' },
-  { icon: <ZapIcon />, label: 'RRF Fusion' },
-  { icon: <SettingsIcon />, label: 'Structured Scoring' },
-  { icon: <RadioIcon />, label: 'Behavioral Signals' },
-  { icon: <ShieldAlertIcon />, label: 'Disqualifier Detection' },
-  { icon: <AwardIcon />, label: 'Weighted Ensemble' },
-];
+function PipelineGraph() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-function PipelineBadge({ icon, label }: { icon: React.ReactNode; label: string }) {
+  const stages = [
+    { 
+      step: '1', 
+      label: 'Corpus Build', 
+      desc: 'Streams and tokenizes candidate profiles from the 100,000 JSONL candidate pool.', 
+      icon: <BookIcon /> 
+    },
+    { 
+      step: '2', 
+      label: 'Sparse Search', 
+      desc: 'Executes fast CPU-optimized BM25 + TF-IDF with Inverted Indexing search.', 
+      icon: <GitBranchIcon /> 
+    },
+    { 
+      step: '3', 
+      label: 'RRF Fusion', 
+      desc: 'Combines BM25 and TF-IDF rank lists via Reciprocal Rank Fusion, filtering to the top 1,500 candidates.', 
+      icon: <ZapIcon /> 
+    },
+    { 
+      step: '4', 
+      label: 'Structured Match', 
+      desc: 'Concurrently evaluates skills matches (must-have/nice-to-have), proficiency weights, endorsements, and experience fit.', 
+      icon: <SettingsIcon /> 
+    },
+    { 
+      step: '5', 
+      label: 'Behavioral Signals', 
+      desc: 'Calculates active response times, notice period availability, and platform engagement metrics.', 
+      icon: <RadioIcon /> 
+    },
+    { 
+      step: '6', 
+      label: 'Disqualifiers', 
+      desc: 'Applies penalty multipliers for consulting traps, job-hopping, and salary expectation mismatches.', 
+      icon: <ShieldAlertIcon /> 
+    },
+    { 
+      step: '7', 
+      label: 'Ensemble & Rerank', 
+      desc: 'Integrates Gemini LLM re-ranking adjustments and computes composite scores to output the final top-100 ranks.', 
+      icon: <AwardIcon /> 
+    },
+  ];
+
   return (
-    <div style={{
-      padding: '6px 14px',
-      background: 'rgba(255,255,255,0.03)',
-      border: '1px solid var(--border)',
-      borderRadius: 20,
-      fontSize: '0.72rem',
-      color: 'var(--text-secondary)',
-      fontWeight: 500,
-      display: 'flex', alignItems: 'center', gap: 6,
-      whiteSpace: 'nowrap',
-    }}>
-      <span style={{ display: 'flex', alignItems: 'center', color: 'var(--text-secondary)' }}>{icon}</span>
-      <span>{label}</span>
+    <div className="glass animate-fade-in-up" style={{ padding: '20px 24px', marginBottom: '28px', border: '1px solid rgba(255,255,255,0.08)' }}>
+      <div style={{
+        fontSize: '0.7rem', color: 'var(--text-muted)',
+        textTransform: 'uppercase', letterSpacing: '1.2px', fontWeight: 700, marginBottom: '20px',
+        textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6
+      }}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+        <span>AI Recruiter Engine - 7-Stage Pipeline Graph</span>
+      </div>
+
+      {/* Nodes Container */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '6px',
+        flexWrap: 'wrap',
+      }}>
+        {stages.map((s, idx) => {
+          const isHovered = hoveredIndex === idx;
+          return (
+            <div 
+              key={idx} 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                flex: '1 1 120px',
+                minWidth: '120px',
+                position: 'relative',
+              }}
+              onMouseEnter={() => setHoveredIndex(idx)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              {/* Node Card */}
+              <div style={{
+                width: '100%',
+                padding: '14px 10px',
+                background: isHovered ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.015)',
+                border: isHovered ? '1px solid rgba(255,255,255,0.18)' : '1px solid rgba(255,255,255,0.04)',
+                borderRadius: '12px',
+                textAlign: 'center',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: isHovered ? 'scale(1.04)' : 'scale(1)',
+                boxShadow: isHovered ? '0 8px 24px rgba(255,255,255,0.06)' : 'none',
+              }}>
+                {/* Step Circle */}
+                <div style={{
+                  width: '22px', height: '22px',
+                  borderRadius: '50%',
+                  background: isHovered ? '#ffffff' : 'rgba(255,255,255,0.08)',
+                  color: isHovered ? '#000000' : 'var(--text-secondary)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '0.68rem', fontWeight: 800,
+                  margin: '0 auto 8px',
+                  transition: 'all 0.25s',
+                  fontFamily: 'JetBrains Mono, monospace'
+                }}>
+                  {s.step}
+                </div>
+                
+                {/* Icon */}
+                <div style={{ 
+                  display: 'flex', justifyContent: 'center', alignItems: 'center', 
+                  color: isHovered ? '#ffffff' : 'var(--text-secondary)', 
+                  marginBottom: 6,
+                  transition: 'color 0.25s'
+                }}>
+                  {s.icon}
+                </div>
+                
+                {/* Label */}
+                <div style={{ 
+                  fontSize: '0.72rem', 
+                  fontWeight: 600, 
+                  color: isHovered ? '#ffffff' : 'var(--text-primary)',
+                  transition: 'color 0.25s',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis'
+                }}>
+                  {s.label}
+                </div>
+              </div>
+
+              {/* Connecting Arrow */}
+              {idx < stages.length - 1 && (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '16px',
+                  margin: '0 -4px',
+                  zIndex: 2,
+                  color: isHovered || hoveredIndex === idx + 1 ? '#ffffff' : 'var(--text-muted)',
+                  transition: 'color 0.25s',
+                }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Explanation panel */}
+      <div style={{
+        marginTop: '16px',
+        padding: '12px 16px',
+        background: 'rgba(255,255,255,0.01)',
+        border: '1px solid rgba(255,255,255,0.03)',
+        borderRadius: '10px',
+        minHeight: '48px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        transition: 'all 0.25s'
+      }}>
+        <p style={{ 
+          fontSize: '0.75rem', 
+          color: hoveredIndex !== null ? '#ffffff' : 'var(--text-secondary)',
+          lineHeight: 1.45,
+          textAlign: 'center',
+          margin: 0,
+          transition: 'color 0.25s'
+        }}>
+          {hoveredIndex !== null 
+            ? `${stages[hoveredIndex].label}: ${stages[hoveredIndex].desc}`
+            : "Hover over any pipeline node to inspect details of the recruiter pipeline."
+          }
+        </p>
+      </div>
     </div>
   );
 }
@@ -637,10 +796,8 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* ── Pipeline badges ──────────────────────────────────────────────── */}
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', justifyContent: 'center', marginBottom: 28 }}>
-          {PIPELINE_STAGES.map(s => <PipelineBadge key={s.label} {...s} />)}
-        </div>
+        {/* ── Pipeline Graph ────────────────────────────────────────────────── */}
+        <PipelineGraph />
 
         {/* ── Core Pillars Architecture Panel ────────────────────────────────── */}
         <CorePillarsSection />
