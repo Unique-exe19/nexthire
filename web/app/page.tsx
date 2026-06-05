@@ -123,7 +123,7 @@ function daysSince(dateStr?: string): number {
 }
 
 function getActivitySignal(days: number): { cls: string; label: string } {
-  if (days <= 7)  return { cls: 'green', label: 'Active this week' };
+  if (days <= 7) return { cls: 'green', label: 'Active this week' };
   if (days <= 30) return { cls: 'green', label: `Active ${days}d ago` };
   if (days <= 90) return { cls: 'amber', label: `Active ${days}d ago` };
   return { cls: 'red', label: `Inactive ${days}d` };
@@ -215,47 +215,47 @@ function PipelineGraph() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const stages = [
-    { 
-      step: '1', 
-      label: 'Corpus Build', 
-      desc: 'Streams and tokenizes candidate profiles from the 100,000 JSONL candidate pool.', 
-      icon: <BookIcon /> 
+    {
+      step: '1',
+      label: 'Corpus Build',
+      desc: 'Streams and tokenizes candidate profiles from the 100,000 JSONL candidate pool.',
+      icon: <BookIcon />
     },
-    { 
-      step: '2', 
-      label: 'Sparse Search', 
-      desc: 'Executes fast CPU-optimized BM25 + TF-IDF with Inverted Indexing search.', 
-      icon: <GitBranchIcon /> 
+    {
+      step: '2',
+      label: 'Sparse Search',
+      desc: 'Executes fast CPU-optimized BM25 + TF-IDF with Inverted Indexing search.',
+      icon: <GitBranchIcon />
     },
-    { 
-      step: '3', 
-      label: 'RRF Fusion', 
-      desc: 'Combines BM25 and TF-IDF rank lists via Reciprocal Rank Fusion, filtering to the top 1,500 candidates.', 
-      icon: <ZapIcon /> 
+    {
+      step: '3',
+      label: 'RRF Fusion',
+      desc: 'Combines BM25 and TF-IDF rank lists via Reciprocal Rank Fusion, filtering to the top 1,500 candidates.',
+      icon: <ZapIcon />
     },
-    { 
-      step: '4', 
-      label: 'Structured Match', 
-      desc: 'Concurrently evaluates skills matches (must-have/nice-to-have), proficiency weights, endorsements, and experience fit.', 
-      icon: <SettingsIcon /> 
+    {
+      step: '4',
+      label: 'Structured Match',
+      desc: 'Concurrently evaluates skills matches (must-have/nice-to-have), proficiency weights, endorsements, and experience fit.',
+      icon: <SettingsIcon />
     },
-    { 
-      step: '5', 
-      label: 'Behavioral Signals', 
-      desc: 'Calculates active response times, notice period availability, and platform engagement metrics.', 
-      icon: <RadioIcon /> 
+    {
+      step: '5',
+      label: 'Behavioral Signals',
+      desc: 'Calculates active response times, notice period availability, and platform engagement metrics.',
+      icon: <RadioIcon />
     },
-    { 
-      step: '6', 
-      label: 'Disqualifiers', 
-      desc: 'Applies penalty multipliers for consulting traps, job-hopping, and salary expectation mismatches.', 
-      icon: <ShieldAlertIcon /> 
+    {
+      step: '6',
+      label: 'Disqualifiers',
+      desc: 'Applies penalty multipliers for consulting traps, job-hopping, and salary expectation mismatches.',
+      icon: <ShieldAlertIcon />
     },
-    { 
-      step: '7', 
-      label: 'Ensemble & Rerank', 
-      desc: 'Integrates Gemini LLM re-ranking adjustments and computes composite scores to output the final top-100 ranks.', 
-      icon: <AwardIcon /> 
+    {
+      step: '7',
+      label: 'Ensemble & Rerank',
+      desc: 'Integrates Gemini LLM re-ranking adjustments and computes composite scores to output the final top-100 ranks.',
+      icon: <AwardIcon />
     },
   ];
 
@@ -283,11 +283,11 @@ function PipelineGraph() {
         {stages.map((s, idx) => {
           const isHovered = hoveredIndex === idx;
           return (
-            <div 
-              key={idx} 
-              style={{ 
-                display: 'flex', 
-                alignItems: 'center', 
+            <div
+              key={idx}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
                 flex: '1 1 120px',
                 minWidth: '120px',
                 position: 'relative',
@@ -321,21 +321,21 @@ function PipelineGraph() {
                 }}>
                   {s.step}
                 </div>
-                
+
                 {/* Icon */}
-                <div style={{ 
-                  display: 'flex', justifyContent: 'center', alignItems: 'center', 
-                  color: isHovered ? '#ffffff' : 'var(--text-secondary)', 
+                <div style={{
+                  display: 'flex', justifyContent: 'center', alignItems: 'center',
+                  color: isHovered ? '#ffffff' : 'var(--text-secondary)',
                   marginBottom: 6,
                   transition: 'color 0.25s'
                 }}>
                   {s.icon}
                 </div>
-                
+
                 {/* Label */}
-                <div style={{ 
-                  fontSize: '0.72rem', 
-                  fontWeight: 600, 
+                <div style={{
+                  fontSize: '0.72rem',
+                  fontWeight: 600,
                   color: isHovered ? '#ffffff' : 'var(--text-primary)',
                   transition: 'color 0.25s',
                   whiteSpace: 'nowrap',
@@ -381,15 +381,15 @@ function PipelineGraph() {
         justifyContent: 'center',
         transition: 'all 0.25s'
       }}>
-        <p style={{ 
-          fontSize: '0.75rem', 
+        <p style={{
+          fontSize: '0.75rem',
           color: hoveredIndex !== null ? '#ffffff' : 'var(--text-secondary)',
           lineHeight: 1.45,
           textAlign: 'center',
           margin: 0,
           transition: 'color 0.25s'
         }}>
-          {hoveredIndex !== null 
+          {hoveredIndex !== null
             ? `${stages[hoveredIndex].label}: ${stages[hoveredIndex].desc}`
             : "Hover over any pipeline node to inspect details of the recruiter pipeline."
           }
@@ -717,11 +717,11 @@ function FiltersPanel({
 }) {
   const workModes: WorkMode[] = ['all', 'remote', 'hybrid', 'onsite', 'flexible'];
   const sortOptions: { val: SortField; label: string }[] = [
-    { val: 'rank',          label: 'Rank' },
-    { val: 'score',         label: 'Score' },
-    { val: 'experience',    label: 'Experience' },
+    { val: 'rank', label: 'Rank' },
+    { val: 'score', label: 'Score' },
+    { val: 'experience', label: 'Experience' },
     { val: 'response_rate', label: 'Response Rate' },
-    { val: 'notice',        label: 'Notice Period' },
+    { val: 'notice', label: 'Notice Period' },
   ];
 
   return (
@@ -832,6 +832,153 @@ export default function HomePage() {
   const [onlyOpenToWork, setOnlyOpenToWork] = useState(false);
   const [sortBy, setSortBy] = useState<SortField>('rank');
 
+  // Live Recalculation states
+  const [isRecalculating, setIsRecalculating] = useState(false);
+  const [recalcLogs, setRecalcLogs] = useState<string[]>([]);
+  const [recalcPhase, setRecalcPhase] = useState<number>(0); // 0 = idle, 1, 2, 3, 4, 5 = completed
+  const [recalcProgress, setRecalcProgress] = useState<number>(0);
+  const [loadedCount, setLoadedCount] = useState<number>(0);
+  const [indexedCount, setIndexedCount] = useState<number>(0);
+  const [scoredCount, setScoredCount] = useState<number>(0);
+  const [isHoveringBar, setIsHoveringBar] = useState(false);
+
+  // Auto-scroll recalculated console logs
+  useEffect(() => {
+    if (isRecalculating) {
+      const term = document.getElementById('recalc-terminal');
+      if (term) {
+        term.scrollTop = term.scrollHeight;
+      }
+    }
+  }, [recalcLogs, isRecalculating]);
+
+  const triggerRecalculate = async () => {
+    setIsRecalculating(true);
+    setRecalcLogs(["[SYSTEM] Starting Live Recalculation engine...", "[SYSTEM] Connecting to candidate ranking stream..."]);
+    setRecalcPhase(1);
+    setRecalcProgress(5);
+    setLoadedCount(0);
+    setIndexedCount(0);
+    setScoredCount(0);
+    
+    try {
+      const response = await fetch('/api/recalculate', { method: 'POST' });
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+      if (!response.body) {
+        throw new Error("No response body stream");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      let buffer = "";
+
+      while (!done) {
+        const { value, done: readerDone } = await reader.read();
+        done = readerDone;
+        if (value) {
+          buffer += decoder.decode(value, { stream: !done });
+          const lines = buffer.split('\n');
+          // Keep the last partial line in the buffer
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            
+            // Clean stderr tag if present
+            const cleanLine = line.replace('[STDERR] ', '').trim();
+            
+            // Append log line
+            setRecalcLogs(prev => [...prev.slice(-100), cleanLine]); // Keep last 100 lines for performance
+
+            // Parse logs to detect phase and update progress bar
+            if (cleanLine.includes("Phase 1/4") || cleanLine.includes("Building candidate corpus")) {
+              setRecalcPhase(1);
+              setRecalcProgress(15);
+            } else if (cleanLine.includes("Progress: Loaded")) {
+              const match = cleanLine.match(/Progress: Loaded ([\d,]+)/);
+              if (match) {
+                const count = parseInt(match[1].replace(/,/g, ''));
+                setLoadedCount(count);
+                // Dynamically scale progress in Phase 1: from 15% to 45%
+                const pct = 15 + Math.round((count / 100000) * 30);
+                setRecalcProgress(pct);
+              }
+            } else if (cleanLine.includes("Detected JSONL")) {
+              setRecalcProgress(30);
+            } else if (cleanLine.includes("Loaded 100,000 candidates") || cleanLine.includes("Corpus:")) {
+              setRecalcProgress(45);
+              setLoadedCount(100000);
+            } else if (cleanLine.includes("Phase 2/4") || cleanLine.includes("Hybrid semantic scoring")) {
+              setRecalcPhase(2);
+              setRecalcProgress(45);
+            } else if (cleanLine.includes("Progress: TF-IDF Indexed")) {
+              const match = cleanLine.match(/Progress: TF-IDF Indexed ([\d,]+)/);
+              if (match) {
+                const count = parseInt(match[1].replace(/,/g, ''));
+                setIndexedCount(count);
+                // Dynamically scale progress in Phase 2: from 45% to 80%
+                const pct = 45 + Math.round((count / 100000) * 35);
+                setRecalcProgress(pct);
+              }
+            } else if (cleanLine.includes("BM25 done")) {
+              // intermediate progress
+            } else if (cleanLine.includes("TF-IDF done")) {
+              setIndexedCount(100000);
+              setRecalcProgress(80);
+            } else if (cleanLine.includes("Phase 3/4") || cleanLine.includes("Structured & behavioral scoring")) {
+              setRecalcPhase(3);
+              setRecalcProgress(80);
+              setScoredCount(0);
+            } else if (cleanLine.includes("Scoring done")) {
+              setScoredCount(1500);
+              setRecalcProgress(90);
+            } else if (cleanLine.includes("Phase 4/4") || cleanLine.includes("Sorting and generating")) {
+              setRecalcPhase(4);
+              setRecalcProgress(95);
+            } else if (cleanLine.includes("COMPLETED") || cleanLine.includes("Done! Written")) {
+              setRecalcPhase(5);
+              setRecalcProgress(100);
+              setLoadedCount(100000);
+              setIndexedCount(100000);
+              setScoredCount(1500);
+            }
+          }
+        }
+      }
+
+      // Refresh candidate list after success
+      setLoading(true);
+      const r = await fetch('/api/candidates');
+      const data = await r.json();
+      setCandidates(data);
+      setLoading(false);
+      
+      // Delay modal closing slightly to allow user to see 100% completion
+      setTimeout(() => {
+        setIsRecalculating(false);
+        setRecalcPhase(0);
+        setRecalcProgress(0);
+        setRecalcLogs([]);
+      }, 1500);
+
+    } catch (err: any) {
+      console.error(err);
+      setRecalcLogs(prev => [...prev, `[ERROR] Recalculation failed: ${err.message}`]);
+      // Keep modal open so they can read the error, but disable loading state
+      setRecalcProgress(100);
+      // Wait 5 seconds then close if failed
+      setTimeout(() => {
+        setIsRecalculating(false);
+        setRecalcPhase(0);
+        setRecalcProgress(0);
+        setRecalcLogs([]);
+      }, 5000);
+    }
+  };
+
   useEffect(() => {
     fetch('/api/candidates')
       .then(r => r.json())
@@ -920,11 +1067,11 @@ export default function HomePage() {
     // Sort
     list = [...list].sort((a, b) => {
       switch (sortBy) {
-        case 'score':         return b.score - a.score;
-        case 'experience':    return (b.years_of_experience ?? 0) - (a.years_of_experience ?? 0);
+        case 'score': return b.score - a.score;
+        case 'experience': return (b.years_of_experience ?? 0) - (a.years_of_experience ?? 0);
         case 'response_rate': return (b.recruiter_response_rate ?? 0) - (a.recruiter_response_rate ?? 0);
-        case 'notice':        return (a.notice_period_days ?? 999) - (b.notice_period_days ?? 999);
-        default:              return a.rank - b.rank;
+        case 'notice': return (a.notice_period_days ?? 999) - (b.notice_period_days ?? 999);
+        default: return a.rank - b.rank;
       }
     });
 
@@ -970,6 +1117,40 @@ export default function HomePage() {
           </div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button
+            onClick={triggerRecalculate}
+            disabled={isRecalculating}
+            style={{
+              padding: '6px 14px',
+              background: 'transparent',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              borderRadius: '10px',
+              fontSize: '0.7rem',
+              fontWeight: 600,
+              color: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              transition: 'all 0.2s',
+            }}
+            className="btn-ghost"
+          >
+            <svg 
+              width="12" 
+              height="12" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className={isRecalculating ? "animate-spin" : ""}
+            >
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+            </svg>
+            <span>{isRecalculating ? 'Recalculating...' : 'Run AI Ranker'}</span>
+          </button>
           <span style={{
             padding: '4px 12px',
             background: 'rgba(16, 185, 129, 0.12)',
@@ -1133,6 +1314,235 @@ export default function HomePage() {
       {/* ── Candidate drawer ─────────────────────────────────────────────────── */}
       {activeSelected && (
         <CandidateDrawer candidate={activeSelected} onClose={() => setSelected(null)} />
+      )}
+
+      {/* ── Recalculation Console Overlay ────────────────────────────────────── */}
+      {isRecalculating && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0, 0, 0, 0.95)',
+          backdropFilter: 'blur(16px)',
+          zIndex: 99999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <div style={{
+            width: 'min(800px, 95vw)',
+            background: '#050505',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '20px',
+            padding: '32px',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.9), 0 0 80px rgba(255, 255, 255, 0.03)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '24px',
+          }} className="animate-fade-in-up">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <h2 style={{ fontSize: '1.2rem', fontWeight: 800, letterSpacing: '-0.5px' }}>
+                  AI Recruiter Ranking Engine
+                </h2>
+                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: 4 }}>
+                  Streaming live candidate corpus processing and hybrid scoring over 100,000 records.
+                </p>
+              </div>
+              <div style={{
+                background: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                padding: '4px 10px',
+                borderRadius: '6px',
+                fontSize: '0.7rem',
+                fontFamily: 'JetBrains Mono, monospace',
+                fontWeight: 700
+              }}>
+                {recalcProgress}%
+              </div>
+            </div>
+
+            {/* Glowing progress bar with hover metrics card */}
+            <div 
+              style={{ position: 'relative', cursor: 'help' }}
+              onMouseEnter={() => setIsHoveringBar(true)}
+              onMouseLeave={() => setIsHoveringBar(false)}
+            >
+              {isHoveringBar && (
+                <div style={{
+                  position: 'absolute',
+                  bottom: '22px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: 'rgba(5, 5, 5, 0.95)',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.05)',
+                  zIndex: 200,
+                  width: '320px',
+                  pointerEvents: 'none',
+                }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 700, borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '8px', marginBottom: '8px', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>Pipeline Progress Metrics</span>
+                    <span style={{ color: '#10b981', fontWeight: 600 }}>● Active</span>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '0.7rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>1. Candidates Ingested:</span>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                        {loadedCount.toLocaleString()} / 100,000
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>2. Candidates Indexed:</span>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                        {indexedCount.toLocaleString()} / 100,000
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>3. Structured Scoring:</span>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                        {scoredCount.toLocaleString()} / 1,500
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-secondary)' }}>4. Final Shortlist:</span>
+                      <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: 600 }}>
+                        {recalcProgress >= 100 ? 100 : 0} / 100
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div style={{
+                height: '10px',
+                borderRadius: '5px',
+                background: 'rgba(255,255,255,0.05)',
+                overflow: 'hidden',
+                position: 'relative',
+                border: '1px solid rgba(255,255,255,0.03)'
+              }}>
+                <div style={{
+                  height: '100%',
+                  width: `${recalcProgress}%`,
+                  background: 'var(--accent-primary)',
+                  boxShadow: '0 0 12px #ffffff',
+                  transition: 'width 0.3s ease'
+                }} />
+              </div>
+            </div>
+
+            {/* Live Progress Subtext */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.72rem', color: 'var(--text-secondary)', marginTop: -6, marginBottom: -6 }}>
+              <span>
+                {recalcPhase === 1 && `Ingesting candidate pool: ${loadedCount.toLocaleString()} / 100,000 loaded`}
+                {recalcPhase === 2 && `Indexing search terms: ${indexedCount.toLocaleString()} / 100,000 processed`}
+                {recalcPhase === 3 && `Recalculating score dimensions: ${scoredCount.toLocaleString()} / 1,500 candidates scored`}
+                {recalcPhase === 4 && `Compiling final rankings and generating explanations...`}
+                {recalcPhase === 5 && `All 100,000 candidates successfully processed!`}
+              </span>
+              <span style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)' }}>
+                {recalcPhase > 0 && recalcPhase < 5 ? 'Processing...' : recalcPhase === 5 ? 'Done' : ''}
+              </span>
+            </div>
+
+            {/* 4 Phases checklist */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '10px' }}>
+              {[
+                { phase: 1, label: 'Stream Corpus' },
+                { phase: 2, label: 'Sparse Retrieval' },
+                { phase: 3, label: 'Dimension Match' },
+                { phase: 4, label: 'LLM Rerank' }
+              ].map(({ phase, label }) => {
+                const isActive = recalcPhase === phase;
+                const isCompleted = recalcPhase > phase;
+                return (
+                  <div 
+                    key={phase} 
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '12px',
+                      padding: '10px 14px',
+                      background: isActive ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.01)',
+                      border: isActive 
+                        ? '1px solid rgba(255,255,255,0.18)' 
+                        : isCompleted 
+                          ? '1px solid rgba(16, 185, 129, 0.2)' 
+                          : '1px solid rgba(255,255,255,0.03)',
+                      borderRadius: '10px',
+                      boxShadow: isActive ? '0 8px 24px rgba(255,255,255,0.03)' : 'none',
+                      transition: 'all 0.3s',
+                    }}
+                  >
+                    <div style={{
+                      width: '20px',
+                      height: '20px',
+                      borderRadius: '50%',
+                      border: isCompleted 
+                        ? '1.5px solid #10b981' 
+                        : isActive 
+                          ? '1.5px solid #ffffff' 
+                          : '1.5px solid var(--text-muted)',
+                      background: isCompleted ? '#10b981' : 'transparent',
+                      color: isCompleted ? '#000000' : isActive ? '#ffffff' : 'var(--text-muted)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.65rem',
+                      fontWeight: 700,
+                      transition: 'all 0.3s',
+                      boxShadow: isActive ? '0 0 8px rgba(255,255,255,0.3)' : 'none',
+                    }}>
+                      {isCompleted ? '✓' : phase}
+                    </div>
+                    <div style={{ fontSize: '0.72rem', fontWeight: 600 }}>{label}</div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Terminal logs viewer */}
+            <div 
+              style={{
+                background: '#000000',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                borderRadius: '12px',
+                padding: '16px',
+                fontFamily: 'JetBrains Mono, monospace',
+                fontSize: '0.72rem',
+                color: '#a0a0a0',
+                height: '220px',
+                overflowY: 'auto',
+                whiteSpace: 'pre-wrap',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '4px',
+              }} 
+              id="recalc-terminal"
+            >
+              {recalcLogs.map((logLine, index) => {
+                let color = '#a0a0a0';
+                if (logLine.includes('[ERROR]') || logLine.includes('[STDERR]')) {
+                  color = '#f43f5e';
+                } else if (logLine.includes('[SYSTEM]')) {
+                  color = '#ffffff';
+                } else if (logLine.includes('COMPLETED') || logLine.includes('Done!')) {
+                  color = '#10b981';
+                }
+                return (
+                  <div key={index} style={{ lineHeight: 1.5, color }}>
+                    {logLine}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

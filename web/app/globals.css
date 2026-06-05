@@ -460,3 +460,108 @@ select option {
   color: #ffffff;
 }
 
+/* ── Live Recalculation Console Overlay ────────────────────────────────────── */
+.recalc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.recalc-modal {
+  width: min(800px, 95vw);
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.9), 0 0 80px rgba(255, 255, 255, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.terminal-view {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #a0a0a0;
+  height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.terminal-line {
+  line-height: 1.5;
+}
+
+.terminal-line.error {
+  color: var(--accent-rose);
+}
+
+.terminal-line.success {
+  color: var(--accent-emerald);
+}
+
+.terminal-line.info {
+  color: #ffffff;
+}
+
+.phase-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.01);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.phase-step.active {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 0 15px rgba(255,255,255,0.02);
+}
+
+.phase-step.completed {
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.phase-step-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+
+.phase-step.active .phase-step-circle {
+  border-color: #ffffff;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+.phase-step.completed .phase-step-circle {
+  border-color: var(--accent-emerald);
+  background: var(--accent-emerald);
+  color: #000000;
+}
+
+

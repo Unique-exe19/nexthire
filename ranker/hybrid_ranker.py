@@ -150,7 +150,7 @@ class HybridRanker:
         log.info("BM25-Okapi (pure Python) ready ✓")
         log.info(f"Mode: {'BM25 + TF-IDF + Dense RRF' if self._dense_available else ('BM25 + sklearn-TF-IDF via RRF' if self._sklearn_available else 'BM25 + pure-Python TF-IDF via RRF')}")
 
-    def fit_transform(self, corpus: list, query: str, cache_path: Optional[str] = None, dense_corpus: Optional[list] = None):
+    def fit_transform(self, corpus: list, query: str, cache_path: Optional[str] = None, dense_corpus: Optional[list] = None, cache_data: Optional[dict] = None):
         """
         Returns (final_scores, raw_scores_dict).
         final_scores: list[float] in [0,1], length = len(corpus)
@@ -161,7 +161,13 @@ class HybridRanker:
 
         # ── BM25 Sparse Retrieval ─────────────────────────────────────────
         log.info("Running BM25-Okapi...")
-        corpus_tokens = [_tokenize(doc) for doc in corpus]
+        if cache_data and "corpus_tokens" in cache_data:
+            corpus_tokens = cache_data["corpus_tokens"]
+        else:
+            corpus_tokens = [_tokenize(doc) for doc in corpus]
+            if cache_data is not None:
+                cache_data["corpus_tokens"] = corpus_tokens
+
         q_tokens = _tokenize(query)
         bm25 = BM25OkapiPure(corpus_tokens)
         bm25_raw = bm25.get_scores(q_tokens)
@@ -172,7 +178,7 @@ class HybridRanker:
 
         # ── TF-IDF Dense Scoring ──────────────────────────────────────────
         log.info("Running TF-IDF...")
-        tfidf_scores = self._tfidf_score(corpus, query)
+        tfidf_scores = self._tfidf_score(corpus, query, cache_data)
         raw_scores["tfidf"] = tfidf_scores
         rank_lists.append(_rank_list(tfidf_scores))
         log.info("TF-IDF done")
@@ -272,7 +278,7 @@ class HybridRanker:
         log.info(f"Dense embeddings completed in {time.time() - t_start:.1f}s")
         return _normalize(sims)
 
-    def _tfidf_score(self, corpus: list, query: str) -> list:
+    def _tfidf_score(self, corpus: list, query: str, cache_data: Optional[dict] = None) -> list:
         if self._sklearn_available:
             n = len(corpus)
             min_df = 2 if n >= 50 else 1
@@ -289,51 +295,66 @@ class HybridRanker:
             sims = self._cosine_similarity(mat[:-1], mat[-1]).flatten().tolist()
             return _normalize(sims)
         else:
-            return self._pure_python_tfidf(corpus, query)
+            return self._pure_python_tfidf(corpus, query, cache_data)
 
-    def _pure_python_tfidf(self, corpus: list, query: str) -> list:
+    def _pure_python_tfidf(self, corpus: list, query: str, cache_data: Optional[dict] = None) -> list:
         def tokenize(t):
             return re.findall(r'\b[a-z][a-z0-9\-]{1,}\b', t.lower())
 
-        log.info("Indexing corpus for TF-IDF...")
-        t_start = time.time()
-        
-        all_tokens = [tokenize(d) for d in corpus]
-        N = len(corpus)
-        
-        # 1. Compute Document Frequencies (DF)
-        df = Counter()
-        for toks in all_tokens:
-            for t in set(toks):
-                df[t] += 1
-                
-        # 2. Build inverted index & precompute document magnitudes
-        inverted_index = {}
-        doc_magnitudes = [0.0] * N
-        
-        for doc_id, toks in enumerate(all_tokens):
-            if not toks:
-                continue
-            tf = Counter(toks)
-            sum_squares = 0.0
-            doc_weights = {}
-            for t, cnt in tf.items():
-                if t in df:
-                    idf = math.log((N + 1) / (df[t] + 1)) + 1
-                    w = (1 + math.log(cnt)) * idf
-                    doc_weights[t] = w
-                    sum_squares += w * w
+        if cache_data and "tfidf_df" in cache_data:
+            log.info("Loading TF-IDF Inverted Index from cache...")
+            df = cache_data["tfidf_df"]
+            inverted_index = cache_data["tfidf_inverted_index"]
+            doc_magnitudes = cache_data["tfidf_doc_magnitudes"]
+            N = len(corpus)
+        else:
+            log.info("Indexing corpus for TF-IDF...")
+            t_start = time.time()
             
-            mag = math.sqrt(sum_squares)
-            doc_magnitudes[doc_id] = mag
+            all_tokens = [tokenize(d) for d in corpus]
+            N = len(corpus)
             
-            if mag > 1e-12:
-                for t, w in doc_weights.items():
-                    if t not in inverted_index:
-                        inverted_index[t] = []
-                    inverted_index[t].append((doc_id, w))
+            # 1. Compute Document Frequencies (DF)
+            df = Counter()
+            for toks in all_tokens:
+                for t in set(toks):
+                    df[t] += 1
                     
-        log.info(f"TF-IDF Indexing completed in {time.time() - t_start:.2f}s")
+            # 2. Build inverted index & precompute document magnitudes
+            inverted_index = {}
+            doc_magnitudes = [0.0] * N
+            
+            for doc_id, doc_tokens in enumerate(all_tokens):
+                if not doc_tokens:
+                    continue
+                tf = Counter(doc_tokens)
+                sum_squares = 0.0
+                doc_weights = {}
+                for t, cnt in tf.items():
+                    if t in df:
+                        idf = math.log((N + 1) / (df[t] + 1)) + 1
+                        w = (1 + math.log(cnt)) * idf
+                        doc_weights[t] = w
+                        sum_squares += w * w
+                
+                mag = math.sqrt(sum_squares)
+                doc_magnitudes[doc_id] = mag
+                
+                if mag > 1e-12:
+                    for t, w in doc_weights.items():
+                        if t not in inverted_index:
+                            inverted_index[t] = []
+                        inverted_index[t].append((doc_id, w))
+                
+                if (doc_id + 1) % 5000 == 0:
+                    log.info(f"Progress: TF-IDF Indexed {doc_id + 1:,} / {N:,} candidates...")
+                        
+            log.info(f"TF-IDF Indexing completed in {time.time() - t_start:.2f}s")
+            
+            if cache_data is not None:
+                cache_data["tfidf_df"] = df
+                cache_data["tfidf_inverted_index"] = inverted_index
+                cache_data["tfidf_doc_magnitudes"] = doc_magnitudes
         
         # 3. Compute Query Vector
         q_tokens = tokenize(query)

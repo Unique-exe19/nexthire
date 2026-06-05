@@ -127,7 +127,7 @@ def load_candidates(path: str):
             log.info("Detected JSON array — loading...")
             try:
                 candidates = json.load(f)
-                log.info(f"Loaded {len(candidates):,} candidates")
+                log.info(f"Progress: Loaded {len(candidates):,} / 100,000 candidates")
                 yield from candidates
             except json.JSONDecodeError as e:
                 log.error(f"JSON parse error: {e}")
@@ -142,9 +142,11 @@ def load_candidates(path: str):
                 try:
                     yield json.loads(line)
                     count += 1
+                    if count % 10000 == 0:
+                        log.info(f"Progress: Loaded {count:,} / 100,000 candidates...")
                 except json.JSONDecodeError:
                     continue
-            log.info(f"Loaded {count:,} candidates")
+            log.info(f"Progress: Loaded {count:,} / 100,000 candidates")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -154,16 +156,66 @@ def load_candidates(path: str):
 def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
     t0 = time.time()
 
-    # ── Phase 1: Build corpus ──────────────────────────────────────────────
-    log.info("Phase 1/4: Building candidate corpus...")
-    candidates = []
-    candidate_texts = []
-    candidate_semantic_texts = []
+    import pickle
 
-    for c in load_candidates(input_path):
-        candidates.append(c)
-        candidate_texts.append(build_candidate_text(c))
-        candidate_semantic_texts.append(build_candidate_semantic_text(c))
+    # Define cache file path in dataset folder matching dataset filename
+    cache_file = input_path.replace(".json", "_cache.pkl")
+    file_size = os.path.getsize(input_path)
+    mtime = os.path.getmtime(input_path)
+
+    use_cache = False
+    cache_data = {}
+
+    if os.path.exists(cache_file):
+        try:
+            log.info(f"Checking cache validity for {cache_file}...")
+            with open(cache_file, "rb") as f:
+                cache_data = pickle.load(f)
+            if (cache_data.get("file_size") == file_size and 
+                cache_data.get("mtime") == mtime):
+                use_cache = True
+                log.info("Cache is valid! Loading parsed candidates and TF-IDF index from cache...")
+            else:
+                log.info("Cache is stale (dataset file modified). Rebuilding cache...")
+                cache_data = {
+                    "file_size": file_size,
+                    "mtime": mtime
+                }
+        except Exception as e:
+            log.warning(f"Failed to load cache: {e}. Rebuilding cache...")
+            cache_data = {
+                "file_size": file_size,
+                "mtime": mtime
+            }
+    else:
+        log.info("No cache file found. Building cache on first run...")
+        cache_data = {
+            "file_size": file_size,
+            "mtime": mtime
+        }
+
+    # ── Phase 1: Build corpus ──────────────────────────────────────────────
+    if use_cache:
+        log.info("Phase 1/4 (Cached): Loading candidate corpus...")
+        candidates = cache_data["candidates"]
+        candidate_texts = cache_data["candidate_texts"]
+        candidate_semantic_texts = cache_data["candidate_semantic_texts"]
+        # Fast update logs for frontend
+        log.info(f"Progress: Loaded {len(candidates):,} / 100,000 candidates")
+    else:
+        log.info("Phase 1/4: Building candidate corpus...")
+        candidates = []
+        candidate_texts = []
+        candidate_semantic_texts = []
+
+        for c in load_candidates(input_path):
+            candidates.append(c)
+            candidate_texts.append(build_candidate_text(c))
+            candidate_semantic_texts.append(build_candidate_semantic_text(c))
+
+        cache_data["candidates"] = candidates
+        cache_data["candidate_texts"] = candidate_texts
+        cache_data["candidate_semantic_texts"] = candidate_semantic_texts
 
     n = len(candidates)
     log.info(f"Corpus: {n:,} candidates | {time.time()-t0:.1f}s elapsed")
@@ -174,8 +226,18 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
     ranker = HybridRanker()
     
     # First-pass RRF scoring using BM25 and TF-IDF on all candidates
-    first_pass_scores, semantic_raw = ranker.fit_transform(candidate_texts, JD_TEXT)
+    first_pass_scores, semantic_raw = ranker.fit_transform(candidate_texts, JD_TEXT, cache_data=cache_data)
     log.info(f"First-pass semantic scoring done: {time.time()-t1:.1f}s")
+
+    # Save cache if we newly indexed
+    if not use_cache:
+        try:
+            log.info(f"Saving newly indexed candidate corpus to cache: {cache_file}...")
+            with open(cache_file, "wb") as f:
+                pickle.dump(cache_data, f, protocol=pickle.HIGHEST_PROTOCOL)
+            log.info("Cache saved successfully.")
+        except Exception as e:
+            log.warning(f"Failed to save cache: {e}")
 
     # Filter to top candidates for second-pass dense embeddings
     FILTER_LIMIT = 1500 if n > 1500 else n

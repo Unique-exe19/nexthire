@@ -26,6 +26,7 @@ env/
 # Large Datasets (strictly exclude the 487MB candidates.json)
 dataset/**/candidates.json
 *.npy
+*.pkl
 
 # OS & IDE
 .DS_Store
