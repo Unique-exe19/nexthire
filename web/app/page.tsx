@@ -562,6 +562,7 @@ interface WeightsPanelProps {
 
 function WeightsPanel({ weights, setWeights, normalizedWeights }: WeightsPanelProps) {
   const handleSliderChange = (key: keyof Weights, value: number) => {
+    console.log(`[WeightsPanel] Slider changed: ${key} = ${value}`);
     setWeights(prev => ({
       ...prev,
       [key]: value,
@@ -857,6 +858,8 @@ export default function HomePage() {
   const recalculatedCandidates = useMemo(() => {
     if (!candidates.length) return [];
 
+    console.log("[Recalculator] Running recalculation with normalized weights:", normalizedWeights);
+
     const scored = candidates.map(c => {
       const sem = c.dimensions?.semantic?.score ?? c.scoreBreakdown?.semantic ?? c.score;
       const ski = c.dimensions?.skills?.score ?? c.scoreBreakdown?.skills ?? c.score;
@@ -881,6 +884,8 @@ export default function HomePage() {
 
     // Sort descending by score
     const sorted = [...scored].sort((a, b) => b.score - a.score);
+
+    console.log("[Recalculator] Top candidate after recalculation:", sorted[0]?.name, "Score:", sorted[0]?.score);
 
     // Re-assign ranks 1 to N
     return sorted.map((c, index) => ({
