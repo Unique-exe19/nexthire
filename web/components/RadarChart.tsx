@@ -57,7 +57,7 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
           key={level}
           points={pointsStr(gridPoints(level))}
           fill="none"
-          stroke="rgba(99,102,241,0.18)"
+          stroke="rgba(255,255,255,0.08)"
           strokeWidth="1"
         />
       ))}
@@ -69,7 +69,7 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
           x1={cx} y1={cy}
           x2={cx + r * Math.cos(a)}
           y2={cy + r * Math.sin(a)}
-          stroke="rgba(99,102,241,0.18)"
+          stroke="rgba(255,255,255,0.08)"
           strokeWidth="1"
         />
       ))}
@@ -77,7 +77,7 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
       {/* Data polygon */}
       <polygon
         points={pointsStr(dataPoints)}
-        fill="rgba(99,102,241,0.18)"
+        fill="rgba(255,255,255,0.06)"
         stroke="url(#radarGradient)"
         strokeWidth="2"
         strokeLinejoin="round"
@@ -89,7 +89,7 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
           key={i}
           cx={pt.x} cy={pt.y}
           r={4}
-          fill="#6366f1"
+          fill="#ffffff"
           stroke="rgba(255,255,255,0.3)"
           strokeWidth="1.5"
         />
@@ -116,7 +116,7 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
               y={y + (lines.length === 2 ? 16 : 10)}
               style={{
                 fontSize: '0.6rem',
-                fill: value >= 0.7 ? '#10b981' : value >= 0.4 ? '#6366f1' : '#f59e0b',
+                fill: value >= 0.7 ? '#10b981' : value >= 0.4 ? '#ffffff' : '#f59e0b',
                 fontWeight: 700,
                 fontFamily: 'JetBrains Mono, monospace',
               }}
@@ -129,8 +129,8 @@ export function RadarChart({ breakdown, size = 200 }: RadarChartProps) {
 
       <defs>
         <linearGradient id="radarGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6366f1" />
-          <stop offset="100%" stopColor="#a855f7" />
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="100%" stopColor="#555555" />
         </linearGradient>
       </defs>
     </svg>

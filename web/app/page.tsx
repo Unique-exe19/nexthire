@@ -544,6 +544,159 @@ function CandidateRow({
   );
 }
 
+// ── Weights Panel ─────────────────────────────────────────────────────────────
+
+interface Weights {
+  semantic: number;
+  skills: number;
+  career: number;
+  experience: number;
+  behavioral: number;
+}
+
+interface WeightsPanelProps {
+  weights: Weights;
+  setWeights: React.Dispatch<React.SetStateAction<Weights>>;
+  normalizedWeights: Weights;
+}
+
+function WeightsPanel({ weights, setWeights, normalizedWeights }: WeightsPanelProps) {
+  const handleSliderChange = (key: keyof Weights, value: number) => {
+    setWeights(prev => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleReset = () => {
+    setWeights({
+      semantic: 0.28,
+      skills: 0.28,
+      career: 0.22,
+      experience: 0.10,
+      behavioral: 0.12,
+    });
+  };
+
+  const sliders = [
+    { key: 'semantic' as const, label: 'Semantic Match', desc: 'Hybrid dense & sparse keyword alignment' },
+    { key: 'skills' as const, label: 'Skills Match', desc: 'Must-have and nice-to-have skill overlap' },
+    { key: 'career' as const, label: 'Career Quality', desc: 'Product company experience & trajectory' },
+    { key: 'experience' as const, label: 'Experience Fit', desc: 'Target seniority years sweet spot (5-9 yrs)' },
+    { key: 'behavioral' as const, label: 'Behavioral Fit', desc: 'Platform activity, notice period & responsiveness' },
+  ];
+
+  return (
+    <div className="glass animate-fade-in-up" style={{ padding: '24px', marginBottom: '28px', border: '1px solid rgba(255,255,255,0.08)' }}>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '16px',
+        flexWrap: 'wrap',
+        gap: '12px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="4" y1="21" x2="4" y2="14" />
+            <line x1="4" y1="10" x2="4" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12" y2="3" />
+            <line x1="20" y1="21" x2="20" y2="16" />
+            <line x1="20" y1="12" x2="20" y2="3" />
+            <line x1="1" y1="14" x2="7" y2="14" />
+            <line x1="9" y1="8" x2="15" y2="8" />
+            <line x1="17" y1="16" x2="23" y2="16" />
+          </svg>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '1.2px', fontWeight: 700 }}>
+            Dynamic Recruiter Weight Adjuster
+          </span>
+        </div>
+        <button
+          className="btn-ghost"
+          onClick={handleReset}
+          style={{
+            padding: '5px 12px',
+            fontSize: '0.72rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '4px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}
+        >
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+          </svg>
+          Reset to Baseline Defaults
+        </button>
+      </div>
+
+      <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: '1.4' }}>
+        Adjust the sliders below to customize the importance of each parameter. Candidate matching scores and ranks will recalculate and resort in real-time.
+      </p>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        {sliders.map(({ key, label, desc }) => {
+          const val = weights[key];
+          const pct = (normalizedWeights[key] * 100).toFixed(0);
+          return (
+            <div
+              key={key}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '180px 1fr 60px',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '10px 14px',
+                background: 'rgba(255,255,255,0.01)',
+                border: '1px solid rgba(255,255,255,0.03)',
+                borderRadius: '8px',
+                transition: 'all 0.2s',
+              }}
+              className="slider-row"
+            >
+              <div>
+                <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '2px' }}>
+                  {label}
+                </div>
+                <div style={{ fontSize: '0.64rem', color: 'var(--text-muted)' }}>
+                  {desc}
+                </div>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={val}
+                  onChange={e => handleSliderChange(key, parseFloat(e.target.value))}
+                  style={{
+                    width: '100%',
+                    accentColor: '#ffffff',
+                    cursor: 'pointer',
+                    background: 'rgba(255,255,255,0.1)',
+                    height: '4px',
+                    borderRadius: '2px',
+                    outline: 'none'
+                  }}
+                />
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#ffffff', fontFamily: 'JetBrains Mono, monospace' }}>
+                  {pct}%
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Filters panel ─────────────────────────────────────────────────────────────
 
 function FiltersPanel({
@@ -662,6 +815,15 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<RankedCandidate | null>(null);
 
+  // Dynamic recruiter weights
+  const [weights, setWeights] = useState<Weights>({
+    semantic: 0.28,
+    skills: 0.28,
+    career: 0.22,
+    experience: 0.10,
+    behavioral: 0.12,
+  });
+
   // Filters
   const [search, setSearch] = useState('');
   const [workMode, setWorkMode] = useState<WorkMode>('all');
@@ -676,8 +838,65 @@ export default function HomePage() {
       .catch(() => setLoading(false));
   }, []);
 
+  // Normalize weights to sum up to exactly 1.0 (100%)
+  const normalizedWeights = useMemo(() => {
+    const sum = weights.semantic + weights.skills + weights.career + weights.experience + weights.behavioral;
+    if (sum === 0) {
+      return { semantic: 0.2, skills: 0.2, career: 0.2, experience: 0.2, behavioral: 0.2 };
+    }
+    return {
+      semantic: weights.semantic / sum,
+      skills: weights.skills / sum,
+      career: weights.career / sum,
+      experience: weights.experience / sum,
+      behavioral: weights.behavioral / sum,
+    };
+  }, [weights]);
+
+  // Recalculate and sort candidates based on customized weights
+  const recalculatedCandidates = useMemo(() => {
+    if (!candidates.length) return [];
+
+    const scored = candidates.map(c => {
+      const sem = c.dimensions?.semantic?.score ?? c.scoreBreakdown?.semantic ?? c.score;
+      const ski = c.dimensions?.skills?.score ?? c.scoreBreakdown?.skills ?? c.score;
+      const car = c.dimensions?.career?.score ?? c.scoreBreakdown?.career ?? c.score;
+      const exp = c.dimensions?.experience?.score ?? c.scoreBreakdown?.experience ?? c.score;
+      const beh = c.dimensions?.behavioral?.score ?? c.scoreBreakdown?.behavioral ?? c.score;
+      const penalty = c.penalty ?? 1.0;
+
+      const rawScore = (
+        normalizedWeights.semantic * sem +
+        normalizedWeights.skills * ski +
+        normalizedWeights.career * car +
+        normalizedWeights.experience * exp +
+        normalizedWeights.behavioral * beh
+      );
+
+      return {
+        ...c,
+        score: rawScore * penalty,
+      };
+    });
+
+    // Sort descending by score
+    const sorted = [...scored].sort((a, b) => b.score - a.score);
+
+    // Re-assign ranks 1 to N
+    return sorted.map((c, index) => ({
+      ...c,
+      rank: index + 1,
+    }));
+  }, [candidates, normalizedWeights]);
+
+  // Update selected candidate details if their score/rank has changed
+  const activeSelected = useMemo(() => {
+    if (!selected) return null;
+    return recalculatedCandidates.find(c => c.candidate_id === selected.candidate_id) || selected;
+  }, [selected, recalculatedCandidates]);
+
   const filtered = useMemo(() => {
-    let list = candidates.filter(c => {
+    let list = recalculatedCandidates.filter(c => {
       if (search) {
         const q = search.toLowerCase();
         const hay = [
@@ -705,19 +924,19 @@ export default function HomePage() {
     });
 
     return list;
-  }, [candidates, search, workMode, minScore, onlyOpenToWork, sortBy]);
+  }, [recalculatedCandidates, search, workMode, minScore, onlyOpenToWork, sortBy]);
 
   const stats = useMemo(() => {
-    if (!candidates.length) return null;
-    const openCount = candidates.filter(c => c.open_to_work).length;
-    const avgScore = candidates.reduce((s, c) => s + c.score, 0) / candidates.length;
-    const immediate = candidates.filter(c => (c.notice_period_days ?? 999) <= 15).length;
-    const withFlags = candidates.filter(c => c.disqualifiers && c.disqualifiers.length > 0).length;
-    return { total: candidates.length, openCount, avgScore, immediate, withFlags };
-  }, [candidates]);
+    if (!recalculatedCandidates.length) return null;
+    const openCount = recalculatedCandidates.filter(c => c.open_to_work).length;
+    const avgScore = recalculatedCandidates.reduce((s, c) => s + c.score, 0) / recalculatedCandidates.length;
+    const immediate = recalculatedCandidates.filter(c => (c.notice_period_days ?? 999) <= 15).length;
+    const withFlags = recalculatedCandidates.filter(c => c.disqualifiers && c.disqualifiers.length > 0).length;
+    return { total: recalculatedCandidates.length, openCount, avgScore, immediate, withFlags };
+  }, [recalculatedCandidates]);
 
-  const top3 = candidates.slice(0, 3);
-  const allScores = candidates.map(c => c.score);
+  const top3 = useMemo(() => recalculatedCandidates.slice(0, 3), [recalculatedCandidates]);
+  const allScores = useMemo(() => recalculatedCandidates.map(c => c.score), [recalculatedCandidates]);
 
   return (
     <div className="bg-animated" style={{ minHeight: '100vh' }}>
@@ -798,6 +1017,9 @@ export default function HomePage() {
 
         {/* ── Pipeline Graph ────────────────────────────────────────────────── */}
         <PipelineGraph />
+
+        {/* ── Dynamic Recruiter Weights ────────────────────────────────────── */}
+        <WeightsPanel weights={weights} setWeights={setWeights} normalizedWeights={normalizedWeights} />
 
         {/* ── Core Pillars Architecture Panel ────────────────────────────────── */}
         <CorePillarsSection />
@@ -904,8 +1126,8 @@ export default function HomePage() {
       </div>
 
       {/* ── Candidate drawer ─────────────────────────────────────────────────── */}
-      {selected && (
-        <CandidateDrawer candidate={selected} onClose={() => setSelected(null)} />
+      {activeSelected && (
+        <CandidateDrawer candidate={activeSelected} onClose={() => setSelected(null)} />
       )}
     </div>
   );

@@ -12,21 +12,21 @@
       "skills": {
         "score": 0.9832,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Hnsw",
+          "Dense Retrieval",
+          "Weaviate",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Nlp",
-          "Ranking",
-          "Milvus",
-          "Embeddings"
+          "Offline Evaluation",
+          "Lora"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Scikit-Learn",
-          "Kubernetes",
           "Go",
-          "Deep Learning"
+          "Scikit-Learn",
+          "Recommendation System",
+          "Deep Learning",
+          "Kubernetes"
         ],
         "must_hit_count": 24,
         "assessment_score": 0.832
@@ -45,7 +45,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #1 with an overall match score of 99%. Strong semantic alignment with the JD (semantic score: 89%). Matched 8 must-have JD skills: Mrr, Retrieval, Hnsw, Gpt. Also matched nice-to-have: Machine Learning, Scikit-Learn, Kubernetes. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 95/100.",
+    "reasoning_long": "Ranked #1 with an overall match score of 99%. Strong semantic alignment with the JD (semantic score: 89%). Matched 8 must-have JD skills: Dense Retrieval, Weaviate, Bm25, Ndcg. Also matched nice-to-have: Go, Scikit-Learn, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 95/100.",
     "penalty": 1.0
   },
   "CAND_0081846": {
@@ -61,21 +61,21 @@
       "skills": {
         "score": 0.9648,
         "must_have_hits": [
-          "Mrr",
-          "Sentence-Transformers",
-          "Retrieval",
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Offline Evaluation",
           "Semantic Search",
-          "Hnsw",
-          "Qdrant",
-          "Transformers",
-          "Ranking"
+          "Qdrant"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Scikit-Learn",
           "Go",
-          "Deep Learning"
+          "Scikit-Learn",
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch"
         ],
         "must_hit_count": 24,
         "assessment_score": 0.648
@@ -94,7 +94,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #2 with an overall match score of 98%. Strong semantic alignment with the JD (semantic score: 97%). Matched 8 must-have JD skills: Mrr, Sentence-Transformers, Retrieval, Semantic Search. Also matched nice-to-have: Machine Learning, Pytorch, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 73% recruiter response rate.",
+    "reasoning_long": "Ranked #2 with an overall match score of 98%. Strong semantic alignment with the JD (semantic score: 97%). Matched 8 must-have JD skills: Dense Retrieval, Vector Search, Bm25, Ndcg. Also matched nice-to-have: Go, Scikit-Learn, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 73% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0039754": {
@@ -110,21 +110,21 @@
       "skills": {
         "score": 0.9795,
         "must_have_hits": [
-          "Mrr",
-          "Sentence-Transformers",
-          "Retrieval",
+          "Dense Retrieval",
+          "Weaviate",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Offline Evaluation",
           "Semantic Search",
-          "Hnsw",
-          "Opensearch",
-          "Qdrant",
-          "Transformers"
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go",
-          "Deep Learning"
+          "Deep Learning",
+          "Machine Learning"
         ],
         "must_hit_count": 25,
         "assessment_score": 0.795
@@ -143,7 +143,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #3 with an overall match score of 96%. Strong semantic alignment with the JD (semantic score: 100%). Matched 8 must-have JD skills: Mrr, Sentence-Transformers, Retrieval, Semantic Search. Also matched nice-to-have: Machine Learning, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 81% recruiter response rate, GitHub activity score 78/100.",
+    "reasoning_long": "Ranked #3 with an overall match score of 96%. Strong semantic alignment with the JD (semantic score: 100%). Matched 8 must-have JD skills: Dense Retrieval, Weaviate, Bm25, Ndcg. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 81% recruiter response rate, GitHub activity score 78/100.",
     "penalty": 1.0
   },
   "CAND_0011687": {
@@ -159,20 +159,20 @@
       "skills": {
         "score": 0.9781,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Semantic Search",
+          "Weaviate",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Opensearch",
-          "Nlp",
-          "Ranking",
-          "Embeddings"
+          "Lora",
+          "Peft",
+          "Semantic Search",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
+          "Pytorch",
           "Kubernetes"
         ],
         "must_hit_count": 17,
@@ -192,7 +192,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #4 with an overall match score of 93%. Strong semantic alignment with the JD (semantic score: 88%). Matched 8 must-have JD skills: Mrr, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Pytorch, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, 89% recruiter response rate, GitHub activity score 76/100.",
+    "reasoning_long": "Ranked #4 with an overall match score of 93%. Strong semantic alignment with the JD (semantic score: 88%). Matched 8 must-have JD skills: Weaviate, Ndcg, Fine-Tuning, Gpt. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, 89% recruiter response rate, GitHub activity score 76/100.",
     "penalty": 1.0
   },
   "CAND_0046064": {
@@ -208,20 +208,20 @@
       "skills": {
         "score": 0.9141,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Opensearch",
-          "Nlp",
-          "Ranking"
+          "Offline Evaluation",
+          "Lora"
         ],
         "nice_hits": [
-          "Feature Engineering",
-          "Kubernetes",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Deep Learning",
+          "Kubernetes"
         ],
         "must_hit_count": 26,
         "assessment_score": 0.641
@@ -240,7 +240,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #5 with an overall match score of 89%. Strong semantic alignment with the JD (semantic score: 94%). Matched 8 must-have JD skills: Mrr, Retrieval, Semantic Search, Hnsw. Also matched nice-to-have: Feature Engineering, Kubernetes, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 78% recruiter response rate, GitHub activity score 67/100.",
+    "reasoning_long": "Ranked #5 with an overall match score of 89%. Strong semantic alignment with the JD (semantic score: 94%). Matched 8 must-have JD skills: Dense Retrieval, Vector Search, Bm25, Ndcg. Also matched nice-to-have: Go, Feature Engineering, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 78% recruiter response rate, GitHub activity score 67/100.",
     "penalty": 1.0
   },
   "CAND_0086022": {
@@ -256,21 +256,21 @@
       "skills": {
         "score": 0.9826,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Hnsw",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "A/B Testing",
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Offline Evaluation"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Mlflow",
           "Tensorflow",
-          "Deep Learning"
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch",
+          "Mlflow"
         ],
         "must_hit_count": 24,
         "assessment_score": 0.826
@@ -289,7 +289,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #6 with an overall match score of 82%. Strong semantic alignment with the JD (semantic score: 84%). Matched 8 must-have JD skills: Mrr, Retrieval, Hnsw, Transformers. Also matched nice-to-have: Machine Learning, Pytorch, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 0-day notice period, GitHub activity score 75/100.",
+    "reasoning_long": "Ranked #6 with an overall match score of 82%. Strong semantic alignment with the JD (semantic score: 84%). Matched 8 must-have JD skills: A/B Testing, Dense Retrieval, Vector Search, Bm25. Also matched nice-to-have: Tensorflow, Recommendation System, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 0-day notice period, GitHub activity score 75/100.",
     "penalty": 1.0
   },
   "CAND_0008425": {
@@ -305,21 +305,21 @@
       "skills": {
         "score": 0.9778,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Sentence Transformers",
+          "Lora",
+          "Semantic Search",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
           "Tensorflow",
+          "Recommendation System",
+          "Deep Learning",
           "Kubernetes",
-          "Deep Learning"
+          "Machine Learning"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.778
@@ -338,7 +338,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #7 with an overall match score of 81%. Strong semantic alignment with the JD (semantic score: 91%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #7 with an overall match score of 81%. Strong semantic alignment with the JD (semantic score: 91%). Matched 8 must-have JD skills: Bm25, Ndcg, Fine-Tuning, Gpt. Also matched nice-to-have: Tensorflow, Recommendation System, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0055905": {
@@ -354,19 +354,19 @@
       "skills": {
         "score": 0.8739,
         "must_have_hits": [
-          "Mrr",
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Opensearch",
-          "Transformers"
+          "Offline Evaluation",
+          "Lora"
         ],
         "nice_hits": [
-          "Hugging Face",
+          "Kubernetes",
           "Machine Learning",
-          "Kubernetes"
+          "Hugging Face"
         ],
         "must_hit_count": 26,
         "assessment_score": 0.739
@@ -385,7 +385,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #8 with an overall match score of 81%. Strong semantic alignment with the JD (semantic score: 98%). Matched 8 must-have JD skills: Mrr, Sentence-Transformers, Retrieval, Semantic Search. Also matched nice-to-have: Hugging Face, Machine Learning, Kubernetes. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 87% recruiter response rate.",
+    "reasoning_long": "Ranked #8 with an overall match score of 81%. Strong semantic alignment with the JD (semantic score: 98%). Matched 8 must-have JD skills: Dense Retrieval, Vector Search, Bm25, Ndcg. Also matched nice-to-have: Kubernetes, Machine Learning, Hugging Face. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 87% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0077337": {
@@ -401,21 +401,21 @@
       "skills": {
         "score": 0.9632,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Lora",
           "Semantic Search",
-          "Opensearch",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
+          "Feature Engineering",
+          "Recommendation System",
           "Deep Learning",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 22,
         "assessment_score": 0.632
@@ -434,7 +434,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #9 with an overall match score of 80%. Strong semantic alignment with the JD (semantic score: 82%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 95% recruiter response rate, GitHub activity score 68/100.",
+    "reasoning_long": "Ranked #9 with an overall match score of 80%. Strong semantic alignment with the JD (semantic score: 82%). Matched 8 must-have JD skills: A/B Testing, Bm25, Ndcg, Fine-Tuning. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 95% recruiter response rate, GitHub activity score 68/100.",
     "penalty": 1.0
   },
   "CAND_0033861": {
@@ -450,21 +450,21 @@
       "skills": {
         "score": 0.9733,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Sentence Transformers",
+          "Lora"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
-          "Kubernetes",
-          "Go"
+          "Tensorflow",
+          "Recommendation System",
+          "Kubernetes"
         ],
         "must_hit_count": 25,
         "assessment_score": 0.734
@@ -483,7 +483,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #10 with an overall match score of 78%. Strong semantic alignment with the JD (semantic score: 92%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Tensorflow, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
+    "reasoning_long": "Ranked #10 with an overall match score of 78%. Strong semantic alignment with the JD (semantic score: 92%). Matched 8 must-have JD skills: Vector Search, Weaviate, Bm25, Ndcg. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0071974": {
@@ -499,21 +499,21 @@
       "skills": {
         "score": 0.9797,
         "must_have_hits": [
-          "Retrieval",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Gpt",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Sentence Transformers",
+          "Lora",
+          "Peft",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
-          "Kubernetes",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Kubernetes",
+          "Machine Learning"
         ],
         "must_hit_count": 20,
         "assessment_score": 0.797
@@ -532,7 +532,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #11 with an overall match score of 74%. Strong semantic alignment with the JD (semantic score: 78%). Matched 8 must-have JD skills: Retrieval, Gpt, Qdrant, Transformers. Also matched nice-to-have: Machine Learning, Feature Engineering, Kubernetes. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 76% recruiter response rate, GitHub activity score 83/100.",
+    "reasoning_long": "Ranked #11 with an overall match score of 74%. Strong semantic alignment with the JD (semantic score: 78%). Matched 8 must-have JD skills: Weaviate, Bm25, Fine-Tuning, Gpt. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 76% recruiter response rate, GitHub activity score 83/100.",
     "penalty": 1.0
   },
   "CAND_0088025": {
@@ -548,21 +548,21 @@
       "skills": {
         "score": 0.9903,
         "must_have_hits": [
-          "Retrieval",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
+          "A/B Testing",
+          "Bm25",
           "Fine-Tuning",
-          "Rag",
-          "Python"
+          "Lora",
+          "Pinecone",
+          "Qlora",
+          "Python",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Tensorflow",
           "Go",
-          "Deep Learning"
+          "Tensorflow",
+          "Deep Learning",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.903
@@ -581,7 +581,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #12 with an overall match score of 73%. Strong semantic alignment with the JD (semantic score: 75%). Matched 8 must-have JD skills: Retrieval, Transformers, Nlp, Ranking. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 83% recruiter response rate, GitHub activity score 75/100.",
+    "reasoning_long": "Ranked #12 with an overall match score of 73%. Strong semantic alignment with the JD (semantic score: 75%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Lora. Also matched nice-to-have: Go, Tensorflow, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 83% recruiter response rate, GitHub activity score 75/100.",
     "penalty": 1.0
   },
   "CAND_0002025": {
@@ -597,20 +597,20 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Retrieval",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Gpt",
-          "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Fine-Tuning"
+          "Sentence Transformers",
+          "Lora",
+          "Pinecone",
+          "Opensearch"
         ],
         "nice_hits": [
-          "Tensorflow",
-          "Scikit-Learn",
-          "Kubernetes",
           "Go",
+          "Scikit-Learn",
+          "Tensorflow",
+          "Recommendation System",
           "Deep Learning"
         ],
         "must_hit_count": 17,
@@ -630,7 +630,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #13 with an overall match score of 71%. Strong semantic alignment with the JD (semantic score: 80%). Matched 8 must-have JD skills: Retrieval, Gpt, Opensearch, Transformers. Also matched nice-to-have: Tensorflow, Scikit-Learn, Kubernetes. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 80% recruiter response rate, GitHub activity score 97/100.",
+    "reasoning_long": "Ranked #13 with an overall match score of 71%. Strong semantic alignment with the JD (semantic score: 80%). Matched 8 must-have JD skills: Weaviate, Bm25, Fine-Tuning, Gpt. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 80% recruiter response rate, GitHub activity score 97/100.",
     "penalty": 1.0
   },
   "CAND_0094759": {
@@ -646,20 +646,20 @@
       "skills": {
         "score": 0.9199,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "A/B Testing",
+          "Dense Retrieval",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Offline Evaluation"
         ],
         "nice_hits": [
-          "Hugging Face",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Go"
+          "Hugging Face"
         ],
         "must_hit_count": 23,
         "assessment_score": 0.699
@@ -678,7 +678,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #14 with an overall match score of 70%. Strong semantic alignment with the JD (semantic score: 87%). Matched 8 must-have JD skills: Mrr, Retrieval, Semantic Search, Hnsw. Also matched nice-to-have: Hugging Face, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, GitHub activity score 76/100.",
+    "reasoning_long": "Ranked #14 with an overall match score of 70%. Strong semantic alignment with the JD (semantic score: 87%). Matched 8 must-have JD skills: A/B Testing, Dense Retrieval, Vector Search, Weaviate. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, GitHub activity score 76/100.",
     "penalty": 1.0
   },
   "CAND_0046525": {
@@ -694,18 +694,18 @@
       "skills": {
         "score": 0.8267,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Hnsw",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "A/B Testing",
+          "Dense Retrieval",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Offline Evaluation",
+          "Qdrant"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Tensorflow"
+          "Tensorflow",
+          "Machine Learning"
         ],
         "must_hit_count": 22,
         "assessment_score": 0.767
@@ -724,7 +724,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #15 with an overall match score of 69%. Strong semantic alignment with the JD (semantic score: 83%). Matched 8 must-have JD skills: Mrr, Retrieval, Hnsw, Qdrant. Also matched nice-to-have: Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 88% recruiter response rate.",
+    "reasoning_long": "Ranked #15 with an overall match score of 69%. Strong semantic alignment with the JD (semantic score: 83%). Matched 8 must-have JD skills: A/B Testing, Dense Retrieval, Bm25, Ndcg. Also matched nice-to-have: Tensorflow, Machine Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 88% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0005260": {
@@ -740,21 +740,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
           "Gpt",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Offline Evaluation",
+          "Lora"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Mlflow",
+          "Go",
           "Feature Engineering",
+          "Deep Learning",
           "Kubernetes",
-          "Go"
+          "Mlflow"
         ],
         "must_hit_count": 24,
         "assessment_score": 0.0
@@ -773,7 +773,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #16 with an overall match score of 67%. Strong semantic alignment with the JD (semantic score: 84%). Matched 8 must-have JD skills: Mrr, Retrieval, Semantic Search, Hnsw. Also matched nice-to-have: Hugging Face, Mlflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 86% recruiter response rate.",
+    "reasoning_long": "Ranked #16 with an overall match score of 67%. Strong semantic alignment with the JD (semantic score: 84%). Matched 8 must-have JD skills: Dense Retrieval, Vector Search, Bm25, Ndcg. Also matched nice-to-have: Go, Feature Engineering, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: 86% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0080766": {
@@ -789,21 +789,21 @@
       "skills": {
         "score": 0.9845,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Ann",
+          "Bm25",
+          "Ndcg",
+          "Lora",
           "Semantic Search",
           "Opensearch",
-          "Transformers",
-          "Ranking",
-          "Elasticsearch",
-          "Milvus"
+          "Qlora"
         ],
         "nice_hits": [
-          "Product Company",
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Tensorflow",
-          "Go"
+          "Data Pipeline",
+          "Product Company",
+          "Deep Learning"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.845
@@ -822,7 +822,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #17 with an overall match score of 64%. Strong semantic alignment with the JD (semantic score: 71%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Product Company, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: 0-day notice period.",
+    "reasoning_long": "Ranked #17 with an overall match score of 64%. Strong semantic alignment with the JD (semantic score: 71%). Matched 8 must-have JD skills: A/B Testing, Ann, Bm25, Ndcg. Also matched nice-to-have: Go, Tensorflow, Data Pipeline. Career history shows sustained AI/ML product company experience. Platform signals: 0-day notice period.",
     "penalty": 1.0
   },
   "CAND_0006557": {
@@ -838,21 +838,21 @@
       "skills": {
         "score": 0.9704,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
+          "Lora",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Opensearch",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.704
@@ -871,7 +871,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #18 with an overall match score of 62%. Strong semantic alignment with the JD (semantic score: 76%). Matched 8 must-have JD skills: Retrieval, Opensearch, Qdrant, Transformers. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #18 with an overall match score of 62%. Strong semantic alignment with the JD (semantic score: 76%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0041611": {
@@ -887,21 +887,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Mrr",
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
-          "Opensearch",
-          "Qdrant",
-          "Transformers"
+          "A/B Testing",
+          "Dense Retrieval",
+          "Weaviate",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Offline Evaluation"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Deep Learning",
+          "Pytorch",
+          "Machine Learning"
         ],
         "must_hit_count": 26,
         "assessment_score": 0.0
@@ -920,7 +920,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #19 with an overall match score of 60%. Strong semantic alignment with the JD (semantic score: 95%). Matched 8 must-have JD skills: Mrr, Sentence-Transformers, Retrieval, Semantic Search. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
+    "reasoning_long": "Ranked #19 with an overall match score of 60%. Strong semantic alignment with the JD (semantic score: 95%). Matched 8 must-have JD skills: A/B Testing, Dense Retrieval, Weaviate, Bm25. Also matched nice-to-have: Go, Feature Engineering, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0092278": {
@@ -936,21 +936,21 @@
       "skills": {
         "score": 0.9666,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Semantic Search",
-          "Hnsw",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Dense Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
+          "Fine-Tuning",
+          "Offline Evaluation",
+          "Lora",
+          "Peft"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Tensorflow",
-          "Go"
+          "Recommendation System",
+          "Deep Learning",
+          "Mlflow"
         ],
         "must_hit_count": 24,
         "assessment_score": 0.666
@@ -969,7 +969,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #20 with an overall match score of 59%. Strong semantic alignment with the JD (semantic score: 80%). Matched 8 must-have JD skills: Mrr, Retrieval, Semantic Search, Hnsw. Also matched nice-to-have: Hugging Face, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #20 with an overall match score of 59%. Strong semantic alignment with the JD (semantic score: 80%). Matched 8 must-have JD skills: Dense Retrieval, Vector Search, Bm25, Ndcg. Also matched nice-to-have: Go, Tensorflow, Recommendation System. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0007411": {
@@ -985,21 +985,21 @@
       "skills": {
         "score": 0.9793,
         "must_have_hits": [
-          "Mrr",
-          "Retrieval",
-          "Gpt",
-          "Opensearch",
-          "Ranking",
+          "Vector Search",
+          "Bm25",
+          "Ndcg",
           "Fine-Tuning",
+          "Gpt",
+          "Lora",
           "Pinecone",
-          "Lora"
+          "Opensearch"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
           "Tensorflow",
+          "Deep Learning",
+          "Pytorch",
           "Kubernetes",
-          "Deep Learning"
+          "Machine Learning"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.793
@@ -1018,7 +1018,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #21 with an overall match score of 58%. Strong semantic alignment with the JD (semantic score: 75%). Matched 8 must-have JD skills: Mrr, Retrieval, Gpt, Opensearch. Also matched nice-to-have: Machine Learning, Pytorch, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, GitHub activity score 90/100.",
+    "reasoning_long": "Ranked #21 with an overall match score of 58%. Strong semantic alignment with the JD (semantic score: 75%). Matched 8 must-have JD skills: Vector Search, Bm25, Ndcg, Fine-Tuning. Also matched nice-to-have: Tensorflow, Deep Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, GitHub activity score 90/100.",
     "penalty": 1.0
   },
   "CAND_0041568": {
@@ -1034,21 +1034,21 @@
       "skills": {
         "score": 0.9745,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
           "Gpt",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Peft",
+          "Semantic Search",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.745
@@ -1067,7 +1067,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #22 with an overall match score of 55%. Strong semantic alignment with the JD (semantic score: 73%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #22 with an overall match score of 55%. Strong semantic alignment with the JD (semantic score: 73%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Bm25. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0096142": {
@@ -1083,21 +1083,21 @@
       "skills": {
         "score": 0.9865,
         "must_have_hits": [
-          "Retrieval",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Rag",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
+          "Lora",
+          "Pinecone",
           "Python",
-          "Pinecone"
+          "Retrieval",
+          "Nlp"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.865
@@ -1116,7 +1116,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #23 with an overall match score of 54%. Moderate semantic overlap with the JD (score: 65%). Matched 8 must-have JD skills: Retrieval, Transformers, Nlp, Ranking. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 84% recruiter response rate, GitHub activity score 80/100.",
+    "reasoning_long": "Ranked #23 with an overall match score of 54%. Moderate semantic overlap with the JD (score: 65%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 84% recruiter response rate, GitHub activity score 80/100.",
     "penalty": 1.0
   },
   "CAND_0042506": {
@@ -1132,21 +1132,21 @@
       "skills": {
         "score": 0.9697,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Fine-Tuning",
           "Gpt",
+          "Peft",
+          "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Milvus"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
+          "Tensorflow",
           "Feature Engineering",
-          "Go"
+          "Recommendation System"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.697
@@ -1165,7 +1165,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #24 with an overall match score of 52%. Moderate semantic overlap with the JD (score: 68%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Tensorflow, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 64/100.",
+    "reasoning_long": "Ranked #24 with an overall match score of 52%. Moderate semantic overlap with the JD (score: 68%). Matched 8 must-have JD skills: A/B Testing, Fine-Tuning, Gpt, Peft. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 64/100.",
     "penalty": 1.0
   },
   "CAND_0066376": {
@@ -1181,21 +1181,21 @@
       "skills": {
         "score": 0.975,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Lora",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Retrieval",
+          "Sentence-Transformers",
+          "Llm"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
+          "Feature Engineering",
+          "Recommendation System",
           "Deep Learning",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.75
@@ -1214,7 +1214,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #25 with an overall match score of 52%. Moderate semantic overlap with the JD (score: 66%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #25 with an overall match score of 52%. Moderate semantic overlap with the JD (score: 66%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0093547": {
@@ -1230,21 +1230,21 @@
       "skills": {
         "score": 0.9824,
         "must_have_hits": [
-          "Retrieval",
-          "Gpt",
-          "Ranking",
-          "Milvus",
+          "Weaviate",
+          "Ndcg",
           "Fine-Tuning",
-          "Rag",
-          "Python",
-          "Pinecone"
+          "Gpt",
+          "Lora",
+          "Peft",
+          "Pinecone",
+          "Qlora"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Tensorflow",
+          "Feature Engineering",
+          "Pytorch"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.824
@@ -1263,7 +1263,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #26 with an overall match score of 50%. Strong semantic alignment with the JD (semantic score: 76%). Matched 8 must-have JD skills: Retrieval, Gpt, Ranking, Milvus. Also matched nice-to-have: Machine Learning, Pytorch, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: 75% recruiter response rate.",
+    "reasoning_long": "Ranked #26 with an overall match score of 50%. Strong semantic alignment with the JD (semantic score: 76%). Matched 8 must-have JD skills: Weaviate, Ndcg, Fine-Tuning, Gpt. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: 75% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0030953": {
@@ -1279,21 +1279,21 @@
       "skills": {
         "score": 0.9853,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
           "Gpt",
+          "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Python"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Search Engine"
+          "Feature Engineering",
+          "Recommendation System",
+          "Search Engine",
+          "Machine Learning"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.853
@@ -1312,7 +1312,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #27 with an overall match score of 49%. Moderate semantic overlap with the JD (score: 63%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #27 with an overall match score of 49%. Moderate semantic overlap with the JD (score: 63%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Gpt. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0042029": {
@@ -1328,21 +1328,21 @@
       "skills": {
         "score": 0.97,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "Weaviate",
           "Gpt",
+          "Semantic Search",
+          "Pinecone",
           "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Retrieval",
+          "Sentence-Transformers",
+          "Llm"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.7
@@ -1361,7 +1361,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #28 with an overall match score of 47%. Moderate semantic overlap with the JD (score: 57%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 79/100.",
+    "reasoning_long": "Ranked #28 with an overall match score of 47%. Moderate semantic overlap with the JD (score: 57%). Matched 8 must-have JD skills: Weaviate, Gpt, Semantic Search, Pinecone. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 79/100.",
     "penalty": 1.0
   },
   "CAND_0041669": {
@@ -1377,21 +1377,21 @@
       "skills": {
         "score": 0.9799,
         "must_have_hits": [
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Weaviate",
           "Gpt",
-          "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Milvus",
-          "Embeddings"
+          "Lora",
+          "Peft",
+          "Semantic Search",
+          "Pinecone",
+          "Qdrant"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
-          "Feature Engineering",
           "Go",
-          "Search Engine"
+          "Feature Engineering",
+          "Recommendation System",
+          "Search Engine",
+          "Mlflow"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.799
@@ -1410,7 +1410,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #29 with an overall match score of 47%. Moderate semantic overlap with the JD (score: 68%). Matched 8 must-have JD skills: Retrieval, Semantic Search, Gpt, Qdrant. Also matched nice-to-have: Machine Learning, Mlflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 77% recruiter response rate, GitHub activity score 71/100.",
+    "reasoning_long": "Ranked #29 with an overall match score of 47%. Moderate semantic overlap with the JD (score: 68%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Gpt, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 77% recruiter response rate, GitHub activity score 71/100.",
     "penalty": 1.0
   },
   "CAND_0030031": {
@@ -1426,21 +1426,21 @@
       "skills": {
         "score": 0.9655,
         "must_have_hits": [
-          "Retrieval",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Milvus",
-          "Embeddings",
-          "Rag",
-          "Python"
+          "A/B Testing",
+          "Vector Search",
+          "Bm25",
+          "Sentence Transformers",
+          "Lora",
+          "Qlora",
+          "Python",
+          "Milvus"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Mlflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.655
@@ -1459,7 +1459,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #30 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 56%). Matched 8 must-have JD skills: Retrieval, Transformers, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Pytorch, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, 94% recruiter response rate.",
+    "reasoning_long": "Ranked #30 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 56%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Bm25, Sentence Transformers. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, 94% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0089552": {
@@ -1475,21 +1475,21 @@
       "skills": {
         "score": 0.97,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Gpt",
-          "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Milvus"
+          "Sentence Transformers",
+          "Semantic Search"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.7
@@ -1508,7 +1508,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #31 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 70%). Matched 8 must-have JD skills: Sentence-Transformers, Semantic Search, Gpt, Qdrant. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #31 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 70%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Bm25. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0044855": {
@@ -1524,21 +1524,21 @@
       "skills": {
         "score": 0.9697,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
+          "Bm25",
           "Gpt",
-          "Opensearch",
-          "Qdrant",
-          "Transformers",
-          "Nlp"
+          "Lora",
+          "Semantic Search",
+          "Pinecone",
+          "Qdrant"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 22,
         "assessment_score": 0.697
@@ -1557,7 +1557,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #32 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 59%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #32 with an overall match score of 45%. Moderate semantic overlap with the JD (score: 59%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Bm25, Gpt. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0060054": {
@@ -1573,21 +1573,21 @@
       "skills": {
         "score": 0.9899,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Retrieval",
+          "Sentence-Transformers",
+          "Llm",
+          "Nlp"
         ],
         "nice_hits": [
-          "Machine Learning",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go",
-          "Recommendation System"
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.899
@@ -1606,7 +1606,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #33 with an overall match score of 44%. Moderate semantic overlap with the JD (score: 57%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 86% recruiter response rate.",
+    "reasoning_long": "Ranked #33 with an overall match score of 44%. Moderate semantic overlap with the JD (score: 57%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Semantic Search. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 86% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0091909": {
@@ -1622,21 +1622,21 @@
       "skills": {
         "score": 0.9849,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
+          "A/B Testing",
+          "Sentence Transformers",
+          "Lora",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Pinecone"
+          "Opensearch",
+          "Qlora",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Mlflow",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Mlflow",
+          "Machine Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.849
@@ -1655,7 +1655,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #34 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: Retrieval, Opensearch, Qdrant, Transformers. Also matched nice-to-have: Hugging Face, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #34 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: A/B Testing, Sentence Transformers, Lora, Pinecone. Also matched nice-to-have: Scikit-Learn, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0055992": {
@@ -1671,21 +1671,21 @@
       "skills": {
         "score": 0.9725,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
           "Gpt",
+          "Semantic Search",
+          "Pinecone",
           "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Milvus"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
-          "Feature Engineering",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Mlflow"
         ],
         "must_hit_count": 20,
         "assessment_score": 0.725
@@ -1704,7 +1704,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #35 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 65%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Mlflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate, GitHub activity score 65/100.",
+    "reasoning_long": "Ranked #35 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 65%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Gpt. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate, GitHub activity score 65/100.",
     "penalty": 1.0
   },
   "CAND_0081053": {
@@ -1720,21 +1720,21 @@
       "skills": {
         "score": 0.986,
         "must_have_hits": [
-          "Sentence-Transformers",
+          "A/B Testing",
+          "Weaviate",
+          "Lora",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings"
+          "Opensearch",
+          "Qlora",
+          "Sentence-Transformers"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
           "Scikit-Learn",
           "Feature Engineering",
-          "Recommendation System"
+          "Recommendation System",
+          "Mlflow",
+          "Machine Learning"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.861
@@ -1753,7 +1753,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #36 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: Sentence-Transformers, Semantic Search, Opensearch, Qdrant. Also matched nice-to-have: Machine Learning, Mlflow, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 83% recruiter response rate, GitHub activity score 78/100.",
+    "reasoning_long": "Ranked #36 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Lora, Semantic Search. Also matched nice-to-have: Scikit-Learn, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 83% recruiter response rate, GitHub activity score 78/100.",
     "penalty": 1.0
   },
   "CAND_0068811": {
@@ -1769,21 +1769,21 @@
       "skills": {
         "score": 0.9526,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
           "Gpt",
-          "Opensearch",
+          "Peft",
+          "Pinecone",
           "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Rag"
+          "Opensearch"
         ],
         "nice_hits": [
-          "Saas",
-          "Machine Learning",
-          "Mlflow",
+          "Go",
+          "Scikit-Learn",
           "Tensorflow",
-          "Scikit-Learn"
+          "Feature Engineering",
+          "Recommendation System"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.526
@@ -1802,7 +1802,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #37 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: Retrieval, Gpt, Opensearch, Qdrant. Also matched nice-to-have: Saas, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
+    "reasoning_long": "Ranked #37 with an overall match score of 42%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Gpt. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0009691": {
@@ -1818,21 +1818,21 @@
       "skills": {
         "score": 0.9682,
         "must_have_hits": [
-          "Sentence-Transformers",
+          "A/B Testing",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Lora",
           "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Fine-Tuning"
+          "Qlora"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.682
@@ -1851,7 +1851,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #38 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: Sentence-Transformers, Semantic Search, Qdrant, Transformers. Also matched nice-to-have: Machine Learning, Mlflow, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 68/100.",
+    "reasoning_long": "Ranked #38 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: A/B Testing, Fine-Tuning, Sentence Transformers, Lora. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 68/100.",
     "penalty": 1.0
   },
   "CAND_0028793": {
@@ -1867,21 +1867,21 @@
       "skills": {
         "score": 0.9887,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "Bm25",
           "Gpt",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Lora",
+          "Peft",
+          "Semantic Search",
+          "Pinecone",
+          "Qlora",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.887
@@ -1900,7 +1900,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #39 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 83/100.",
+    "reasoning_long": "Ranked #39 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: Bm25, Gpt, Lora, Peft. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 83/100.",
     "penalty": 1.0
   },
   "CAND_0020877": {
@@ -1916,21 +1916,21 @@
       "skills": {
         "score": 0.9651,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "Weaviate",
+          "Bm25",
           "Gpt",
-          "Opensearch",
-          "Qdrant",
-          "Transformers",
-          "Nlp"
+          "Lora",
+          "Peft",
+          "Semantic Search",
+          "Pinecone",
+          "Qdrant"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Java",
-          "Pytorch",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 21,
         "assessment_score": 0.651
@@ -1949,7 +1949,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #40 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Java, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 74/100.",
+    "reasoning_long": "Ranked #40 with an overall match score of 41%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: Weaviate, Bm25, Gpt, Lora. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 74/100.",
     "penalty": 1.0
   },
   "CAND_0057563": {
@@ -1965,21 +1965,21 @@
       "skills": {
         "score": 0.9806,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Lora",
           "Semantic Search",
           "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Qlora",
+          "Retrieval",
+          "Sentence-Transformers"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Saas",
-          "Machine Learning",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning",
+          "Saas"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.806
@@ -1998,7 +1998,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #41 with an overall match score of 39%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Hugging Face, Saas, Machine Learning. Career history shows sustained AI/ML product company experience. Platform signals: 83% recruiter response rate.",
+    "reasoning_long": "Ranked #41 with an overall match score of 39%. Moderate semantic overlap with the JD (score: 54%). Matched 8 must-have JD skills: A/B Testing, Bm25, Lora, Semantic Search. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: 83% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0054123": {
@@ -2014,21 +2014,21 @@
       "skills": {
         "score": 0.992,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Semantic Search",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Python"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.92
@@ -2047,7 +2047,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #42 with an overall match score of 39%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Qdrant. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 87% recruiter response rate, GitHub activity score 72/100.",
+    "reasoning_long": "Ranked #42 with an overall match score of 39%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Bm25. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: 87% recruiter response rate, GitHub activity score 72/100.",
     "penalty": 1.0
   },
   "CAND_0095528": {
@@ -2063,21 +2063,21 @@
       "skills": {
         "score": 0.9642,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Fine-Tuning",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Opensearch",
+          "Python",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Mlflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.642
@@ -2096,7 +2096,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #43 with an overall match score of 37%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: Retrieval, Semantic Search, Opensearch, Qdrant. Also matched nice-to-have: Machine Learning, Pytorch, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #43 with an overall match score of 37%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Fine-Tuning, Semantic Search. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0079284": {
@@ -2112,21 +2112,21 @@
       "skills": {
         "score": 0.9724,
         "must_have_hits": [
-          "Retrieval",
-          "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings",
+          "A/B Testing",
           "Fine-Tuning",
-          "Lora"
+          "Lora",
+          "Qdrant",
+          "Qlora",
+          "Retrieval",
+          "Llm",
+          "Nlp"
         ],
         "nice_hits": [
-          "Machine Learning",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Go",
-          "Recommendation System"
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 11,
         "assessment_score": 0.724
@@ -2145,7 +2145,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #44 with an overall match score of 35%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: Retrieval, Qdrant, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, 79% recruiter response rate.",
+    "reasoning_long": "Ranked #44 with an overall match score of 35%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: A/B Testing, Fine-Tuning, Lora, Qdrant. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, 79% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0005649": {
@@ -2161,21 +2161,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Gpt",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Lora",
+          "Semantic Search",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Tensorflow",
+          "Feature Engineering",
+          "Recommendation System"
         ],
         "must_hit_count": 21,
         "assessment_score": 0.0
@@ -2194,7 +2194,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #45 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 81/100.",
+    "reasoning_long": "Ranked #45 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 51%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Fine-Tuning. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 81/100.",
     "penalty": 1.0
   },
   "CAND_0052682": {
@@ -2210,21 +2210,21 @@
       "skills": {
         "score": 0.9595,
         "must_have_hits": [
-          "Semantic Search",
-          "Gpt",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
+          "A/B Testing",
           "Fine-Tuning",
-          "Rag",
+          "Gpt",
+          "Lora",
+          "Semantic Search",
+          "Pinecone",
+          "Qlora",
           "Python"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch",
+          "Machine Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.595
@@ -2243,7 +2243,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #46 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 44%). Matched 8 must-have JD skills: Semantic Search, Gpt, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 88% recruiter response rate, GitHub activity score 72/100.",
+    "reasoning_long": "Ranked #46 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 44%). Matched 8 must-have JD skills: A/B Testing, Fine-Tuning, Gpt, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 88% recruiter response rate, GitHub activity score 72/100.",
     "penalty": 1.0
   },
   "CAND_0009024": {
@@ -2259,21 +2259,21 @@
       "skills": {
         "score": 0.9831,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
-          "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
+          "A/B Testing",
           "Lora",
-          "Peft"
+          "Peft",
+          "Qdrant",
+          "Opensearch",
+          "Retrieval",
+          "Nlp",
+          "Faiss"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Mlflow",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Airflow",
+          "Pytorch"
         ],
         "must_hit_count": 10,
         "assessment_score": 0.832
@@ -2292,7 +2292,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #47 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: Retrieval, Opensearch, Qdrant, Nlp. Also matched nice-to-have: Machine Learning, Pytorch, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
+    "reasoning_long": "Ranked #47 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: A/B Testing, Lora, Peft, Qdrant. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0079387": {
@@ -2308,21 +2308,21 @@
       "skills": {
         "score": 0.9736,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
+          "Bm25",
           "Gpt",
-          "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Sentence Transformers",
+          "Lora",
+          "Semantic Search",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Java",
-          "Mlflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Mlflow"
         ],
         "must_hit_count": 22,
         "assessment_score": 0.736
@@ -2341,7 +2341,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #48 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 47%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Java, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 81% recruiter response rate, GitHub activity score 64/100.",
+    "reasoning_long": "Ranked #48 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 47%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Bm25, Gpt. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 81% recruiter response rate, GitHub activity score 64/100.",
     "penalty": 1.0
   },
   "CAND_0039383": {
@@ -2357,21 +2357,21 @@
       "skills": {
         "score": 0.9712,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "Vector Search",
+          "Bm25",
+          "Lora",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Lora"
+          "Qlora",
+          "Retrieval",
+          "Sentence-Transformers",
+          "Nlp"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning",
+          "Mlflow"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.712
@@ -2390,7 +2390,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #49 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 43%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Hugging Face, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 86/100.",
+    "reasoning_long": "Ranked #49 with an overall match score of 34%. Moderate semantic overlap with the JD (score: 43%). Matched 8 must-have JD skills: Vector Search, Bm25, Lora, Semantic Search. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 86/100.",
     "penalty": 1.0
   },
   "CAND_0050876": {
@@ -2406,21 +2406,21 @@
       "skills": {
         "score": 0.971,
         "must_have_hits": [
-          "Opensearch",
+          "A/B Testing",
+          "Sentence Transformers",
+          "Lora",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
+          "Opensearch",
+          "Qlora",
           "Python",
-          "Lora"
+          "Llm"
         ],
         "nice_hits": [
-          "Saas",
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.71
@@ -2439,7 +2439,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #50 with an overall match score of 33%. Moderate semantic overlap with the JD (score: 45%). Matched 8 must-have JD skills: Opensearch, Qdrant, Transformers, Nlp. Also matched nice-to-have: Saas, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 86/100.",
+    "reasoning_long": "Ranked #50 with an overall match score of 33%. Moderate semantic overlap with the JD (score: 45%). Matched 8 must-have JD skills: A/B Testing, Sentence Transformers, Lora, Qdrant. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 86/100.",
     "penalty": 1.0
   },
   "CAND_0013613": {
@@ -2455,21 +2455,21 @@
       "skills": {
         "score": 0.9727,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
+          "Sentence Transformers",
+          "Lora",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Tensorflow",
+          "Feature Engineering",
+          "Recommendation System"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.727
@@ -2488,7 +2488,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #51 with an overall match score of 32%. Moderate semantic overlap with the JD (score: 60%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 73% recruiter response rate, GitHub activity score 67/100.",
+    "reasoning_long": "Ranked #51 with an overall match score of 32%. Moderate semantic overlap with the JD (score: 60%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Fine-Tuning. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 73% recruiter response rate, GitHub activity score 67/100.",
     "penalty": 1.0
   },
   "CAND_0010257": {
@@ -2504,21 +2504,21 @@
       "skills": {
         "score": 0.9697,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
+          "A/B Testing",
           "Qdrant",
-          "Nlp",
-          "Ranking",
+          "Opensearch",
+          "Python",
           "Milvus",
-          "Embeddings",
-          "Python"
+          "Retrieval",
+          "Nlp",
+          "Ranking"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Java",
-          "Mlflow",
+          "Go",
           "Tensorflow",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Search Engine"
         ],
         "must_hit_count": 9,
         "assessment_score": 0.697
@@ -2537,7 +2537,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #52 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 41%). Matched 8 must-have JD skills: Retrieval, Opensearch, Qdrant, Nlp. Also matched nice-to-have: Machine Learning, Java, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate.",
+    "reasoning_long": "Ranked #52 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 41%). Matched 8 must-have JD skills: A/B Testing, Qdrant, Opensearch, Python. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0075574": {
@@ -2553,21 +2553,21 @@
       "skills": {
         "score": 0.9644,
         "must_have_hits": [
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
           "Gpt",
-          "Opensearch",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Opensearch",
+          "Nlp"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.644
@@ -2586,7 +2586,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #53 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Gpt, Opensearch, Qdrant, Transformers. Also matched nice-to-have: Hugging Face, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #53 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Vector Search, Weaviate, Bm25, Gpt. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0061655": {
@@ -2602,21 +2602,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Opensearch",
-          "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings",
+          "A/B Testing",
+          "Bm25",
+          "Peft",
           "Pinecone",
-          "Peft"
+          "Qdrant",
+          "Opensearch",
+          "Nlp",
+          "Ranking"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch"
         ],
         "must_hit_count": 10,
         "assessment_score": 0.0
@@ -2635,7 +2635,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #54 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 58%). Matched 8 must-have JD skills: Opensearch, Qdrant, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 88% recruiter response rate.",
+    "reasoning_long": "Ranked #54 with an overall match score of 31%. Moderate semantic overlap with the JD (score: 58%). Matched 8 must-have JD skills: A/B Testing, Bm25, Peft, Pinecone. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 88% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0024466": {
@@ -2651,20 +2651,20 @@
       "skills": {
         "score": 0.9748,
         "must_have_hits": [
-          "Retrieval",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
+          "A/B Testing",
+          "Bm25",
           "Fine-Tuning",
+          "Sentence Transformers",
+          "Lora",
+          "Peft",
           "Pinecone",
-          "Lora"
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch",
           "Search Engine"
         ],
         "must_hit_count": 13,
@@ -2684,7 +2684,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #55 with an overall match score of 30%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: Retrieval, Transformers, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #55 with an overall match score of 30%. Moderate semantic overlap with the JD (score: 55%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Sentence Transformers. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0064326": {
@@ -2700,21 +2700,21 @@
       "skills": {
         "score": 0.9693,
         "must_have_hits": [
-          "Retrieval",
-          "Semantic Search",
+          "Weaviate",
+          "Bm25",
           "Gpt",
-          "Nlp",
-          "Ranking",
-          "Milvus",
-          "Embeddings",
-          "Rag"
+          "Lora",
+          "Semantic Search",
+          "Pinecone",
+          "Qlora",
+          "Python"
         ],
         "nice_hits": [
-          "Saas",
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.693
@@ -2733,7 +2733,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #56 with an overall match score of 28%. Matched 8 must-have JD skills: Retrieval, Semantic Search, Gpt, Nlp. Also matched nice-to-have: Saas, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 94% recruiter response rate, GitHub activity score 61/100.",
+    "reasoning_long": "Ranked #56 with an overall match score of 28%. Matched 8 must-have JD skills: Weaviate, Bm25, Gpt, Lora. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 94% recruiter response rate, GitHub activity score 61/100.",
     "penalty": 1.0
   },
   "CAND_0030468": {
@@ -2749,18 +2749,18 @@
       "skills": {
         "score": 0.9833,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
-          "Ranking",
-          "Milvus",
           "A/B Testing",
-          "Information Retrieval"
+          "Opensearch",
+          "Milvus",
+          "Retrieval",
+          "Information Retrieval",
+          "Ranking"
         ],
         "nice_hits": [
-          "Product Company",
-          "Machine Learning",
-          "Tensorflow",
           "Go",
+          "Tensorflow",
+          "Product Company",
+          "Recommendation System",
           "Deep Learning"
         ],
         "must_hit_count": 6,
@@ -2780,7 +2780,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #57 with an overall match score of 27%. Matched 6 must-have JD skills: Retrieval, Opensearch, Ranking, Milvus. Also matched nice-to-have: Product Company, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
+    "reasoning_long": "Ranked #57 with an overall match score of 27%. Matched 6 must-have JD skills: A/B Testing, Opensearch, Milvus, Retrieval. Also matched nice-to-have: Go, Tensorflow, Product Company. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0075439": {
@@ -2796,21 +2796,21 @@
       "skills": {
         "score": 0.9678,
         "must_have_hits": [
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
           "Gpt",
+          "Lora",
+          "Semantic Search",
+          "Pinecone",
           "Opensearch",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Java",
-          "Mlflow",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Mlflow",
+          "Java"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.678
@@ -2829,7 +2829,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #58 with an overall match score of 26%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: Retrieval, Semantic Search, Gpt, Opensearch. Also matched nice-to-have: Machine Learning, Java, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, GitHub activity score 66/100.",
+    "reasoning_long": "Ranked #58 with an overall match score of 26%. Moderate semantic overlap with the JD (score: 52%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Gpt, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period, GitHub activity score 66/100.",
     "penalty": 1.0
   },
   "CAND_0075249": {
@@ -2845,21 +2845,21 @@
       "skills": {
         "score": 0.968,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Sentence Transformers",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Milvus"
+          "Pinecone",
+          "Milvus",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
           "Feature Engineering",
+          "Recommendation System",
           "Search Engine",
-          "Recommendation System"
+          "Mlflow",
+          "Machine Learning"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.68
@@ -2878,7 +2878,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #59 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 49%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Mlflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 82% recruiter response rate.",
+    "reasoning_long": "Ranked #59 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 49%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Sentence Transformers. Also matched nice-to-have: Feature Engineering, Recommendation System, Search Engine. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 82% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0078002": {
@@ -2894,21 +2894,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
+          "A/B Testing",
+          "Weaviate",
+          "Lora",
+          "Qlora",
           "Retrieval",
-          "Transformers",
           "Nlp",
           "Ranking",
-          "Embeddings",
-          "Rag",
-          "Lora",
-          "Weaviate"
+          "Transformers"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Tensorflow",
+          "Go",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Tensorflow",
+          "Feature Engineering",
+          "Recommendation System"
         ],
         "must_hit_count": 10,
         "assessment_score": 0.0
@@ -2927,7 +2927,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #60 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: Retrieval, Transformers, Nlp, Ranking. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 86% recruiter response rate.",
+    "reasoning_long": "Ranked #60 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Lora, Qlora. Also matched nice-to-have: Go, Scikit-Learn, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 86% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0001610": {
@@ -2943,21 +2943,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Sentence Transformers",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Milvus"
+          "Pinecone",
+          "Milvus",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Saas",
-          "Machine Learning",
-          "Pytorch",
           "Scikit-Learn",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Pytorch"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.0
@@ -2976,7 +2976,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #61 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 67%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Saas, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #61 with an overall match score of 25%. Moderate semantic overlap with the JD (score: 67%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Sentence Transformers. Also matched nice-to-have: Scikit-Learn, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0045250": {
@@ -2992,21 +2992,21 @@
       "skills": {
         "score": 0.9688,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Bm25",
+          "Sentence Transformers",
+          "Lora",
+          "Peft",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Milvus",
-          "Embeddings",
-          "Lora"
+          "Milvus"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Mlflow"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.688
@@ -3025,7 +3025,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #62 with an overall match score of 24%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Retrieval, Qdrant, Transformers, Nlp. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 74% recruiter response rate.",
+    "reasoning_long": "Ranked #62 with an overall match score of 24%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Bm25, Sentence Transformers. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 15-day notice period, 74% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0012957": {
@@ -3041,21 +3041,21 @@
       "skills": {
         "score": 0.9643,
         "must_have_hits": [
-          "Retrieval",
-          "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
+          "A/B Testing",
+          "Bm25",
           "Fine-Tuning",
-          "Rag",
-          "Python"
+          "Peft",
+          "Qdrant",
+          "Python",
+          "Retrieval",
+          "Llm"
         ],
         "nice_hits": [
-          "Machine Learning",
           "Feature Engineering",
+          "Recommendation System",
           "Deep Learning",
           "Search Engine",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.643
@@ -3074,7 +3074,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #63 with an overall match score of 23%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: Retrieval, Qdrant, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Feature Engineering, Deep Learning. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #63 with an overall match score of 23%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Peft. Also matched nice-to-have: Feature Engineering, Recommendation System, Deep Learning. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0006418": {
@@ -3090,21 +3090,21 @@
       "skills": {
         "score": 0.9889,
         "must_have_hits": [
-          "Semantic Search",
-          "Ranking",
-          "Retrieval",
-          "Qdrant",
           "Opensearch",
-          "Learning To Rank",
+          "Weaviate",
+          "Rag",
+          "Semantic Search",
           "Elasticsearch",
-          "Weaviate"
+          "Embeddings",
+          "Qdrant",
+          "Retrieval"
         ],
         "nice_hits": [
+          "Recommendation System",
           "Kubernetes",
-          "Machine Learning",
-          "Mlflow",
           "Tensorflow",
-          "Go"
+          "Go",
+          "Feature Engineering"
         ],
         "must_hit_count": 11,
         "assessment_score": 0.889
@@ -3123,7 +3123,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #64 with an overall match score of 23%. Matched 8 must-have JD skills: Semantic Search, Ranking, Retrieval, Qdrant. Also matched nice-to-have: Kubernetes, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 92% recruiter response rate.",
+    "reasoning_long": "Ranked #64 with an overall match score of 23%. Matched 8 must-have JD skills: Opensearch, Weaviate, Rag, Semantic Search. Also matched nice-to-have: Recommendation System, Kubernetes, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 92% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0064270": {
@@ -3139,21 +3139,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "Bm25",
+          "Sentence Transformers",
+          "Peft",
           "Semantic Search",
           "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Retrieval",
+          "Sentence-Transformers",
+          "Nlp"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Pytorch",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Pytorch",
+          "Machine Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.0
@@ -3172,7 +3172,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #65 with an overall match score of 22%. Moderate semantic overlap with the JD (score: 59%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Hugging Face, Machine Learning, Pytorch. Career history shows sustained AI/ML product company experience. Platform signals: 82% recruiter response rate.",
+    "reasoning_long": "Ranked #65 with an overall match score of 22%. Moderate semantic overlap with the JD (score: 59%). Matched 8 must-have JD skills: Bm25, Sentence Transformers, Peft, Semantic Search. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: 82% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0093912": {
@@ -3188,21 +3188,21 @@
       "skills": {
         "score": 0.9754,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
           "Sentence-Transformers",
           "Bge",
-          "Vector Search",
-          "Milvus",
-          "Bm25"
+          "Rag",
+          "Semantic Search",
+          "Elasticsearch",
+          "Faiss",
+          "Embeddings",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Go",
+          "Recommendation System",
           "Search Engine",
+          "Go",
           "Feature Engineering",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.754
@@ -3221,7 +3221,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #66 with an overall match score of 22%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Sentence-Transformers. Also matched nice-to-have: Machine Learning, Go, Search Engine. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, GitHub activity score 82/100.",
+    "reasoning_long": "Ranked #66 with an overall match score of 22%. Matched 8 must-have JD skills: Sentence-Transformers, Bge, Rag, Semantic Search. Also matched nice-to-have: Recommendation System, Search Engine, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, GitHub activity score 82/100.",
     "penalty": 1.0
   },
   "CAND_0027691": {
@@ -3237,20 +3237,20 @@
       "skills": {
         "score": 0.9696,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
-          "Python",
+          "Lora",
           "Sentence-Transformers",
           "Bge",
-          "A/B Testing",
-          "Bm25"
+          "Weaviate",
+          "Semantic Search",
+          "Elasticsearch",
+          "Faiss",
+          "Embeddings"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Tensorflow",
           "Go",
+          "Scikit-Learn",
           "Feature Engineering"
         ],
         "must_hit_count": 18,
@@ -3270,7 +3270,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #67 with an overall match score of 21%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Python. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period.",
+    "reasoning_long": "Ranked #67 with an overall match score of 21%. Matched 8 must-have JD skills: Lora, Sentence-Transformers, Bge, Weaviate. Also matched nice-to-have: Recommendation System, Tensorflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period.",
     "penalty": 1.0
   },
   "CAND_0037944": {
@@ -3286,20 +3286,20 @@
       "skills": {
         "score": 0.9344,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Bm25",
           "Gpt",
-          "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Rag"
+          "Sentence Transformers",
+          "Lora",
+          "Peft",
+          "Pinecone"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.844
@@ -3318,7 +3318,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #68 with an overall match score of 21%. Moderate semantic overlap with the JD (score: 53%). Matched 8 must-have JD skills: Retrieval, Gpt, Opensearch, Transformers. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, GitHub activity score 83/100.",
+    "reasoning_long": "Ranked #68 with an overall match score of 21%. Moderate semantic overlap with the JD (score: 53%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Bm25, Gpt. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, GitHub activity score 83/100.",
     "penalty": 1.0
   },
   "CAND_0044222": {
@@ -3334,21 +3334,21 @@
       "skills": {
         "score": 0.9524,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
+          "Lora",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Opensearch"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Java",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning",
+          "Java"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.524
@@ -3367,7 +3367,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #69 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 45%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Hugging Face, Machine Learning, Java. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #69 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 45%). Matched 8 must-have JD skills: Vector Search, Weaviate, Bm25, Fine-Tuning. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0017960": {
@@ -3383,21 +3383,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
           "Gpt",
+          "Lora",
+          "Peft",
+          "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Qlora"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Deep Learning"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Search Engine"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.0
@@ -3416,7 +3416,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #70 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 56%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate, GitHub activity score 92/100.",
+    "reasoning_long": "Ranked #70 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 56%). Matched 8 must-have JD skills: A/B Testing, Gpt, Lora, Peft. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 72% recruiter response rate, GitHub activity score 92/100.",
     "penalty": 1.0
   },
   "CAND_0006567": {
@@ -3432,21 +3432,21 @@
       "skills": {
         "score": 0.9765,
         "must_have_hits": [
-          "Ranking",
-          "Python",
-          "A/B Testing",
-          "Bm25",
+          "Information Retrieval",
           "Retrieval",
+          "Bm25",
           "Ann",
           "Nlp",
-          "Information Retrieval"
+          "A/B Testing",
+          "Python",
+          "Ranking"
         ],
         "nice_hits": [
+          "Recommendation System",
           "Kubernetes",
-          "Machine Learning",
           "Product Company",
           "Go",
-          "Feature Engineering"
+          "Scikit-Learn"
         ],
         "must_hit_count": 8,
         "assessment_score": 0.765
@@ -3465,7 +3465,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #71 with an overall match score of 20%. Matched 8 must-have JD skills: Ranking, Python, A/B Testing, Bm25. Also matched nice-to-have: Kubernetes, Machine Learning, Product Company. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 79% recruiter response rate.",
+    "reasoning_long": "Ranked #71 with an overall match score of 20%. Matched 8 must-have JD skills: Information Retrieval, Retrieval, Bm25, Ann. Also matched nice-to-have: Recommendation System, Kubernetes, Product Company. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 79% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0061339": {
@@ -3481,21 +3481,21 @@
       "skills": {
         "score": 0.9518,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
           "Opensearch",
-          "Nlp",
-          "Ranking",
           "Milvus",
-          "Embeddings",
+          "Retrieval",
           "Llm",
-          "A/B Testing"
+          "Information Retrieval",
+          "Nlp"
         ],
         "nice_hits": [
-          "Saas",
-          "Machine Learning",
-          "Mlflow",
           "Tensorflow",
-          "Feature Engineering"
+          "Data Pipeline",
+          "Feature Engineering",
+          "Recommendation System",
+          "Search Engine"
         ],
         "must_hit_count": 10,
         "assessment_score": 0.518
@@ -3514,7 +3514,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #72 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 47%). Matched 8 must-have JD skills: Retrieval, Opensearch, Nlp, Ranking. Also matched nice-to-have: Saas, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 90% recruiter response rate, GitHub activity score 86/100.",
+    "reasoning_long": "Ranked #72 with an overall match score of 20%. Moderate semantic overlap with the JD (score: 47%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Opensearch, Milvus. Also matched nice-to-have: Tensorflow, Data Pipeline, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 90% recruiter response rate, GitHub activity score 86/100.",
     "penalty": 1.0
   },
   "CAND_0086151": {
@@ -3530,20 +3530,20 @@
       "skills": {
         "score": 0.9266,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Sentence Transformers",
+          "Lora",
+          "Peft",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Opensearch"
         ],
         "nice_hits": [
-          "Machine Learning",
           "Feature Engineering",
+          "Recommendation System",
           "Search Engine",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.766
@@ -3562,7 +3562,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #73 with an overall match score of 19%. Moderate semantic overlap with the JD (score: 62%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Machine Learning, Feature Engineering, Search Engine. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #73 with an overall match score of 19%. Moderate semantic overlap with the JD (score: 62%). Matched 8 must-have JD skills: A/B Testing, Bm25, Sentence Transformers, Lora. Also matched nice-to-have: Feature Engineering, Recommendation System, Search Engine. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0047721": {
@@ -3578,20 +3578,20 @@
       "skills": {
         "score": 0.9274,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
           "Qdrant",
-          "Nlp",
-          "Ranking",
           "Milvus",
-          "Embeddings",
-          "Rag",
-          "Learning To Rank"
+          "Retrieval",
+          "Information Retrieval",
+          "Nlp",
+          "Faiss"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.774
@@ -3610,7 +3610,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #74 with an overall match score of 19%. Moderate semantic overlap with the JD (score: 43%). Matched 8 must-have JD skills: Retrieval, Qdrant, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 90/100.",
+    "reasoning_long": "Ranked #74 with an overall match score of 19%. Moderate semantic overlap with the JD (score: 43%). Matched 8 must-have JD skills: A/B Testing, Bm25, Qdrant, Milvus. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 90/100.",
     "penalty": 1.0
   },
   "CAND_0053591": {
@@ -3626,21 +3626,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Semantic Search",
+          "A/B Testing",
+          "Bm25",
           "Gpt",
-          "Opensearch",
+          "Sentence Transformers",
+          "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Opensearch"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
           "Data Pipeline",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.0
@@ -3659,7 +3659,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #75 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 53%). Matched 8 must-have JD skills: Sentence-Transformers, Semantic Search, Gpt, Opensearch. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 81% recruiter response rate, GitHub activity score 76/100.",
+    "reasoning_long": "Ranked #75 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 53%). Matched 8 must-have JD skills: A/B Testing, Bm25, Gpt, Sentence Transformers. Also matched nice-to-have: Go, Data Pipeline, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 81% recruiter response rate, GitHub activity score 76/100.",
     "penalty": 1.0
   },
   "CAND_0070202": {
@@ -3675,20 +3675,20 @@
       "skills": {
         "score": 0.9672,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Lora",
           "Semantic Search",
           "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Fine-Tuning",
-          "Rag"
+          "Retrieval",
+          "Llm"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch",
           "Search Engine"
         ],
         "must_hit_count": 13,
@@ -3708,7 +3708,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #76 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 48%). Matched 8 must-have JD skills: Retrieval, Semantic Search, Qdrant, Nlp. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience.",
+    "reasoning_long": "Ranked #76 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 48%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience.",
     "penalty": 1.0
   },
   "CAND_0081686": {
@@ -3724,21 +3724,21 @@
       "skills": {
         "score": 0.9709,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Lora",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Milvus"
+          "Qlora",
+          "Python",
+          "Milvus",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Saas",
-          "Machine Learning",
-          "Java",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Recommendation System",
+          "Deep Learning",
+          "Search Engine",
+          "Saas"
         ],
         "must_hit_count": 17,
         "assessment_score": 0.709
@@ -3757,7 +3757,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #77 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Hugging Face, Saas, Machine Learning. Career history shows sustained AI/ML product company experience. Platform signals: 91% recruiter response rate.",
+    "reasoning_long": "Ranked #77 with an overall match score of 18%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: A/B Testing, Bm25, Lora, Semantic Search. Also matched nice-to-have: Feature Engineering, Recommendation System, Deep Learning. Career history shows sustained AI/ML product company experience. Platform signals: 91% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0070398": {
@@ -3773,21 +3773,21 @@
       "skills": {
         "score": 0.9761,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Lora",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings"
+          "Python",
+          "Retrieval",
+          "Sentence-Transformers"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Feature Engineering",
           "Go",
-          "Recommendation System"
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch",
+          "Machine Learning"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.762
@@ -3806,7 +3806,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #78 with an overall match score of 17%. Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Pytorch, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 63/100.",
+    "reasoning_long": "Ranked #78 with an overall match score of 17%. Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, GitHub activity score 63/100.",
     "penalty": 1.0
   },
   "CAND_0064904": {
@@ -3822,21 +3822,21 @@
       "skills": {
         "score": 0.966,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
           "Opensearch",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
-          "Embeddings",
-          "Python"
+          "Python",
+          "Retrieval",
+          "Llm",
+          "Nlp"
         ],
         "nice_hits": [
-          "Hugging Face",
+          "Tensorflow",
+          "Feature Engineering",
+          "Recommendation System",
           "Saas",
-          "Machine Learning",
-          "Mlflow",
-          "Tensorflow"
+          "Mlflow"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.66
@@ -3855,7 +3855,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #79 with an overall match score of 17%. Matched 8 must-have JD skills: Retrieval, Opensearch, Transformers, Nlp. Also matched nice-to-have: Hugging Face, Saas, Machine Learning. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
+    "reasoning_long": "Ranked #79 with an overall match score of 17%. Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Opensearch. Also matched nice-to-have: Tensorflow, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0037566": {
@@ -3871,21 +3871,21 @@
       "skills": {
         "score": 0.9824,
         "must_have_hits": [
-          "Ranking",
-          "Bm25",
-          "Retrieval",
           "Lora",
-          "Qlora",
-          "Llm",
           "Pinecone",
-          "Elasticsearch"
+          "Rag",
+          "Elasticsearch",
+          "Gpt",
+          "Embeddings",
+          "Retrieval",
+          "Bm25"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Tensorflow",
           "Go",
-          "Feature Engineering"
+          "Feature Engineering",
+          "Machine Learning"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.824
@@ -3904,7 +3904,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #80 with an overall match score of 17%. Matched 8 must-have JD skills: Ranking, Bm25, Retrieval, Lora. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 73/100.",
+    "reasoning_long": "Ranked #80 with an overall match score of 17%. Matched 8 must-have JD skills: Lora, Pinecone, Rag, Elasticsearch. Also matched nice-to-have: Recommendation System, Tensorflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 15-day notice period, GitHub activity score 73/100.",
     "penalty": 1.0
   },
   "CAND_0005538": {
@@ -3920,20 +3920,20 @@
       "skills": {
         "score": 0.9929,
         "must_have_hits": [
-          "Ranking",
-          "Python",
-          "Natural Language Processing",
-          "Retrieval",
           "Lora",
-          "Qlora",
           "Information Retrieval",
-          "Embeddings"
+          "Natural Language Processing",
+          "Embeddings",
+          "Retrieval",
+          "Qlora",
+          "Python",
+          "Ranking"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
+          "Recommendation System",
           "Product Company",
           "Go",
+          "Deep Learning",
           "Feature Engineering"
         ],
         "must_hit_count": 8,
@@ -3953,7 +3953,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #81 with an overall match score of 16%. Matched 8 must-have JD skills: Ranking, Python, Natural Language Processing, Retrieval. Also matched nice-to-have: Machine Learning, Pytorch, Product Company. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 81% recruiter response rate.",
+    "reasoning_long": "Ranked #81 with an overall match score of 16%. Matched 8 must-have JD skills: Lora, Information Retrieval, Natural Language Processing, Embeddings. Also matched nice-to-have: Recommendation System, Product Company, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 81% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0018549": {
@@ -3969,21 +3969,21 @@
       "skills": {
         "score": 0.9757,
         "must_have_hits": [
-          "Retrieval",
-          "Opensearch",
+          "A/B Testing",
+          "Weaviate",
+          "Fine-Tuning",
           "Qdrant",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch",
+          "Opensearch",
           "Milvus",
-          "Embeddings"
+          "Retrieval",
+          "Llm"
         ],
         "nice_hits": [
-          "Machine Learning",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Kubernetes",
-          "Go"
+          "Recommendation System",
+          "Kubernetes"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.757
@@ -4002,7 +4002,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #82 with an overall match score of 15%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: Retrieval, Opensearch, Qdrant, Nlp. Also matched nice-to-have: Machine Learning, Scikit-Learn, Feature Engineering. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, 73% recruiter response rate.",
+    "reasoning_long": "Ranked #82 with an overall match score of 15%. Moderate semantic overlap with the JD (score: 50%). Matched 8 must-have JD skills: A/B Testing, Weaviate, Fine-Tuning, Qdrant. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, 73% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0087630": {
@@ -4018,21 +4018,21 @@
       "skills": {
         "score": 0.9659,
         "must_have_hits": [
-          "Transformers",
-          "Ranking",
-          "A/B Testing",
-          "Bm25",
+          "Opensearch",
           "Lora",
-          "Qlora",
-          "Llm",
-          "Opensearch"
+          "Rag",
+          "Elasticsearch",
+          "Embeddings",
+          "Sentence Transformers",
+          "Bm25",
+          "Transformers"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Go",
-          "Feature Engineering",
+          "Recommendation System",
           "Hugging Face",
-          "Recommendation System"
+          "Go",
+          "Deep Learning",
+          "Feature Engineering"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.659
@@ -4051,7 +4051,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #83 with an overall match score of 15%. Matched 8 must-have JD skills: Transformers, Ranking, A/B Testing, Bm25. Also matched nice-to-have: Machine Learning, Go, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
+    "reasoning_long": "Ranked #83 with an overall match score of 15%. Matched 8 must-have JD skills: Opensearch, Lora, Rag, Elasticsearch. Also matched nice-to-have: Recommendation System, Hugging Face, Go. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0065195": {
@@ -4067,21 +4067,21 @@
       "skills": {
         "score": 0.9606,
         "must_have_hits": [
-          "Transformers",
-          "Ranking",
-          "Retrieval",
           "Lora",
-          "Qlora",
-          "Llm",
+          "Pinecone",
+          "Rag",
+          "Elasticsearch",
+          "Gpt",
+          "Embeddings",
           "Qdrant",
-          "Learning To Rank"
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
-          "Go",
+          "Recommendation System",
           "Search Engine",
-          "Feature Engineering"
+          "Hugging Face",
+          "Go",
+          "Scikit-Learn"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.606
@@ -4100,7 +4100,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #84 with an overall match score of 15%. Matched 8 must-have JD skills: Transformers, Ranking, Retrieval, Lora. Also matched nice-to-have: Machine Learning, Mlflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 80% recruiter response rate, GitHub activity score 87/100.",
+    "reasoning_long": "Ranked #84 with an overall match score of 15%. Matched 8 must-have JD skills: Lora, Pinecone, Rag, Elasticsearch. Also matched nice-to-have: Recommendation System, Search Engine, Hugging Face. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 80% recruiter response rate, GitHub activity score 87/100.",
     "penalty": 1.0
   },
   "CAND_0074225": {
@@ -4116,21 +4116,21 @@
       "skills": {
         "score": 0.9738,
         "must_have_hits": [
-          "Retrieval",
-          "Semantic Search",
+          "Vector Search",
           "Gpt",
+          "Lora",
+          "Semantic Search",
+          "Pinecone",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Qlora",
+          "Python"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Machine Learning"
         ],
         "must_hit_count": 16,
         "assessment_score": 0.738
@@ -4149,7 +4149,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #85 with an overall match score of 14%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Retrieval, Semantic Search, Gpt, Qdrant. Also matched nice-to-have: Hugging Face, Machine Learning, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 91% recruiter response rate.",
+    "reasoning_long": "Ranked #85 with an overall match score of 14%. Moderate semantic overlap with the JD (score: 42%). Matched 8 must-have JD skills: Vector Search, Gpt, Lora, Semantic Search. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 91% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0042100": {
@@ -4165,21 +4165,21 @@
       "skills": {
         "score": 0.9687,
         "must_have_hits": [
-          "Semantic Search",
-          "Ranking",
-          "A/B Testing",
           "Lora",
-          "Qlora",
-          "Llm",
-          "Learning To Rank",
-          "Pinecone"
+          "Pinecone",
+          "Rag",
+          "Semantic Search",
+          "Elasticsearch",
+          "Fine-Tuning",
+          "Nlp",
+          "A/B Testing"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
+          "Recommendation System",
           "Go",
           "Feature Engineering",
-          "Saas"
+          "Pytorch",
+          "Machine Learning"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.687
@@ -4198,7 +4198,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #86 with an overall match score of 14%. Matched 8 must-have JD skills: Semantic Search, Ranking, A/B Testing, Lora. Also matched nice-to-have: Machine Learning, Pytorch, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 87% recruiter response rate.",
+    "reasoning_long": "Ranked #86 with an overall match score of 14%. Matched 8 must-have JD skills: Lora, Pinecone, Rag, Semantic Search. Also matched nice-to-have: Recommendation System, Go, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 87% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0040117": {
@@ -4214,21 +4214,21 @@
       "skills": {
         "score": 0.9654,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
           "Gpt",
-          "Nlp",
-          "Ranking",
-          "Embeddings",
-          "Rag",
+          "Lora",
           "Pinecone",
-          "Lora"
+          "Qlora",
+          "Retrieval",
+          "Nlp"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Feature Engineering",
           "Go",
+          "Feature Engineering",
+          "Recommendation System",
           "Deep Learning",
-          "Recommendation System"
+          "Machine Learning"
         ],
         "must_hit_count": 12,
         "assessment_score": 0.655
@@ -4247,7 +4247,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #87 with an overall match score of 14%. Moderate semantic overlap with the JD (score: 49%). Matched 8 must-have JD skills: Retrieval, Gpt, Nlp, Ranking. Also matched nice-to-have: Machine Learning, Feature Engineering, Go. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, 15-day notice period.",
+    "reasoning_long": "Ranked #87 with an overall match score of 14%. Moderate semantic overlap with the JD (score: 49%). Matched 8 must-have JD skills: A/B Testing, Bm25, Gpt, Lora. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, 15-day notice period.",
     "penalty": 1.0
   },
   "CAND_0029367": {
@@ -4263,21 +4263,21 @@
       "skills": {
         "score": 0.9797,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
+          "Lora",
           "Sentence-Transformers",
           "Bge",
-          "Vector Search",
-          "Bm25",
-          "Retrieval"
+          "Pinecone",
+          "Rag",
+          "Semantic Search",
+          "Elasticsearch",
+          "Faiss"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Tensorflow",
-          "Pytorch",
-          "Go"
+          "Go",
+          "Feature Engineering",
+          "Pytorch"
         ],
         "must_hit_count": 18,
         "assessment_score": 0.797
@@ -4296,7 +4296,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #88 with an overall match score of 14%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Sentence-Transformers. Also matched nice-to-have: Machine Learning, Mlflow, Tensorflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 77% recruiter response rate.",
+    "reasoning_long": "Ranked #88 with an overall match score of 14%. Matched 8 must-have JD skills: Lora, Sentence-Transformers, Bge, Pinecone. Also matched nice-to-have: Recommendation System, Tensorflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 77% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0007412": {
@@ -4312,20 +4312,20 @@
       "skills": {
         "score": 0.9558,
         "must_have_hits": [
-          "Ranking",
-          "Milvus",
-          "A/B Testing",
-          "Bm25",
           "Pinecone",
-          "Gpt",
           "Rag",
-          "Nlp"
+          "Gpt",
+          "Embeddings",
+          "Bm25",
+          "Nlp",
+          "A/B Testing",
+          "Ranking"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Go",
+          "Recommendation System",
           "Search Engine",
+          "Go",
+          "Scikit-Learn",
           "Feature Engineering"
         ],
         "must_hit_count": 9,
@@ -4345,7 +4345,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #89 with an overall match score of 13%. Matched 8 must-have JD skills: Ranking, Milvus, A/B Testing, Bm25. Also matched nice-to-have: Machine Learning, Pytorch, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 76% recruiter response rate.",
+    "reasoning_long": "Ranked #89 with an overall match score of 13%. Matched 8 must-have JD skills: Pinecone, Rag, Gpt, Embeddings. Also matched nice-to-have: Recommendation System, Search Engine, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 76% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0096172": {
@@ -4361,20 +4361,20 @@
       "skills": {
         "score": 0.85,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
+          "Fine-Tuning",
+          "Sentence Transformers",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Opensearch",
+          "Python"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
           "Feature Engineering",
-          "Recommendation System"
+          "Recommendation System",
+          "Machine Learning",
+          "Hugging Face"
         ],
         "must_hit_count": 19,
         "assessment_score": 0.0
@@ -4393,7 +4393,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #90 with an overall match score of 13%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Hugging Face, Machine Learning, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 65/100.",
+    "reasoning_long": "Ranked #90 with an overall match score of 13%. Moderate semantic overlap with the JD (score: 46%). Matched 8 must-have JD skills: A/B Testing, Bm25, Fine-Tuning, Sentence Transformers. Also matched nice-to-have: Feature Engineering, Recommendation System, Machine Learning. Career history shows sustained AI/ML product company experience. Platform signals: GitHub activity score 65/100.",
     "penalty": 1.0
   },
   "CAND_0050454": {
@@ -4409,21 +4409,21 @@
       "skills": {
         "score": 0.959,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
+          "Lora",
           "Sentence-Transformers",
           "Bge",
-          "Bm25",
-          "Retrieval",
-          "Lora"
+          "Semantic Search",
+          "Elasticsearch",
+          "Faiss",
+          "Qdrant",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
+          "Recommendation System",
           "Go",
+          "Scikit-Learn",
           "Feature Engineering",
-          "Scikit-Learn"
+          "Pytorch"
         ],
         "must_hit_count": 15,
         "assessment_score": 0.59
@@ -4442,7 +4442,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #91 with an overall match score of 13%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Sentence-Transformers. Also matched nice-to-have: Machine Learning, Pytorch, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 77% recruiter response rate.",
+    "reasoning_long": "Ranked #91 with an overall match score of 13%. Matched 8 must-have JD skills: Lora, Sentence-Transformers, Bge, Semantic Search. Also matched nice-to-have: Recommendation System, Go, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 77% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0076831": {
@@ -4458,21 +4458,21 @@
       "skills": {
         "score": 0.982,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Weaviate",
+          "Bm25",
+          "Fine-Tuning",
           "Semantic Search",
-          "Transformers",
-          "Nlp",
-          "Ranking",
           "Milvus",
-          "Fine-Tuning"
+          "Retrieval",
+          "Sentence-Transformers"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Pytorch",
-          "Mlflow",
           "Kafka",
-          "Feature Engineering"
+          "Go",
+          "Feature Engineering",
+          "Recommendation System",
+          "Pytorch"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.82
@@ -4491,7 +4491,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #92 with an overall match score of 12%. Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Transformers. Also matched nice-to-have: Machine Learning, Pytorch, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #92 with an overall match score of 12%. Matched 8 must-have JD skills: A/B Testing, Weaviate, Bm25, Fine-Tuning. Also matched nice-to-have: Kafka, Go, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0031593": {
@@ -4507,21 +4507,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Retrieval",
+          "A/B Testing",
+          "Bm25",
           "Gpt",
-          "Transformers",
+          "Pinecone",
+          "Retrieval",
           "Nlp",
           "Ranking",
-          "Elasticsearch",
-          "Embeddings",
-          "Rag"
+          "Transformers"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
-          "Java",
+          "Go",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Search Engine",
+          "Java"
         ],
         "must_hit_count": 11,
         "assessment_score": 0.0
@@ -4540,7 +4540,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #93 with an overall match score of 12%. Matched 8 must-have JD skills: Retrieval, Gpt, Transformers, Nlp. Also matched nice-to-have: Hugging Face, Machine Learning, Java. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #93 with an overall match score of 12%. Matched 8 must-have JD skills: A/B Testing, Bm25, Gpt, Pinecone. Also matched nice-to-have: Go, Feature Engineering, Recommendation System. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0011432": {
@@ -4556,21 +4556,21 @@
       "skills": {
         "score": 0.9573,
         "must_have_hits": [
-          "Ranking",
-          "Retrieval",
-          "Lora",
-          "Qlora",
-          "Llm",
-          "Peft",
           "Opensearch",
-          "Pinecone"
+          "Lora",
+          "Pinecone",
+          "Rag",
+          "Elasticsearch",
+          "Gpt",
+          "Embeddings",
+          "Peft"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Go",
           "Feature Engineering",
-          "Recommendation System"
+          "Machine Learning",
+          "Mlflow"
         ],
         "must_hit_count": 13,
         "assessment_score": 0.573
@@ -4589,7 +4589,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #94 with an overall match score of 12%. Matched 8 must-have JD skills: Ranking, Retrieval, Lora, Qlora. Also matched nice-to-have: Machine Learning, Mlflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
+    "reasoning_long": "Ranked #94 with an overall match score of 12%. Matched 8 must-have JD skills: Opensearch, Lora, Pinecone, Rag. Also matched nice-to-have: Recommendation System, Go, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles.",
     "penalty": 1.0
   },
   "CAND_0083879": {
@@ -4605,21 +4605,21 @@
       "skills": {
         "score": 0.9631,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
           "Sentence-Transformers",
-          "Milvus",
+          "Semantic Search",
+          "Faiss",
+          "Sentence Transformers",
           "Retrieval",
-          "Llm",
-          "Sentence Transformers"
+          "Fine-Tuning",
+          "Transformers",
+          "Nlp"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Search Engine",
-          "Feature Engineering",
-          "Scikit-Learn"
+          "Hugging Face",
+          "Scikit-Learn",
+          "Feature Engineering"
         ],
         "must_hit_count": 11,
         "assessment_score": 0.631
@@ -4638,7 +4638,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #95 with an overall match score of 11%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Sentence-Transformers. Also matched nice-to-have: Machine Learning, Mlflow, Search Engine. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
+    "reasoning_long": "Ranked #95 with an overall match score of 11%. Matched 8 must-have JD skills: Sentence-Transformers, Semantic Search, Faiss, Sentence Transformers. Also matched nice-to-have: Recommendation System, Search Engine, Hugging Face. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period.",
     "penalty": 1.0
   },
   "CAND_0061257": {
@@ -4654,18 +4654,18 @@
       "skills": {
         "score": 0.9695,
         "must_have_hits": [
-          "Ranking",
-          "Python",
-          "Retrieval",
+          "Information Retrieval",
           "Peft",
+          "Retrieval",
           "Ann",
-          "Information Retrieval"
+          "Python",
+          "Ranking"
         ],
         "nice_hits": [
-          "Machine Learning",
           "Product Company",
           "Go",
           "Feature Engineering",
+          "Machine Learning",
           "Data Pipeline"
         ],
         "must_hit_count": 6,
@@ -4685,7 +4685,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #96 with an overall match score of 11%. Matched 6 must-have JD skills: Ranking, Python, Retrieval, Peft. Also matched nice-to-have: Machine Learning, Product Company, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 87% recruiter response rate.",
+    "reasoning_long": "Ranked #96 with an overall match score of 11%. Matched 6 must-have JD skills: Information Retrieval, Peft, Retrieval, Ann. Also matched nice-to-have: Product Company, Go, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 30-day notice period, 87% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0069905": {
@@ -4701,21 +4701,21 @@
       "skills": {
         "score": 0.9713,
         "must_have_hits": [
-          "Semantic Search",
-          "Transformers",
-          "Ranking",
-          "Python",
+          "Lora",
           "Sentence-Transformers",
           "Bge",
-          "A/B Testing",
-          "Bm25"
+          "Weaviate",
+          "Pinecone",
+          "Rag",
+          "Semantic Search",
+          "Elasticsearch"
         ],
         "nice_hits": [
-          "Machine Learning",
+          "Recommendation System",
           "Tensorflow",
+          "Hugging Face",
           "Go",
-          "Feature Engineering",
-          "Hugging Face"
+          "Feature Engineering"
         ],
         "must_hit_count": 20,
         "assessment_score": 0.713
@@ -4734,7 +4734,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #97 with an overall match score of 11%. Matched 8 must-have JD skills: Semantic Search, Transformers, Ranking, Python. Also matched nice-to-have: Machine Learning, Tensorflow, Go. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
+    "reasoning_long": "Ranked #97 with an overall match score of 11%. Matched 8 must-have JD skills: Lora, Sentence-Transformers, Bge, Weaviate. Also matched nice-to-have: Recommendation System, Tensorflow, Hugging Face. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 78% recruiter response rate.",
     "penalty": 1.0
   },
   "CAND_0083307": {
@@ -4750,21 +4750,21 @@
       "skills": {
         "score": 0.9,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
-          "Semantic Search",
+          "A/B Testing",
+          "Vector Search",
+          "Weaviate",
+          "Bm25",
           "Gpt",
-          "Transformers",
-          "Nlp",
-          "Ranking",
-          "Elasticsearch"
+          "Lora",
+          "Peft",
+          "Semantic Search"
         ],
         "nice_hits": [
-          "Machine Learning",
-          "Mlflow",
+          "Go",
           "Scikit-Learn",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 22,
         "assessment_score": 0.0
@@ -4783,7 +4783,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #98 with an overall match score of 10%. Moderate semantic overlap with the JD (score: 40%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Gpt. Also matched nice-to-have: Machine Learning, Mlflow, Scikit-Learn. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 70% recruiter response rate, GitHub activity score 69/100.",
+    "reasoning_long": "Ranked #98 with an overall match score of 10%. Moderate semantic overlap with the JD (score: 40%). Matched 8 must-have JD skills: A/B Testing, Vector Search, Weaviate, Bm25. Also matched nice-to-have: Go, Scikit-Learn, Feature Engineering. Career history shows sustained AI/ML product company experience. Platform signals: actively open to new roles, 70% recruiter response rate, GitHub activity score 69/100.",
     "penalty": 1.0
   },
   "CAND_0057701": {
@@ -4799,21 +4799,21 @@
       "skills": {
         "score": 0.9718,
         "must_have_hits": [
-          "Sentence-Transformers",
-          "Retrieval",
+          "A/B Testing",
+          "Peft",
           "Semantic Search",
-          "Opensearch",
           "Qdrant",
-          "Transformers",
-          "Nlp",
-          "Ranking"
+          "Opensearch",
+          "Python",
+          "Milvus",
+          "Retrieval"
         ],
         "nice_hits": [
-          "Hugging Face",
-          "Machine Learning",
+          "Go",
           "Tensorflow",
           "Feature Engineering",
-          "Go"
+          "Recommendation System",
+          "Deep Learning"
         ],
         "must_hit_count": 14,
         "assessment_score": 0.718
@@ -4832,7 +4832,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #99 with an overall match score of 10%. Moderate semantic overlap with the JD (score: 58%). Matched 8 must-have JD skills: Sentence-Transformers, Retrieval, Semantic Search, Opensearch. Also matched nice-to-have: Hugging Face, Machine Learning, Tensorflow. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, GitHub activity score 65/100.",
+    "reasoning_long": "Ranked #99 with an overall match score of 10%. Moderate semantic overlap with the JD (score: 58%). Matched 8 must-have JD skills: A/B Testing, Peft, Semantic Search, Qdrant. Also matched nice-to-have: Go, Tensorflow, Feature Engineering. Career history has relevant AI/ML exposure with some product company experience. Platform signals: actively open to new roles, GitHub activity score 65/100.",
     "penalty": 1.0
   },
   "CAND_0015528": {
@@ -4848,20 +4848,20 @@
       "skills": {
         "score": 0.9655,
         "must_have_hits": [
-          "Ranking",
-          "A/B Testing",
-          "Retrieval",
-          "Lora",
           "Opensearch",
+          "Lora",
           "Weaviate",
+          "Information Retrieval",
           "Faiss",
+          "Embeddings",
+          "Retrieval",
           "Nlp"
         ],
         "nice_hits": [
-          "Docker",
-          "Machine Learning",
-          "Mlflow",
+          "Recommendation System",
           "Tensorflow",
+          "Docker",
+          "Deep Learning",
           "Feature Engineering"
         ],
         "must_hit_count": 10,
@@ -4881,7 +4881,7 @@
       }
     },
     "disqualifiers": [],
-    "reasoning_long": "Ranked #100 with an overall match score of 10%. Matched 8 must-have JD skills: Ranking, A/B Testing, Retrieval, Lora. Also matched nice-to-have: Docker, Machine Learning, Mlflow. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
+    "reasoning_long": "Ranked #100 with an overall match score of 10%. Matched 8 must-have JD skills: Opensearch, Lora, Weaviate, Information Retrieval. Also matched nice-to-have: Recommendation System, Tensorflow, Docker. Career history shows sustained AI/ML product company experience. Platform signals: 30-day notice period.",
     "penalty": 1.0
   }
 }
