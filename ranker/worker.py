@@ -15,6 +15,7 @@ import time
 import logging
 import traceback
 import pickle
+import redis
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SCRIPT_DIR)
@@ -111,6 +112,13 @@ def main():
         except KeyboardInterrupt:
             log.info("Worker shutting down...")
             break
+        except (redis.exceptions.TimeoutError, redis.exceptions.ConnectionError) as e:
+            # Silence expected socket timeouts from cloud Redis while blocking on an empty queue
+            if "Timeout reading from socket" in str(e):
+                # Simply loop again without delay
+                continue
+            log.warning(f"Redis connection issue: {e}. Retrying in 3s...")
+            time.sleep(3)
         except Exception as e:
             log.error(f"Worker queue error: {e}")
             time.sleep(2)
