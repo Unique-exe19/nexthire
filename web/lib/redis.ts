@@ -12,3 +12,8 @@ export const redis = globalForRedis.redis ?? new Redis(REDIS_URL, {
 if (process.env.NODE_ENV !== 'production') {
   globalForRedis.redis = redis;
 }
+
+// Catch connection errors gracefully to prevent Unhandled Error event crashes
+redis.on('error', (err) => {
+  // Silent warning since circuit breaker fallback is automatically handling it
+});
