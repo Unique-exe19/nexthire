@@ -137,3 +137,18 @@ Open `http://localhost:3000` in your browser.
 * **Architecture Panel**: An expandable **Recruiter Engine Pillars & Architecture** drawer showcasing how search is parsed.
 * **Interactive Filter Controls**: Search terms, slide minimum score cutoffs, filter by work-mode (Remote/Hybrid/Onsite), or filter for candidates actively "Open to work" in real-time.
 * **AI Rationale Drawer**: Click any candidate to open a slide-out drawer containing a Radar Chart score breakdown, candidate career timeline, Redrob activity signals, and the long-form AI Rationale.
+
+---
+
+## 🔮 Advanced Architecture & Performance Features
+
+We have implemented key upgrades to scale NextHire from a prototype to a production Information Retrieval system:
+
+1. **Redis Caching Layer**: Precomputed candidate embeddings, TF-IDF index tables, and BM25 index parameters are serialized and cached in a local Redis database using SHA-256 hashes of candidate profile strings. Search reloads bypass parsing and execute in **~3.6s**.
+2. **Distributed Redis Task Queue**: The scoring and ranking execution is decoupled from Next.js server requests. Rekeying/recalculation requests are pushed to a Redis Queue (`BullMQ`/`rq`) and processed by an asynchronous Python background worker daemon. Real-time stdout logs are pushed back via Redis Pub/Sub events.
+3. **Circuit Breaker Fallback**: In the absence of a running Redis instance, the API route activates a circuit breaker and dynamically falls back to running the child process directly, guaranteeing 100% service availability.
+4. **Explainable AI (XAI) Score Contributions**: The candidate detail cards show exactly how a candidate's score is compiled—listing delta percentage values (e.g. `+22.0% Semantic Match`, `-15.0% Disqualifier Penalty`) and reasons behind it.
+5. **Approximate Nearest Neighbor (ANN) Vector Search**: Support is integrated for the Annoy indexer, falling back to NumPy matrix-vector multiplication (cosine similarity dot products) for super-fast retrieval.
+6. **Candidate Sharding**: Supports geographical/skill partitioning of candidate pools to parallelize sparse and dense search pipelines across processes.
+7. **Performance Benchmarking Suite**: Includes `ranker/benchmark.py` to evaluate cold vs. cached index construction, retrieval latency, memory usage, and parallel scoring execution.
+

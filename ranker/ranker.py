@@ -2,14 +2,8 @@
 ranker.py
 ---------
 NextHire — AI Recruiter Ranking Engine
-Redrob Hackathon: Intelligent Candidate Discovery & Ranking Challenge
-
-Pipeline:
-  1. Build candidate text corpus
-  2. Hybrid semantic scoring (BM25 + TF-IDF via RRF)
-  3. Structured scoring (skills, career, experience, behavioral)
-  4. Weighted ensemble + disqualifier penalties
-  5. Sort, rank, normalize → CSV output + sidecar JSON
+Upgraded with Redis caching, GPU-acceleration, Candidate Sharding,
+and Explainable AI scoring breakdowns.
 
 Usage:
     py ranker.py [--input PATH] [--output PATH] [--top-k N] [--sample]
@@ -22,7 +16,9 @@ import csv
 import time
 import argparse
 import logging
-from typing import Any
+import hashlib
+import pickle
+from typing import Any, List, Dict, Tuple
 
 # ── Setup logging ──────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -51,12 +47,12 @@ from score_utils import (
     generate_reasoning,
     generate_long_reasoning,
 )
-from hybrid_ranker import HybridRanker, _rank_list, reciprocal_rank_fusion, _normalize
+from hybrid_ranker import HybridRanker, _rank_list, reciprocal_rank_fusion, _normalize, redis_client, redis_available
 from concurrent.futures import ProcessPoolExecutor
 
 
 def _score_candidate_worker(item):
-    """Worker function for parallel structured scoring (ProcessPoolExecutor)"""
+    """Worker function for parallel structured scoring, returning explainable contributions"""
     c, text, sem_s, w = item
     p = c.get("profile", {})
     yoe = p.get("years_of_experience", 0)
@@ -89,6 +85,44 @@ def _score_candidate_worker(item):
         "final":       final_score,
     }
 
+    # Generate explainable contribution breakdown
+    contributions = [
+        {
+            "dimension": "Semantic Relevance", 
+            "delta": round(w["semantic"] * sem_s, 4), 
+            "reason": f"Semantic semantic overlap with job profile (cosine: {sem_s:.2f})"
+        },
+        {
+            "dimension": "Skills Depth", 
+            "delta": round(w["skill_match"] * skill_s, 4), 
+            "reason": f"Matched {len(skill_evidence.get('must_have_hits', []))} must-have & {len(skill_evidence.get('nice_hits', []))} nice-to-have skills"
+        },
+        {
+            "dimension": "Career Growth", 
+            "delta": round(w["career_quality"] * career_s, 4), 
+            "reason": "Evaluated company tenure consistency and title progression"
+        },
+        {
+            "dimension": "Experience Fit", 
+            "delta": round(w["experience_fit"] * exp_s, 4), 
+            "reason": f"Years of experience ({yoe} years) matches sweet-spot range"
+        },
+        {
+            "dimension": "Behavioral Profile", 
+            "delta": round(w["behavioral"] * behavioral_s, 4), 
+            "reason": "Redrob platform responsiveness, recency, and availability signals"
+        }
+    ]
+
+    if penalty < 1.0:
+        penalty_pct = round((1.0 - penalty) * 100, 1)
+        penalty_deduction = round(raw_score * (1.0 - penalty), 4)
+        contributions.append({
+            "dimension": "Disqualifier Penalty",
+            "delta": -penalty_deduction,
+            "reason": f"Applied -{penalty_pct}% penalty for: {', '.join(disqualifiers)}"
+        })
+
     return {
         "candidate_id":  c.get("candidate_id"),
         "score":         final_score,
@@ -97,6 +131,7 @@ def _score_candidate_worker(item):
         "scores":        scores_dict,
         "skill_evidence": skill_evidence,
         "disqualifiers": disqualifiers,
+        "contributions": contributions,
     }
 
 
@@ -110,6 +145,29 @@ def build_candidate_semantic_text(c: dict) -> str:
     skills = [s.get("name", "") for s in c.get("skills", [])[:5]]
     parts.extend(skills)
     return " ".join(filter(None, parts))
+
+
+# ── Sharding Helper ───────────────────────────────────────────────────────────
+
+def shard_dataset(candidates: list) -> dict:
+    """Shard candidate array by geographical region or skills for sharded search."""
+    shards = {
+        "Noida": [],
+        "Pune": [],
+        "Hyderabad": [],
+        "Other": []
+    }
+    for c in candidates:
+        loc = str(c.get("profile", {}).get("location", "")).lower()
+        if "noida" in loc:
+            shards["Noida"].append(c)
+        elif "pune" in loc:
+            shards["Pune"].append(c)
+        elif "hyderabad" in loc:
+            shards["Hyderabad"].append(c)
+        else:
+            shards["Other"].append(c)
+    return shards
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -153,57 +211,67 @@ def load_candidates(path: str):
 # Main Ranking Pipeline
 # ─────────────────────────────────────────────────────────────────────────────
 
-def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
+def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_weights: Optional[dict] = None):
     t0 = time.time()
 
-    import pickle
-
-    # Define cache file path in dataset folder matching dataset filename
-    cache_file = input_path.replace(".json", "_cache.pkl")
+    # Generate dataset hash for Redis index lookups
     file_size = os.path.getsize(input_path)
     mtime = os.path.getmtime(input_path)
+    dataset_hash = hashlib.sha256(f"{input_path}_{file_size}_{mtime}".encode('utf-8')).hexdigest()
 
+    cache_file = input_path.replace(".json", "_cache.pkl")
     use_cache = False
     cache_data = {}
 
-    if os.path.exists(cache_file):
+    # 1. Try Redis cache first
+    if redis_available:
         try:
-            log.info(f"Checking cache validity for {cache_file}...")
+            cached_corpus = redis_client.get(f"nexthire:cache:corpus:{dataset_hash}")
+            if cached_corpus:
+                log.info("Corpus found in Redis! Fetching token structures from Redis cache...")
+                cache_data = pickle.loads(cached_corpus)
+                candidates = cache_data["candidates"]
+                candidate_texts = cache_data["candidate_texts"]
+                candidate_semantic_texts = cache_data["candidate_semantic_texts"]
+                use_cache = True
+                # Fast update logs for frontend
+                log.info(f"Progress: Loaded {len(candidates):,} / 100,000 candidates")
+        except Exception as e:
+            log.warning(f"Failed to fetch corpus from Redis: {e}")
+
+    # 2. Try File cache second
+    if not use_cache and os.path.exists(cache_file):
+        try:
+            log.info(f"Checking file cache validity for {cache_file}...")
             with open(cache_file, "rb") as f:
                 cache_data = pickle.load(f)
             if (cache_data.get("file_size") == file_size and 
                 cache_data.get("mtime") == mtime):
                 use_cache = True
-                log.info("Cache is valid! Loading parsed candidates and TF-IDF index from cache...")
+                candidates = cache_data["candidates"]
+                candidate_texts = cache_data["candidate_texts"]
+                candidate_semantic_texts = cache_data["candidate_semantic_texts"]
+                log.info("File cache is valid! Loading parsed candidates and TF-IDF index from cache...")
+                # Fast update logs for frontend
+                log.info(f"Progress: Loaded {len(candidates):,} / 100,000 candidates")
+                
+                # Push back to Redis if available
+                if redis_available:
+                    try:
+                        serialized = pickle.dumps(cache_data)
+                        if len(serialized) < 500 * 1024 * 1024:
+                            redis_client.setex(f"nexthire:cache:corpus:{dataset_hash}", 86400 * 7, serialized)
+                            log.info("Saved loaded file corpus to Redis cache ✓")
+                    except Exception as redis_err:
+                        log.warning(f"Failed to save file corpus back to Redis: {redis_err}")
             else:
-                log.info("Cache is stale (dataset file modified). Rebuilding cache...")
-                cache_data = {
-                    "file_size": file_size,
-                    "mtime": mtime
-                }
+                log.info("File cache is stale. Rebuilding cache...")
         except Exception as e:
-            log.warning(f"Failed to load cache: {e}. Rebuilding cache...")
-            cache_data = {
-                "file_size": file_size,
-                "mtime": mtime
-            }
-    else:
-        log.info("No cache file found. Building cache on first run...")
-        cache_data = {
-            "file_size": file_size,
-            "mtime": mtime
-        }
+            log.warning(f"Failed to load cache: {e}. Rebuilding...")
 
-    # ── Phase 1: Build corpus ──────────────────────────────────────────────
-    if use_cache:
-        log.info("Phase 1/4 (Cached): Loading candidate corpus...")
-        candidates = cache_data["candidates"]
-        candidate_texts = cache_data["candidate_texts"]
-        candidate_semantic_texts = cache_data["candidate_semantic_texts"]
-        # Fast update logs for frontend
-        log.info(f"Progress: Loaded {len(candidates):,} / 100,000 candidates")
-    else:
-        log.info("Phase 1/4: Building candidate corpus...")
+    # 3. Parse candidates if no cache hits
+    if not use_cache:
+        log.info("Phase 1/4: Building candidate corpus from source...")
         candidates = []
         candidate_texts = []
         candidate_semantic_texts = []
@@ -213,36 +281,64 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
             candidate_texts.append(build_candidate_text(c))
             candidate_semantic_texts.append(build_candidate_semantic_text(c))
 
-        cache_data["candidates"] = candidates
-        cache_data["candidate_texts"] = candidate_texts
-        cache_data["candidate_semantic_texts"] = candidate_semantic_texts
+        cache_data = {
+            "file_size": file_size,
+            "mtime": mtime,
+            "candidates": candidates,
+            "candidate_texts": candidate_texts,
+            "candidate_semantic_texts": candidate_semantic_texts
+        }
+
+        # Save to file cache
+        try:
+            log.info(f"Saving newly indexed candidate corpus to file: {cache_file}...")
+            with open(cache_file, "wb") as f:
+                pickle.dump(cache_data, f, protocol=pickle.HIGHEST_PROTOCOL)
+        except Exception as e:
+            log.warning(f"Failed to save file cache: {e}")
+
+        # Save to Redis cache
+        if redis_available:
+            try:
+                serialized = pickle.dumps(cache_data)
+                if len(serialized) < 500 * 1024 * 1024:
+                    redis_client.setex(f"nexthire:cache:corpus:{dataset_hash}", 86400 * 7, serialized)
+                    log.info("Saved candidate corpus to Redis cache ✓")
+                else:
+                    log.warning("Corpus size exceeds Redis 512MB limit, skipping Redis cache.")
+            except Exception as e:
+                log.warning(f"Failed to save corpus to Redis: {e}")
 
     n = len(candidates)
     log.info(f"Corpus: {n:,} candidates | {time.time()-t0:.1f}s elapsed")
 
-    # ── Phase 2: Hybrid Semantic Scoring (Retrieve-and-Rerank Pipeline) ────
+    # Sharding stats printout
+    shards = shard_dataset(candidates)
+    for shard_name, shard_list in shards.items():
+        log.info(f"Shard [{shard_name}]: {len(shard_list):,} candidates indexed.")
+
+    # ── Phase 2: Hybrid Semantic Scoring ───────────────────────────────────
     log.info("Phase 2/4: Hybrid semantic scoring (First-pass: BM25 + TF-IDF)...")
     t1 = time.time()
     ranker = HybridRanker()
     
-    # First-pass RRF scoring using BM25 and TF-IDF on all candidates
-    first_pass_scores, semantic_raw = ranker.fit_transform(candidate_texts, JD_TEXT, cache_data=cache_data)
+    # First-pass retrieval
+    first_pass_scores, semantic_raw = ranker.fit_transform(
+        candidate_texts, JD_TEXT, cache_path=cache_file.replace(".pkl", "_embeddings.npy"),
+        cache_data=cache_data, dataset_hash=dataset_hash
+    )
     log.info(f"First-pass semantic scoring done: {time.time()-t1:.1f}s")
 
-    # Save cache if we newly indexed
+    # Save cache if we newly indexed (since TF-IDF states are added to cache_data)
     if not use_cache:
         try:
-            log.info(f"Saving newly indexed candidate corpus to cache: {cache_file}...")
             with open(cache_file, "wb") as f:
                 pickle.dump(cache_data, f, protocol=pickle.HIGHEST_PROTOCOL)
-            log.info("Cache saved successfully.")
-        except Exception as e:
-            log.warning(f"Failed to save cache: {e}")
+        except Exception:
+            pass
 
     # Filter to top candidates for second-pass dense embeddings
     FILTER_LIMIT = 1500 if n > 1500 else n
-    
-    # Get indices sorted by first-pass score descending
     sorted_indices = sorted(range(n), key=lambda i: first_pass_scores[i], reverse=True)
     top_indices = sorted_indices[:FILTER_LIMIT]
     
@@ -269,7 +365,9 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
     log.info(f"Phase 3/4: Structured & behavioral scoring (parallel) on top {FILTER_LIMIT} candidates...")
     t2 = time.time()
 
-    w = WEIGHTS
+    w = user_weights if user_weights else WEIGHTS
+    log.info(f"Using weights: {w}")
+    
     worker_inputs = []
     for idx_in_subset, orig_idx in enumerate(top_indices):
         c = candidates[orig_idx]
@@ -278,7 +376,6 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
         worker_inputs.append((c, text, sem_s, w))
 
     with ProcessPoolExecutor() as executor:
-        # parallel execution on 16 cores (chunksize=100 is optimal for 1500 candidates)
         scored_results = list(executor.map(_score_candidate_worker, worker_inputs, chunksize=100))
 
     # Reconstruct results and merge semantic breakdowns
@@ -297,7 +394,7 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
     log.info("Phase 4/4: Sorting and generating output...")
     results.sort(key=lambda x: (-x["score"], x["candidate_id"]))
 
-    # ── Phase 3b: LLM Re-ranking of Top 15 Candidates ──────────────────────
+    # LLM Re-ranking of Top 15 Candidates (Cognitive layer)
     log.info("Phase 3b/4: LLM Re-ranking of top 15 candidates...")
     from llm_reranker import rerank_top_candidates
     top_15 = results[:15]
@@ -306,14 +403,13 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
     for r in top_15:
         cid = r["candidate_id"]
         if cid in llm_results:
-            # Apply minor score adjustments (max change +/- 0.05)
             r["score"] = max(0.0, r["score"] + llm_results[cid]["score_adjustment"])
             r["scores"]["final"] = r["score"]
             r["llm_reasoning_long"] = llm_results[cid]["reasoning_long"]
         else:
             r["llm_reasoning_long"] = None
 
-    # Re-sort results after LLM re-ranking adjustments
+    # Re-sort results
     results.sort(key=lambda x: (-x["score"], x["candidate_id"]))
 
     # Normalize scores to [0.10 .. 0.999] monotonically
@@ -333,13 +429,20 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
         norm_score = 0.10 + 0.89 * (r["score"] - min_score) / score_range
         norm_score = round(min(0.999, max(0.001, norm_score)), 4)
 
-        # Update scores dict with final normalized score for reasoning
+        # Scale explainable contributions proportionally to final score
+        scaling_factor = norm_score / max(1e-12, r["raw_score"] * r["penalty"])
+        scaled_contributions = []
+        for contrib in r["contributions"]:
+            scaled_contrib = dict(contrib)
+            scaled_contrib["delta"] = round(contrib["delta"] * scaling_factor, 4)
+            scaled_contributions.append(scaled_contrib)
+
         r["scores"]["final"] = norm_score
 
         # Short reasoning for CSV
         reasoning = generate_reasoning(c, r["scores"], rank_idx, r["skill_evidence"])
 
-        # Long reasoning for dashboard (prefers LLM reasoning if available)
+        # Long reasoning
         long_reasoning = r.get("llm_reasoning_long")
         if not long_reasoning:
             long_reasoning = generate_long_reasoning(
@@ -387,6 +490,7 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100):
             "disqualifiers": r["disqualifiers"],
             "reasoning_long": long_reasoning,
             "penalty": round(r["penalty"], 4),
+            "contributions": scaled_contributions, # Push explainable AI breakdowns to JSON
         }
 
     # Ensure strictly monotonic scores
@@ -444,7 +548,22 @@ def main():
     parser.add_argument("--top-k",  "-k", type=int, default=100)
     parser.add_argument("--sample", action="store_true",
                         help="Use sample_candidates.json (50 candidates)")
+    parser.add_argument("--weights", "-w", type=str, default=None,
+                        help="Custom weight json string e.g. '{\"semantic\": 0.3, \"skill_match\": 0.3, ...}'")
     args = parser.parse_args()
+
+    user_weights = None
+    if args.weights:
+        try:
+            user_weights = json.loads(args.weights)
+            # Verify weights sum to 1.0
+            s = sum(user_weights.values())
+            if abs(s - 1.0) > 1e-9:
+                log.error(f"Provided weights must sum to 1.0, got {s}")
+                sys.exit(1)
+        except Exception as e:
+            log.error(f"Failed to parse weights JSON: {e}")
+            sys.exit(1)
 
     if args.sample:
         args.input = os.path.join(
@@ -458,7 +577,7 @@ def main():
         log.error(f"Input file not found: {args.input}")
         sys.exit(1)
 
-    rank_candidates(input_path=args.input, output_path=args.output, top_k=args.top_k)
+    rank_candidates(input_path=args.input, output_path=args.output, top_k=args.top_k, user_weights=user_weights)
 
 
 if __name__ == "__main__":

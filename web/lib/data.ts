@@ -239,6 +239,7 @@ export async function getRankedCandidates(): Promise<RankedCandidate[]> {
       disqualifiers:   sidecar?.disqualifiers ?? [],
       dimensions:      dims,
       penalty:         sidecar?.penalty,
+      contributions:   sidecar?.contributions ?? [],
 
       // Profile data
       name:               profile?.profile.anonymized_name,

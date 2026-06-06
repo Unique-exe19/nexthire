@@ -104,6 +104,11 @@ export interface RankedCandidate {
 
   // Legacy (for backward compat)
   scoreBreakdown?: ScoreBreakdown;
+  contributions?: {
+    dimension: string;
+    delta: number;
+    reason: string;
+  }[];
 }
 
 export type WorkMode = 'all' | 'remote' | 'hybrid' | 'onsite' | 'flexible';

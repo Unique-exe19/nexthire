@@ -860,9 +860,12 @@ export default function HomePage() {
     setLoadedCount(0);
     setIndexedCount(0);
     setScoredCount(0);
-    
     try {
-      const response = await fetch('/api/recalculate', { method: 'POST' });
+      const response = await fetch('/api/recalculate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ weights: normalizedWeights })
+      });
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
       }

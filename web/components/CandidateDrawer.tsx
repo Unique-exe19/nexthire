@@ -469,6 +469,58 @@ export function CandidateDrawer({ candidate, onClose }: CandidateDrawerProps) {
                 </div>
               )}
 
+              {/* Explainable AI Score Contributions */}
+              {candidate.contributions && candidate.contributions.length > 0 && (
+                <div style={{ marginBottom: 20 }}>
+                  <SectionHeader title="Explainable AI Score Contributions" />
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    {candidate.contributions.map((contrib, i) => {
+                      const isPositive = contrib.delta >= 0;
+                      const deltaColor = isPositive ? '#10b981' : '#f43f5e';
+                      const deltaText = isPositive ? `+${(contrib.delta * 100).toFixed(1)}%` : `${(contrib.delta * 100).toFixed(1)}%`;
+                      return (
+                        <div
+                          key={i}
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '10px 14px',
+                            background: 'rgba(255,255,255,0.02)',
+                            border: '1px solid rgba(255,255,255,0.04)',
+                            borderRadius: '10px',
+                            gap: '12px'
+                          }}
+                        >
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#ffffff', marginBottom: '2px' }}>
+                              {contrib.dimension}
+                            </div>
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                              {contrib.reason}
+                            </div>
+                          </div>
+                          <div style={{
+                            fontSize: '0.8rem',
+                            fontWeight: 700,
+                            color: deltaColor,
+                            fontFamily: 'JetBrains Mono, monospace',
+                            background: isPositive ? 'rgba(16,185,129,0.08)' : 'rgba(244,63,94,0.08)',
+                            border: `1px solid ${isPositive ? 'rgba(16,185,129,0.2)' : 'rgba(244,63,94,0.2)'}`,
+                            padding: '4px 8px',
+                            borderRadius: '6px',
+                            whiteSpace: 'nowrap'
+                          }}>
+                            {deltaText}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+
               {/* Matched JD Skills */}
               {hasSidecar && dims!.skills.must_have_hits.length > 0 && (
                 <div style={{ marginBottom: 20 }}>
