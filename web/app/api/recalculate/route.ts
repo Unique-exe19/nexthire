@@ -59,8 +59,10 @@ export async function POST(request: Request) {
 
       if (redisWorking) {
         try {
-          // Subscribe to job Pub/Sub channel
           redisSub = redis.duplicate();
+          redisSub.on('error', (err: any) => {
+            // Catch subscription connection failures safely
+          });
           await redisSub.connect();
 
           redisSub.on('message', (channel: string, message: string) => {

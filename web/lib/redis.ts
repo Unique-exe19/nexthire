@@ -6,7 +6,13 @@ const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
 const globalForRedis = global as unknown as { redis: Redis | undefined };
 
 export const redis = globalForRedis.redis ?? new Redis(REDIS_URL, {
-  maxRetriesPerRequest: null, // Essential for BullMQ and queue tasks
+  maxRetriesPerRequest: null, 
+  enableOfflineQueue: false, // Reject command execution immediately if connection is closed
+  connectTimeout: 1000,      // Fail connection quickly if host is offline
+  retryStrategy(times) {
+    if (times > 2) return null; // Stop retrying connection after 2 failures to let commands reject fast
+    return 1000;
+  }
 });
 
 if (process.env.NODE_ENV !== 'production') {

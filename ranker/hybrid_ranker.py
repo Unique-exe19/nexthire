@@ -26,22 +26,19 @@ BM25_B  = 0.75  # length normalization
 
 # ── Redis Client Initialization ──────────────────────────────────────────────
 import redis
+from dotenv import load_dotenv
 
-REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
-REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD", None)
+# Load environment configurations
+load_dotenv(os.path.join(os.path.dirname(__file__), "..", "web", ".env"))
+load_dotenv()
+
+REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
 
 try:
-    redis_client = redis.Redis(
-        host=REDIS_HOST,
-        port=REDIS_PORT,
-        password=REDIS_PASSWORD,
-        db=0,
-        decode_responses=False
-    )
+    redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=False)
     redis_client.ping()
     redis_available = True
-    log.info(f"Connected to Redis at {REDIS_HOST}:{REDIS_PORT} ✓")
+    log.info("Connected to Redis via REDIS_URL client connection ✓")
 except Exception as e:
     redis_available = False
     redis_client = None
