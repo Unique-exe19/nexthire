@@ -1,215 +1,304 @@
-# NextHire Presentation Blueprint: AI Recruiter Ranking Engine & Dashboard
+---
+marp: true
+theme: gaia
+_class: lead
+paginate: true
+backgroundColor: #000000
+color: #ffffff
+---
 
-This document provides a slide-by-slide guide to help you build your presentation (PPT). Each slide corresponds directly to the details of the **NextHire** codebase and architecture.
+# **NextHire: AI Recruiter Discovery & Ranking Engine**
+### **Hackathon Presentation Blueprint**
+*A High-Performance Two-Stage Hybrid Retrieval & Multi-Core Re-Ranking System*
+
+Presenter: [Your Name]
+Repository: [NextHire Link](file:///d:/project/nexthire)
 
 ---
 
-## 📺 Slide 1: Title Slide
-* **Slide Title**: NextHire: Enterprise-Grade AI Recruiter Discovery & Ranking Engine
-* **Subtitle**: High-Performance Two-Stage Hybrid Retrieval & Multi-Core Re-Ranking Dashboard
-* **Visual Ideas**: Sleek dark background, minimalist typography, NextHire logo graphic (monochrome/pure black developer aesthetic).
-* **Presenter Notes**:
-  * Welcome everyone. Today we are presenting NextHire, a high-performance system designed for the Redrob Hackathon: AI Recruiter Challenge.
-  * NextHire scales to process over 100,000 candidates against a target Job Description in seconds, delivering explainable metrics and a premium, zero-latency dashboard.
+## **Slide 1: Executive Summary & Project Goal**
+
+* **Slide Goal**: Define the problem statement and the core value proposition of NextHire.
+* **Key Visual**:
+  ```text
+  PROBLEM: Processing 100,000 resumes manually is impossible.
+  Traditional search is keyword-rigid. LLM scoring is too expensive.
+  
+  SOLUTION: NextHire Hybrid Discovery Engine
+  [100,000 Candidates] ➔ (Fast Inverted Search) ➔ [1,500 Fit] ➔ (CPU Parallel Rubric) ➔ [15 LLM Finalists]
+  ```
+
+### **Slide Content**
+* **The Scale Challenge**: Sifting through a massive pool of **100,000+ candidates (487MB corpus)** to hire a *Senior AI/ML Engineer*.
+* **The Hybrid Solution**: Blends millisecond-level sparse retrieval (BM25 + TF-IDF) with context-aware dense vector matching.
+* **The Recruiter Console**: A premium, pure-black monochrome dashboard built on Next.js 15 for real-time weights tuning, interactive metric sorting, and zero-latency analysis.
+
+> **Presenter Script**: 
+> "Good morning/afternoon everyone. Today, I'm excited to present NextHire. Sifting through 100,000 profiles for a highly specialized role like a Senior AI/ML Engineer is a massive challenge. Traditional keyword searches miss qualified candidates, while sending all 100,000 resumes to an LLM would cost thousands of dollars and take hours. NextHire solves this with a high-speed, two-stage hybrid pipeline and a gorgeous, zero-latency recruiter console."
 
 ---
 
-## 📺 Slide 2: Solution Overview (What is it?)
-* **Slide Title**: Solution Overview: Two-Stage Retrieve-and-Rerank
-* **Core Concepts**:
-  * **Unified Architecture**: Merges a fast Python candidate scoring backend with a Next.js App Router recruiter console.
-  * **Hybrid Discovery Engine**: Fuses exact keyword matching (sparse) with deep contextual semantic matching (dense).
-  * **Cognitive Reranking Layer**: Leverages LLMs (Google Gemini API) to perform final qualitative adjustments ($\pm 0.05$) and write detailed rationales for finalist candidates.
-  * **Explainable AI (XAI)**: Breaks down candidate scores into explicit, readable dimension percentages directly on the recruiter UI.
-* **Bullet Points**:
-  * **Two-Stage Pipeline**: Filters 100K candidates to 1,500 using fast sparse index retrieval, then runs CPU-heavy structured scoring.
-  * **Asynchronous Queueing**: Decouples search execution via a Redis job list, streaming stdout logs via Pub/Sub.
-  * **Zero-Latency Dashboard**: Pure black developer theme with real-time weights tuning, interactive radar charts, and candidate timeline logs.
+## **Slide 2: System Architecture & Data Flow**
+
+* **Slide Goal**: High-level mapping of how the system processes data from raw JD text to dashboard visualization.
+* **Visual Diagram**:
+
+  ```text
+    ┌─────────────────────────┐
+    │   Job Description Text  │
+    └────────────┬────────────┘
+                 │
+                 ▼
+    ┌─────────────────────────────────────────────────────────────────────────┐
+    │                       Stage 1: Sparse & Dense Retrieval                  │
+    │     - BM25 Okapi & TF-IDF (Custom Inverted Indices)                     │
+    │     - Dense Cosine Similarity (all-MiniLM-L6-v2)                        │
+    │     - Reciprocal Rank Fusion (RRF) ➔ Trims 100,000 to 1,500 candidates  │
+    └────────────┬────────────────────────────────────────────────────────────┘
+                 │
+                 ▼
+    ┌─────────────────────────────────────────────────────────────────────────┐
+    │                       Stage 2: Parallel Scoring Rubric                  │
+    │     - Multi-Core workers (ProcessPoolExecutor)                          │
+    │     - Calculates: Skills Depth, Career Quality, YoE Fit, Behaviour      │
+    │     - Applies: Keyword-Trap, Consulting, Job-Hopping, Salary penalties │
+    └────────────┬────────────────────────────────────────────────────────────┘
+                 │
+                 ▼
+    ┌─────────────────────────────────────────────────────────────────────────┐
+    │                       Stage 3: LLM Cognitive Reranking                  │
+    │     - Google Gemini 2.0 API (Processes top 15 finalists)                │
+    │     - Generates explainable long rationales & minor adjustments         │
+    └────────────┬────────────────────────────────────────────────────────────┘
+                 │
+                 ▼
+    ┌────────────────────────────────────────────────────────┐
+    │ Outputs: submission.csv & submission_debug.json        │
+    │ Frontend: Next.js API & Monochrome Recruiter Dashboard  │
+    └────────────────────────────────────────────────────────┘
+  ```
+
+### **Presenter Script**:
+> "Here is our complete architecture. We start with the raw Job Description text. We stream candidates line-by-line using Python generators. We first perform BM25, TF-IDF, and Dense Vector searches, merging them via Reciprocal Rank Fusion (RRF) to filter the pool to 1,500. Next, we run parallel structured evaluation. Finally, the top 15 candidates are sent to the Google Gemini API for qualitative re-ranking and long rationales. The output is saved and instantly visualised in our Next.js dashboard."
 
 ---
 
-## 📺 Slide 3: Solution Differentiation (How we differ?)
-* **Slide Title**: Key Differentiators from Traditional Systems
-* **Comparison Table**:
+## **Slide 3: Stage 1 - Inverted Indices & Synonym Graphs**
 
-| Feature | Traditional Systems | NextHire Engine |
-| :--- | :--- | :--- |
-| **Search Paradigm** | Simple keyword lookup | **Hybrid (BM25 + TF-IDF + Dense Vector Search)** |
-| **Vocabulary Gap** | Misses fits due to different words | **Skill Synonym Expansion Graph** (e.g. `React` $\leftrightarrow$ `Next.js`) |
-| **Experience Fit** | Flat linear years cutoff | **Bell-Curve Fit Function** (Sweet-spot peak at 5-9 YoE) |
-| **Integrity Checks** | Susceptible to keyword stuffing | **Keyword-Trap & Job-Hopper Penalty Multipliers** |
-| **Explainability** | Black-box ranking score | **Explainable AI (XAI)** dimensional score delta breakdown |
-| **Performance** | O(N) linear scans | **Inverted Index Sparse Lookup + Redis Caching** |
+* **Slide Goal**: Explain the performance optimization behind sparse retrieval.
+* **Key Visual**:
+  ```text
+  [Query: "React"] ➔ Synonym Lookup ➔ [React, Next.js, Frontend, TS, JS]
+  
+  Inverted Index:
+  "vector search" ➔ Doc 12, Doc 104, Doc 1230... (Scores computed instantly)
+  ```
 
----
+### **Slide Content**
+* **Custom Inverted Indexing**: Avoids expensive linear scans. Instead of evaluating 100,000 profiles one-by-one, candidate profiles are indexed so lookups happen instantly for matching terms.
+* **Synonym Expansion Graph**: Maps overlapping tech stacks (e.g. `react` $\leftrightarrow$ `next.js` $\leftrightarrow$ `typescript` or `pytorch` $\leftrightarrow$ `deep learning` $\leftrightarrow$ `tensor`). Prevents losing strong candidates due to resume phrasing variations.
+* **Algorithmic Logic**: Implemented in [hybrid_ranker.py](file:///d:/project/nexthire/ranker/hybrid_ranker.py).
+  * **BM25-Okapi**: Uses pure Python class `BM25OkapiPure` with token-frequency saturation ($k_1=1.5$) and length normalization ($b=0.75$).
+  * **TF-IDF**: Fallback sparse inverted index model paired with scikit-learn's `TfidfVectorizer` (sublinear term frequency scaling).
 
-## 📺 Slide 4: Job Description (JD) Understanding
-* **Slide Title**: JD Understanding: Senior AI/ML Engineer
-* **Core Requirements Extracted**:
-  * **Target Seniority**: 5–9 Years of Experience (the system's peak score sweet-spot).
-  * **Must-Have Core Skills**: Embeddings (BGE/E5), Vector Search (FAISS/HNSW), Vector Databases (Pinecone/Weaviate/Milvus/Elasticsearch), NLP/IR (BM25/Ranking/Retrieval), LLM Tuning (LoRA/QLoRA/PEFT/RAG), Offline Evaluation (NDCG/MRR/MAP).
-  * **Nice-to-Have Adjacent Skills**: PyTorch/TensorFlow, Recommendation systems, Distributed Systems (Kafka/Spark), DevOps (Docker/Kubernetes).
-  * **Career Domain**: Strong preference for AI/ML roles in *product companies*, not IT services or consulting.
-  * **Target Locations**: Noida, Pune, Hyderabad, Mumbai, Delhi, NCR, Bangalore (India).
+> **Presenter Script**:
+> "In Stage 1, we index the entire 487MB candidate dataset. Traditional databases do a linear scan which takes seconds. We build a custom inverted index mapping search terms to posting lists, reducing lookup latency to under a millisecond. We also implement a synonym expansion graph. If a candidate writes 'next.js' and the JD asks for 'react', our graph maps them together so candidates aren't penalized for vocabulary differences."
 
 ---
 
-## 📺 Slide 5: Multi-Dimensional Candidate Evaluation
-* **Slide Title**: Beyond Keyword Matching: Candidate Evaluation Signals
-* **Core Concepts**:
-  * **Skills Depth (Weighted)**: Matches skills from candidate's profile against MUST_HAVE and NICE_TO_HAVE list, but scales them by **proficiency level** (Expert = 1.0, Advanced = 0.85, Intermediate = 0.65, Beginner = 0.35) and **duration in months** to check sustained use.
-  * **Career Quality**: Tracks job titles, company sizes, and filters consulting-heavy history. Uses **Recency Weighting** (most recent job gets a $1.6x$ multiplier, second job gets $1.3x$, older jobs get $1.0x$).
-  * **Platform Behavioral Signals (Redrob Platform)**: Incorporates notice period (prefers $\le30$ days), profile completeness, response rate to recruiters, average response time, interview completion rate, and GitHub activity scores.
+## **Slide 4: Stage 1 - Dense Retrieval & RRF Fusion**
+
+* **Slide Goal**: Describe dense embedding search and how rankings are combined.
+* **Key Visual**:
+  ```text
+  BM25 Ranking:   [Cand A: 1st, Cand B: 2nd, Cand C: 12th]
+  TF-IDF Ranking: [Cand A: 2nd, Cand B: 1st, Cand C: 105th]
+  Dense Ranking:  [Cand A: 5th, Cand B: 3rd, Cand C: 1st]
+  
+  RRF Fusion Score: RRF = 1 / (60 + R_bm25) + 1 / (60 + R_tfidf) + 1 / (60 + R_dense)
+  Result: Cand A and Cand B rank highest, Cand C remains balanced.
+  ```
+
+### **Slide Content**
+* **Dense Semantic Matching**: Implemented in [HybridRanker._dense_score](file:///d:/project/nexthire/ranker/hybrid_ranker.py#L359).
+  * Uses the `sentence-transformers/all-MiniLM-L6-v2` model.
+  * Encodes candidate profiles and evaluates cosine similarity.
+  * Fast Approximate Nearest Neighbor (ANN) search implemented with Spotify's **Annoy Index** (`angular` metric), falling back to vectorized NumPy matrix dot-products.
+* **Reciprocal Rank Fusion (RRF)**:
+  * Merges rank results from BM25, TF-IDF, and Dense Embeddings.
+  * Robustly balances keyword matching with semantic intent, choosing the top **1,500 candidates** for Stage 2.
+
+> **Presenter Script**:
+> "To capture semantic intent, we embed candidates using Sentence Transformers. We query these embeddings using Spotify's Annoy library for fast Approximate Nearest Neighbor search. We then merge the rank positions from BM25, TF-IDF, and Dense Vector search using Reciprocal Rank Fusion, or RRF. RRF ensures that candidates who perform consistently well across keyword, frequency, and semantic matches rise to the top of our 1,500 shortlist."
 
 ---
 
-## 📺 Slide 6: Structured Penalty Layer (Disqualifiers)
-* **Slide Title**: Preventing Exploitation: The Multiplier Penalty Layer
-* **Bullet Points**:
-  * **IT Services / Consulting Career Filter**: Career predominantly in IT services/consulting ($>85\%$ total tenure at TCS, Infosys, Wipro, Accenture, etc.) triggers a **$0.40$ multiplier** (60% penalty).
-  * **Keyword-Trap Detector**: Candidates listing premium AI skills but having **zero mentions** of any AI/ML keywords in their career descriptions are hit with a **$0.50$ multiplier** (50% penalty).
-  * **Junior Candidates**: Less than 2 years of experience triggers a **$0.50$ multiplier** (50% penalty).
-  * **Job-Hopping Detector**: Average tenure $< 14$ months with $\ge 2$ short stints triggers a **$0.75$ multiplier** (25% penalty).
-  * **Salary Mismatch**: Expected salary $> 2x$ of target budget midpoint (40 LPA) triggers a **$0.85$ multiplier** (15% penalty).
+## **Slide 5: Stage 2 - The 5-Dimension Scoring Rubric**
 
----
-
-## 📺 Slide 7: Retrieval & Ranking Methodology
-* **Slide Title**: The 3-Step Search, Scoring, & Sorting Pipeline
-* **Visual Diagram (Flow)**:
-  $$\text{100,000 Candidate Pool} \xrightarrow{\text{Stage 1: Sparse Retrieval (BM25 + TF-IDF) \& Dense Vector}} \text{Top 1,500 Subset} \xrightarrow{\text{Stage 2: Multi-Core Scoring Rubric}} \text{Top 15 Finalists} \xrightarrow{\text{Stage 3: LLM Cognitive Re-rank}} \text{Monotonic Normalization [0.10, 0.999]}$$
-* **Core Concepts**:
-  * **Inverted Indices**: Search avoids linear scanning by looking up token posting lists.
-  * **Reciprocal Rank Fusion (RRF)**:
-    $$RRF(d) = \sum_{m \in M} \frac{1}{60 + \text{rank}_m(d)}$$
-    Fuses BM25 scoring, TF-IDF cosine matching, and Sentence-Transformers (`all-MiniLM-L6-v2`) dense dot products into a single rank score.
-  * **Multi-Core Parallel Execution**: Concurrently evaluates the 5-dimension scoring rubric on the top 1,500 candidates.
-
----
-
-## 📺 Slide 8: The 5-Dimension Scoring Rubric
-* **Slide Title**: Scoring Breakdown & Weight Distribution
-* **Visual Ideas**: Pie chart or bar chart representing weights:
-
-```
+* **Slide Goal**: Detail the structured scoring rubric and weight distribution.
+* **Key Visual**:
+  ```text
   ┌──────────────────────────────────────────────────────────┐
-  │  [28%] Semantic Relevance (Sparse + Dense Match)        │
+  │  [28%] Semantic Relevance (RRF score)                    │
   ├──────────────────────────────────────────────────────────┤
-  │  [28%] Skills Depth (Proficiency, Duration, Endorsement) │
+  │  [28%] Skills Depth (Proficiency + Duration + Test)      │
   ├──────────────────────────────────────────────────────────┤
-  │  [22%] Career Quality (Company Tiers, Trajectory, Title) │
+  │  [22%] Career Quality (Company Tiers + Trajectory)       │
   ├──────────────────────────────────────────────────────────┤
-  │  [12%] Behavioral Profile (Availability, Recency, Resp) │
+  │  [12%] Behavioral Profile (Responsiveness + Recency)     │
   ├──────────────────────────────────────────────────────────┤
-  │  [10%] Experience Fit (Bell-curve years of experience)   │
+  │  [10%] Experience Fit (Years of experience bell-curve)   │
   └──────────────────────────────────────────────────────────┘
-```
-* **Formula**:
-  $$\text{Raw Score} = \left(\sum \text{Dimension Weight} \times \text{Dimension Score}\right) \times \text{Disqualifier Multipliers}$$
-  $$\text{Final Score} = \text{MonotonicNormalize}(\text{Raw Score} + \text{LLM Adjustment})$$
+  ```
+
+### **Slide Content**
+* **Ensemble Architecture**: Configurable weights declared in [job_description.py](file:///d:/project/nexthire/ranker/job_description.py#L151).
+* **Skills Depth**: Evaluates MUST_HAVE (e.g. vector search, PyTorch) and NICE_TO_HAVE skills. Multiplies by proficiency weights (Expert: 1.0, Beginner: 0.35), duration bonuses, and platform test scores.
+* **Career Trajectory**: Recency-weighted job analysis. Most recent job counts for 1.6x weight, second job for 1.3x, others 1.0x.
+* **Experience Fit**: Peak score sweet-spot function matching 5-9 years of experience.
+* **Behavioral Profile**: Scoring notice period, response rate, active status, and GitHub score.
+
+> **Presenter Script**:
+> "Once we filter down to 1,500 candidates, we run a multi-dimensional scoring rubric. Instead of a single flat score, our rubric weights Semantic Fit at 28%, Skills Depth at 28%, Career Trajectory at 22%, Behavioral Signals at 12%, and Experience Fit at 10%. We award higher scores for expert-level skills held for multiple years, positive career trajectories at product companies, and active developer habits like high GitHub scores."
 
 ---
 
-## 📺 Slide 9: Explainability (XAI) & Rationale Generation
-* **Slide Title**: Explainable AI: Demystifying Recommendations
-* **Core Concepts**:
-  * **Explainable AI (XAI) Deltas**: In the debug sidecar and visual dashboard, every candidate shows their exact contribution list (e.g. `+0.22 Semantic Relevance`, `-0.15 Disqualifier Penalty`).
-  * **CSV Short Reasoning**: Compact recruiter-style explanations under 200 characters containing: *Current title, years of experience, key skills, notice period, and active platform flags*.
-  * **hallucination Prevention**:
-    * **Zero-Hallucination Fallback Layer**: If Google Gemini API keys are missing, timeout, or rate-limit, the system automatically triggers a **fully deterministic rule-based text generator** written in pure Python.
-    * **Strict Temperature**: Set to `0.2` in JSON mode, feeding only factual candidate fields and the exact JD requirements to prevent creative generation.
+## **Slide 6: Stage 2 - Integrity Guard & Disqualifiers**
+
+* **Slide Goal**: Explain the penalty layer designed to catch keyword stuffing or mismatches.
+* **Key Visual**:
+  ```text
+  Candidate X: Listed "NLP, LLM, Vector Search" in skills.
+  Analysis: 0 mentions of NLP/LLMs in career history.
+  Result: Keyword-Trap detected! Score multiplied by 0.50 (50% penalty).
+  
+  Candidate Y: 90% of career spent at TCS/Wipro.
+  Result: Consulting Giant career detected! Score multiplied by 0.40 (60% penalty).
+  ```
+
+### **Slide Content**
+* **The Penalty Layer**: Applied in [compute_disqualifier_penalty](file:///d:/project/nexthire/ranker/score_utils.py#L313).
+* **Consulting/IT Services Filter (60% Penalty)**: Penalizes candidate profile if $>85\%$ of career history was spent at consulting companies, satisfying the JD's product company requirement.
+* **Keyword Trap (50% Penalty)**: Flags candidates who list advanced AI skills but have **zero** references to AI/ML projects or titles in their actual work experience descriptions.
+* **Job Hopping (25% Penalty)**: Applied to candidates averaging $<14$ months per stint.
+* **Salary Mismatch (15% Penalty)**: Triggered if expected salary is $>2x$ of JD budget.
+
+> **Presenter Script**:
+> "A major weakness in traditional tools is susceptibility to keyword stuffing. NextHire features a strict integrity layer. If a candidate lists 'LLMs' as an expert skill but has zero references to machine learning in their career history descriptions, we trigger a 'Keyword-Trap' flag and cut their score by 50%. We also apply penalties for excessive job-hopping, salary mismatches, or consulting-heavy careers to align with the hiring goals of a product company."
 
 ---
 
-## 📺 Slide 10: System Architecture
-* **Slide Title**: System Architecture & Data Flow
+## **Slide 7: Stage 3 - LLM Cognitive Re-Ranking**
 
-```mermaid
-graph TD
-    JD[Job Description Text] --> |Input| R[ranker.py]
-    JSONL[candidates.json 100K Pool] --> |Streaming Loader| R
-    
-    subgraph Python Ranking Pipeline
-        R --> P1[Phase 1: Build Corpus]
-        P1 --> P2[Phase 2: Hybrid Semantic Scoring]
-        P2 --> |Inverted Index BM25| P2_BM25[BM25 Scoring]
-        P2 --> |Inverted Index TF-IDF| P2_TFIDF[TF-IDF Cosine Scoring]
-        P2_BM25 & P2_TFIDF --> |Reciprocal Rank Fusion| P2_RRF[RRF Filter Top 1500]
-        
-        P2_RRF --> P3[Phase 3: Parallel Structured Scoring]
-        P3 --> |ProcessPoolExecutor| P3_Workers[Multi-Core Scoring Workers]
-        P3_Workers --> |Analyze| Dim1[Skills Depth]
-        P3_Workers --> |Analyze| Dim2[Career Quality]
-        P3_Workers --> |Analyze| Dim3[Experience Fit]
-        P3_Workers --> |Analyze| Dim4[Behavioral Signals]
-        P3_Workers --> |Apply| Penalty[Disqualifier Penalties]
-        
-        Dim1 & Dim2 & Dim3 & Dim4 & Penalty --> P3_Ensemble[Composite Ranker]
-        P3_Ensemble --> P3_LLM[Phase 3b: LLM Re-ranking of Top 15]
-        P3_LLM --> |Google Gemini API| Rerank[Adjust Scores & Long Rationale]
-    end
-    
-    Rerank --> |Output| CSV[submission.csv]
-    Rerank --> |Output| DebugJSON[submission_debug.json]
-    
-    subgraph Web App Frontend
-        CSV & DebugJSON --> |JSON API Server| NextJS[Next.js App Router]
-        NextJS --> |React Hooks| UI[Monochrome Recruiter Dashboard]
-    end
-```
+* **Slide Goal**: Detail the Gemini integration for qualitative adjustment and rationale generation.
+* **Key Visual**:
+  ```text
+  Top 15 candidates sent to Google Gemini 2.0 API:
+  - Input: Candidate profile summaries + full JD text.
+  - Output: Fine-tuned score adjustments (+/- 0.05) & 400-char recruiter explanations.
+  
+  RELIABILITY LAYER:
+  [ Gemini Online ] ➔ Real-time LLM qualitative scoring & rationale
+  [ Gemini Offline] ➔ Fallback to rule-based parser (0% downtime)
+  ```
+
+### **Slide Content**
+* **Qualitative Adjustments**: Implemented in [llm_reranker.py](file:///d:/project/nexthire/ranker/llm_reranker.py).
+  * Gemini evaluates subtle signals (e.g. university tiers, career growth, complex project notes).
+  * Adjusts scores by $\pm 0.05$ and writes professional rationales.
+* **Hallucination Prevention**:
+  * **Strict API Constraints**: JSON response format enforced, low temperature (0.2) used, data limited to profile fields.
+  * **Deterministic Fallback**: If the API goes offline, a pure-Python generator ([generate_long_reasoning](file:///d:/project/nexthire/ranker/score_utils.py#L530)) creates fully factual text directly from candidate data.
+
+> **Presenter Script**:
+> "For our top 15 candidates, we inject a cognitive layer. We send candidate summaries and the JD to the Google Gemini 2.0 API. The LLM acts as a senior recruiter, adjusting scores by up to plus-or-minus 5% based on qualitative factors like company prestige or project complexity, and writing a concise rationale. If Gemini is down or times out, our system instantly falls back to a deterministic rule-based generator, ensuring zero downtime."
 
 ---
 
-## 📺 Slide 11: Production-Grade Reliability & Cache Scaling
-* **Slide Title**: Production Infrastructure: Redis Caching & Worker Queues
-* **Bullet Points**:
-  * **Redis Caching Layer**: Precomputed candidate embeddings and tokenized TF-IDF indices are cached in Redis. Recalculation runs bypass parsing and execute in **~3.6 seconds**.
-  * **Distributed Task Queue**: Search and recalculation requests are pushed onto a Redis queue (`nexthire:queue`) and picked up by a Python background daemon worker (`worker.py`).
-  * **Real-Time Log Streaming**: Next.js route subscribes to job updates via Redis Pub/Sub, streaming server logs live to the browser console.
-  * **Subprocess Circuit Breaker**: If Redis is not running, Next.js instantly activates a circuit breaker and spawns a local Python subprocess directly to guarantee 100% dashboard availability.
+## **Slide 8: Performance Benchmarks & Compute Efficiency**
 
----
+* **Slide Goal**: Present real-world benchmark data proving system scalability.
+* **Key Metrics Table**:
 
-## 📺 Slide 12: Results & Performance Benchmarks
-* **Slide Title**: Real-World Performance & Computational Scaling
-* **Benchmark Results**:
-
-| Metric | Result | Why It Scaled |
+| Operation / Metric | Result | Optimization Strategy |
 | :--- | :--- | :--- |
-| **Dataset Size** | 487 MB (100,000+ candidates) | **Stream-Based Generators** (flat memory footprint) |
-| **Sparse Retrieval** | Millisecond-level (< 0.5 ms) | **Custom Inverted Index** (bypasses linear scans) |
-| **Structured Re-Ranking** | ~1.8 seconds (for N=1,500) | **Multi-Core Python Execution** (`ProcessPoolExecutor`) |
-| **Redis Cache Recalculation** | **~3.6 seconds** (down from 66s) | **Serialization caching** of parsed TF-IDF indices |
-| **Next.js API response** | < 2 seconds | **Early-Exit profile loader** (closes file after top-100) |
+| **Dataset Size** | **487 MB** (100,000+ candidates) | Stream-based generator loading (flat memory) |
+| **Sparse Retrieval Latency** | **< 0.5 ms** | Custom Inverted Index lookups |
+| **Parallel Scoring Latency** | **~1.8 seconds** (for N=1,500) | Multi-core CPU multiprocessing (`ProcessPoolExecutor`) |
+| **Redis Cache Recalculation** | **~3.6 seconds** (was 66 seconds) | Index serialization caching |
+| **Dashboard Page Load** | **Zero Latency (< 2s)** | Early-exit streamer (reads top 100 and stops) |
+
+### **Computational Safeguards**
+* **Memory Flatness**: Line-by-line reading prevents memory spikes.
+* **Parallel Execution**: Utilizes 100% of host CPU cores across the 1,500 candidates.
+
+> **Presenter Script**:
+> "Performance and cost-control were core design metrics. By streaming profiles line-by-line, we process a 487MB file with a tiny, flat memory footprint. Our sparse lookups run in under half a millisecond. Scoring 1,500 candidates takes just 1.8 seconds by parallelizing the logic across all CPU cores. And with our Redis caching layer enabled, full recalculations drop from over a minute to just 3.6 seconds."
 
 ---
 
-## 📺 Slide 13: Technologies & Frameworks Used
-* **Slide Title**: NextHire Stack: Why We Selected These Technologies
-* **Core Technologies**:
-  * **Python 3.9+**: The industry standard for ML data wrangling, offering multiprocessing executors (`ProcessPoolExecutor`).
-  * **scikit-learn & Sentence-Transformers**: Fast numeric TF-IDF matching and high-quality vector embeddings (`all-MiniLM-L6-v2`) supporting CUDA GPU acceleration.
-  * **Annoy (Spotify)**: Efficient angular Approximate Nearest Neighbor search on high-dimensional vectors.
-  * **Redis**: Decoupled caching store and Pub/Sub event broker to manage async worker pipelines.
-  * **Next.js 15, React 19, TypeScript**: Responsive modern framework enabling server-side data loading and strict type safety.
-  * **Google Gemini 2.0 API**: Restful lightweight cognitive matching utilizing JSON mode for structured reasoning output.
+## **Slide 9: Modern Monochrome Recruiter Dashboard**
+
+* **Slide Goal**: Showcase the UI layout and features.
+* **Key Visual**:
+  ```text
+  [ Interactive Filters: Remote/Hybrid | Notice Period | Open To Work ]
+  ┌──────────────────────────────────────────────────────────────────┐
+  │ Candidate ID: CAND_0018499    Rank: #1        Score: 99.0%       │
+  │ Current Title: Senior ML Engineer (Flipkart)                     │
+  │                                                                  │
+  │ Radar Chart Metrics:                                             │
+  │   Semantic:  ████████ 92%     Skills:   █████████ 96%            │
+  │   Career:    ███████ 85%      Behavior: █████████ 90%            │
+  │                                                                  │
+  │ AI Rationale: "Strong NLP/Vector search matching. 7.2 years      │
+  │ experience at product company. 30 days notice period."           │
+  └──────────────────────────────────────────────────────────────────┘
+  ```
+
+### **Slide Content**
+* **Theme**: Premium monochrome developer aesthetic. No distracting colors—color is reserved strictly for status signals (Green = Verified, Amber = Warning, Red = Disqualified Flag).
+* **Interactive Weight Control**: Recruiters can adjust metric weight sliders to trigger background recalculation.
+* **Rich Candidate Insights**: Features radar charts, full career histories, active relocation statuses, and recruiter activity.
+
+> **Presenter Script**:
+> "Here is a mockup of our Recruiter Console. It uses a premium monochrome theme where colors are reserved purely for action points or flags. Clicking any candidate opens a drawer showing an interactive radar chart, their career history timeline, and the AI rationale. Recruiters can also adjust scoring sliders on the fly to recalculate and prioritize different hiring aspects."
 
 ---
 
-## 📺 Slide 14: Recruiter Dashboard Highlights
-* **Slide Title**: User Experience: Premium monochrome Recruiter Panel
-* **Key Features**:
-  * **Zero Emojis, Pure SVGs**: Restrained black-monochrome design where colors (Green/Amber/Red) are reserved exclusively for critical status markers (Verified, Warnings, Disqualifier Flags).
-  * **Interactive Weights Tuner**: Allows recruiters to dynamically shift the weight percentages of Semantic, Skills, Career, Experience, and Behavioral metrics in real-time.
-  * **Radar Chart Breakdown**: Visualizes a candidate's strengths across the 5 core metric dimensions.
-  * **Recruiter Engine Pillars**: Expandable architecture panel explaining underlying scoring.
+## **Slide 10: Production Infrastructure Architecture**
+
+* **Slide Goal**: Describe the deployment and infrastructure layer.
+* **System Component Flow**:
+  ```text
+  [ Next.js API Request ] ➔ [ Redis Queue (Job Enqueued) ] ➔ [ Background Worker (worker.py) ]
+                                                                     │
+  [ Live Progress Logs ]  ◀─── [ Redis Pub/Sub Events ] ◀─────────────┘
+  ```
+
+### **Bullet Points**
+* **Decoupled Architecture**: Recalculation jobs are enqueued to a Redis task queue (`BullMQ` pattern), separating Web thread lifecycles from heavy Python CPU workloads.
+* **Asynchronous worker.py**: A background worker daemon pops jobs from Redis and executes the ranking pipeline.
+* **Redis Pub/Sub Log Streaming**: Streams worker terminal outputs directly back to the Next.js API endpoint in real-time.
+* **Circuit Breaker Safety**: In the absence of a running Redis instance, the API route spawns a local python subprocess directly to process results, guaranteeing high availability.
+
+> **Presenter Script**:
+> "For a production deployment, we decoupled the web server from the ranking engine. Recalculation requests are pushed onto a Redis task queue. A background Python worker daemon processes the queue and streams live stdout logs back to the web server using Redis Pub/Sub. If Redis experiences an outage, our Next.js API automatically triggers a circuit breaker fallback, running the ranking script as a subprocess to keep the app functional."
 
 ---
 
-## 📺 Slide 15: Future Roadmap
-* **Slide Title**: Future System Scalability Roadmap
-* **Bullet Points**:
-  * **Sharded ANN Vector Indices**: Grouping FAISS or HNSW index shards by geo-regions or core skills to parallelize vector queries.
-  * **Incremental Memory Updates**: Maintain active index alterations in memory, avoiding index rebuild overhead when individual profiles are updated.
-  * **GPU-Accelerated Reranking**: Compiling dense embedding models using ONNX Runtime/TensorRT to utilize server GPUs.
-  * **Recruiter Feedback Reinforcement Loop**: Tuning static metrics weights based on recruiter shortlists, clicks, and hide patterns.
+## **Slide 11: Validation, Quality Assurance & Summary**
+
+* **Slide Goal**: Conclude with test results and future plans.
+* **Validation Check Results (validate.py)**:
+  * **OK**: Exactly 100 rows generated.
+  * **OK**: Unique candidate ranks (1–100) and unique IDs.
+  * **OK**: Strictly monotonic score matching (prevents rank logical contradictions).
+  * **OK**: Strict CAND_XXXXXXX ID formats.
+* **Future Roadmap**:
+  * Sharding candidate pools by region to distribute queries.
+  * ONNX runtime integration for GPU-accelerated embedding inference.
+  * Feedback loops to auto-tune weights based on recruiter selections.
+
+> **Presenter Script**:
+> "To ensure our output meets strict submission requirements, we built a validation test suite, validate.py. It verifies our CSV contains exactly 100 rows, unique ranks, and strictly monotonic scores, ensuring no ranking contradictions. In the future, we plan to implement candidate pool sharding and feed recruiter shortlists back into our system to auto-tune weight parameters. Thank you, and I am open to any questions!"
