@@ -1,0 +1,44 @@
+# submission_metadata.yaml
+# Mirrors the Redrob Hackathon portal metadata (submission_spec §10.2 / §10.3).
+# Replace every <PLACEHOLDER> with your real values before submitting.
+
+team_name: "<YOUR_TEAM_NAME>"
+participant_id: "<YOUR_REGISTERED_PARTICIPANT_ID>"   # also the submission CSV filename: <participant_id>.csv
+
+primary_contact:
+  name: "<CONTACT_NAME>"
+  email: "<CONTACT_EMAIL>"
+  phone: "<CONTACT_PHONE>"
+
+team_members:
+  - name: "<MEMBER_1_NAME>"
+    email: "<MEMBER_1_EMAIL>"
+
+github_repository_url: "https://github.com/<USERNAME>/<REPO>"
+sandbox_demo_link: "<HOSTED_SANDBOX_URL>"   # HF Spaces / Streamlit / Replit / Colab / docker run / Binder
+
+# Honest declaration — not penalized (spec §10.4).
+ai_tools_declared:
+  - "Claude"
+
+compute_environment_summary: "Windows 11, 16GB RAM, Python 3.12, CPU-only"
+
+methodology_summary: >
+  Two-stage retrieve-and-rerank over the 100K pool. Stage 1: hybrid sparse
+  retrieval (pure-Python BM25-Okapi + scikit-learn TF-IDF) fused with Reciprocal
+  Rank Fusion to shortlist the top 1,500. Stage 2: deterministic, CPU-only
+  structured scoring — JD skill overlap (word-boundary matched, no substring
+  traps), recency-weighted career trajectory, experience/seniority fit, and
+  Redrob behavioral signals — combined as a weighted ensemble and multiplied by
+  disqualifier and honeypot penalties. Honeypots are caught via internal profile
+  contradictions (impossible timelines, inflated proficiency), not ID lists.
+  No network, no GPU, no hosted LLM during ranking.
+
+# Reproduction (spec §10.3): single command produces the submission CSV.
+reproduction:
+  command: "python ranker/ranker.py --input ./candidates.jsonl --output ./<participant_id>.csv"
+  notes: >
+    Ranking step is CPU-only and network-free, well within the 5-min / 16GB / no-GPU
+    budget. Optional dense embeddings can be precomputed offline via
+    `python ranker/precompute.py` (precomputation may exceed the 5-min window; the
+    timed ranking step does not depend on it).

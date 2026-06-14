@@ -5,7 +5,7 @@ Performance benchmarking suite for NextHire AI Candidate Discovery Engine.
 Measures indexing time, search latency, memory usage, and throughput.
 
 Usage:
-    python ranker/benchmark.py [--sample]
+    python ranker/benchmark.py
 """
 
 import os
@@ -147,18 +147,14 @@ def run_benchmarks(input_path: str):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--sample", action="store_true", help="Run benchmark on small sample dataset")
-    args = parser.parse_args()
+    parser.parse_args()
 
     input_path = os.path.join(
-        SCRIPT_DIR, "..", "dataset", "India_runs_data_and_ai_challenge", 
-        "sample_candidates.json" if args.sample or not os.path.exists(DEFAULT_INPUT) else "candidates.json"
+        SCRIPT_DIR, "..", "dataset", "India_runs_data_and_ai_challenge",
+        "candidates.json"
     )
-    if args.sample:
-        log.info("Running benchmarks on SAMPLE candidate pool...")
-    else:
-        log.info("Running benchmarks on FULL candidate pool...")
-        
+    log.info("Running benchmarks on FULL candidate pool...")
+
     run_benchmarks(input_path)
 
 if __name__ == "__main__":

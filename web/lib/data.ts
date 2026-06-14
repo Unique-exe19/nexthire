@@ -3,23 +3,23 @@
 // Reads submission.csv + sidecar debug JSON + enriches with candidate profiles.
 
 import fs from 'fs';
+import readline from 'readline';
 import path from 'path';
 import type { RankedCandidate, ScoreBreakdown, DimensionDetail } from '@/types/candidate';
 
 const DATASET_DIR = path.resolve(process.cwd(), '..', 'dataset', 'India_runs_data_and_ai_challenge');
 const SUBMISSION_CSV  = path.resolve(process.cwd(), '..', 'submission.csv');
-const SAMPLE_CSV      = path.resolve(process.cwd(), '..', 'sample_submission_out.csv');
 const SIDECAR_JSON    = path.resolve(process.cwd(), '..', 'submission_debug.json');
-const SAMPLE_SIDECAR  = path.resolve(process.cwd(), '..', 'sample_submission_out_debug.json');
 const FULL_JSON       = path.join(DATASET_DIR, 'candidates.json');
-const SAMPLE_JSON     = path.join(DATASET_DIR, 'sample_candidates.json');
 
 // ── CSV Parser ────────────────────────────────────────────────────────────────
 
-function parseCSV(content: string): { candidate_id: string; rank: number; score: number; reasoning: string }[] {
+type CsvRow = { candidate_id: string; rank: number; score: number; reasoning: string };
+
+function parseCSV(content: string): CsvRow[] {
   const lines = content.trim().split('\n');
   if (lines.length < 2) return [];
-  return lines.slice(1).map(line => {
+  return lines.slice(1).map((line): CsvRow | null => {
     const cleanLine = line.replace(/\r$/, '');
     // Handle quoted reasoning with commas
     const m = cleanLine.match(/^([^,]+),(\d+),([\d.]+),(.*)$/);
@@ -28,9 +28,10 @@ function parseCSV(content: string): { candidate_id: string; rank: number; score:
       candidate_id: m[1].trim(),
       rank: parseInt(m[2]),
       score: parseFloat(m[3]),
-      reasoning: m[4].replace(/^"|"$/g, '').trim(),
+      // Strip wrapping quotes and unescape CSV-doubled quotes ("" -> ").
+      reasoning: m[4].trim().replace(/^"|"$/g, '').replace(/""/g, '"').trim(),
     };
-  }).filter(Boolean) as any[];
+  }).filter((r): r is CsvRow => r !== null);
 }
 
 // ── Profile Loader — streams only the needed IDs ──────────────────────────────
@@ -89,42 +90,73 @@ interface RawProfile {
   };
 }
 
-function loadProfileMap(jsonPath: string, targetIds: Set<string>): Map<string, RawProfile> {
+async function loadProfileMap(jsonPath: string, targetIds: Set<string>): Promise<Map<string, RawProfile>> {
   const map = new Map<string, RawProfile>();
-  if (!fs.existsSync(jsonPath)) return map;
-  try {
-    const raw = fs.readFileSync(jsonPath, 'utf-8');
-    const firstChar = raw.trimStart()[0];
+  if (!fs.existsSync(jsonPath) || targetIds.size === 0) return map;
 
-    if (firstChar === '[') {
-      // JSON array (sample_candidates.json)
-      const data: RawProfile[] = JSON.parse(raw);
+  // A leading '[' means a JSON array (the small sample file) — parse it whole.
+  // Otherwise treat it as JSONL (the 487MB candidates.json) and stream line-by-line,
+  // never holding more than one line in memory, exiting as soon as every target is found.
+  let firstChar = '';
+  try {
+    const fd = fs.openSync(jsonPath, 'r');
+    const buf = Buffer.alloc(64);
+    const read = fs.readSync(fd, buf, 0, 64, 0);
+    fs.closeSync(fd);
+    firstChar = buf.subarray(0, read).toString('utf-8').trimStart()[0] ?? '';
+  } catch (e) {
+    console.warn('Could not probe profile file:', e);
+    return map;
+  }
+
+  if (firstChar === '[') {
+    try {
+      const data: RawProfile[] = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'));
       for (const c of data) {
+        if (targetIds.has(c.candidate_id)) map.set(c.candidate_id, c);
+      }
+    } catch (e) {
+      console.warn('Could not load profiles (array):', e);
+    }
+    return map;
+  }
+
+  // JSONL streaming path
+  await new Promise<void>((resolve) => {
+    const stream = fs.createReadStream(jsonPath, { encoding: 'utf-8' });
+    const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
+
+    const finish = () => {
+      rl.close();
+      stream.destroy();
+      resolve();
+    };
+
+    rl.on('line', (line) => {
+      const trimmed = line.trim();
+      if (!trimmed) return;
+      // Cheap pre-filter: skip JSON.parse unless this line mentions a wanted id.
+      // candidate_id values are unique substrings, so this avoids parsing 99.9k rows.
+      let interesting = false;
+      for (const id of targetIds) {
+        if (trimmed.includes(id)) { interesting = true; break; }
+      }
+      if (!interesting) return;
+      try {
+        const c: RawProfile = JSON.parse(trimmed);
         if (targetIds.has(c.candidate_id)) {
           map.set(c.candidate_id, c);
+          if (map.size === targetIds.size) finish(); // early exit
         }
+      } catch {
+        // skip malformed lines
       }
-    } else {
-      // JSONL (candidates.json) — parse line by line
-      const lines = raw.split('\n');
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed) continue;
-        try {
-          const c: RawProfile = JSON.parse(trimmed);
-          if (targetIds.has(c.candidate_id)) {
-            map.set(c.candidate_id, c);
-            // Early exit once we have all needed candidates
-            if (map.size === targetIds.size) break;
-          }
-        } catch {
-          // skip malformed lines
-        }
-      }
-    }
-  } catch (e) {
-    console.warn('Could not load profiles:', e);
-  }
+    });
+
+    rl.on('close', () => resolve());
+    stream.on('error', (e) => { console.warn('Could not load profiles (stream):', e); resolve(); });
+  });
+
   return map;
 }
 
@@ -173,22 +205,28 @@ function buildScoreBreakdown(dims: DimensionDetail | undefined, score: number): 
 
 // ── Main data loader ──────────────────────────────────────────────────────────
 
+// Module-level cache: enriching the corpus is expensive (reads submission.csv,
+// the sidecar JSON, and streams candidates.json). Re-run only when the CSV that
+// drives the page changes. Keyed on path + mtime so a fresh ranker run invalidates it.
+let _cache: { key: string; value: RankedCandidate[] } | null = null;
+
 export async function getRankedCandidates(): Promise<RankedCandidate[]> {
-  // 1. Find CSV
-  let csvPath = SUBMISSION_CSV;
-  let sidecarPath = SIDECAR_JSON;
-  let jsonPath = FULL_JSON;
-  let usingSample = false;
+  // 1. Locate the authoritative submission produced by the ranker over the full
+  //    100,000-candidate pool. There is no sample/mock fallback: if it is missing,
+  //    the ranker simply has not been run yet, so we return an empty list.
+  const csvPath = SUBMISSION_CSV;
+  const sidecarPath = SIDECAR_JSON;
+  const jsonPath = FULL_JSON;
 
   if (!fs.existsSync(csvPath)) {
-    csvPath = SAMPLE_CSV;
-    sidecarPath = SAMPLE_SIDECAR;
-    jsonPath = SAMPLE_JSON;
-    usingSample = true;
+    console.warn(`submission.csv not found at ${csvPath}. Run the ranker first.`);
+    return [];
   }
 
-  if (!fs.existsSync(csvPath)) {
-    return getMockData();
+  // 1b. Serve from cache when the driving CSV is unchanged.
+  const cacheKey = `${csvPath}:${fs.statSync(csvPath).mtimeMs}`;
+  if (_cache && _cache.key === cacheKey) {
+    return _cache.value;
   }
 
   // 2. Parse CSV
@@ -207,10 +245,10 @@ export async function getRankedCandidates(): Promise<RankedCandidate[]> {
 
   // 4. Load candidate profiles
   const targetIds = new Set(rows.map(r => r.candidate_id));
-  const profileMap = loadProfileMap(jsonPath, targetIds);
+  const profileMap = await loadProfileMap(jsonPath, targetIds);
 
   // 5. Build enriched candidates
-  return rows.map(row => {
+  const enriched = rows.map(row => {
     const profile = profileMap.get(row.candidate_id);
     const sidecar = sidecarMap[row.candidate_id];
 
@@ -278,53 +316,7 @@ export async function getRankedCandidates(): Promise<RankedCandidate[]> {
       scoreBreakdown,
     };
   });
-}
 
-// ── Mock data for zero-dataset fallback ──────────────────────────────────────
-
-function getMockData(): RankedCandidate[] {
-  const titles = [
-    'Senior ML Engineer', 'AI Research Engineer', 'NLP Engineer',
-    'Recommendation Systems Engineer', 'Search Engineer', 'Data Scientist',
-    'Applied ML Scientist', 'Ranking Engineer',
-  ];
-  return Array.from({ length: 20 }, (_, i) => ({
-    candidate_id: `CAND_${String(i + 1).padStart(7, '0')}`,
-    rank: i + 1,
-    score: Math.max(0.1, 0.99 - i * 0.045),
-    reasoning: `${titles[i % titles.length]} with ${(5 + i * 0.3).toFixed(1)} yrs; strong NLP and vector search background; active on platform.`,
-    reasoning_long: `Ranked #${i + 1} with strong semantic alignment to the Senior AI/ML Engineer JD. Matched must-have skills including embeddings, FAISS, and NLP. Career history shows sustained product company experience. Open to work with short notice period.`,
-    name: `Candidate ${i + 1}`,
-    headline: `${titles[i % titles.length]} | AI/ML`,
-    current_title: titles[i % titles.length],
-    current_company: ['Flipkart', 'Swiggy', 'Zomato', 'Razorpay', 'CRED'][i % 5],
-    location: ['Bangalore', 'Hyderabad', 'Pune', 'Noida', 'Mumbai'][i % 5],
-    country: 'India',
-    years_of_experience: 5 + i * 0.3,
-    skills: ['NLP', 'PyTorch', 'FAISS', 'Vector Search', 'LLMs'].slice(0, 3 + (i % 3)),
-    open_to_work: i % 3 !== 2,
-    notice_period_days: [0, 15, 30, 60][i % 4],
-    recruiter_response_rate: 0.5 + (i % 5) * 0.1,
-    github_activity_score: 30 + (i % 7) * 10,
-    preferred_work_mode: ['hybrid', 'remote', 'onsite', 'flexible'][i % 4],
-    interview_completion_rate: 0.6 + (i % 4) * 0.1,
-    profile_completeness: 65 + (i % 4) * 10,
-    disqualifiers: [],
-    dimensions: {
-      semantic: { score: 0.8 - i * 0.02, bm25: 0.75 - i * 0.02, tfidf: 0.7 - i * 0.02 },
-      skills:   { score: 0.85 - i * 0.025, must_have_hits: ['Embeddings', 'FAISS', 'NLP'], nice_hits: ['PyTorch'], must_hit_count: 6, assessment_score: 0.8 },
-      career:   { score: 0.78 - i * 0.02 },
-      experience: { score: 0.95, years: 5 + i * 0.3 },
-      behavioral: { score: 0.72 - i * 0.02, open_to_work: i % 3 !== 2, notice_days: [0, 15, 30, 60][i % 4] },
-    },
-    scoreBreakdown: {
-      semantic: 0.8 - i * 0.02,
-      bm25: 0.75 - i * 0.02,
-      tfidf: 0.7 - i * 0.02,
-      skills: 0.85 - i * 0.025,
-      career: 0.78 - i * 0.02,
-      experience: 0.95,
-      behavioral: 0.72 - i * 0.02,
-    },
-  }));
+  _cache = { key: cacheKey, value: enriched };
+  return enriched;
 }

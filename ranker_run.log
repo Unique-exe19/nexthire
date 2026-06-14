@@ -1,0 +1,72 @@
+20:50:42 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:50:42 [INFO] Checking file cache validity for D:\project\nexthire\ranker\..\dataset\India_runs_data_and_ai_challenge\candidates_cache.pkl...
+20:50:57 [INFO] File cache is valid! Loading parsed candidates and TF-IDF index from cache...
+20:50:57 [INFO] Progress: Loaded 100,000 / 100,000 candidates
+20:51:32 [INFO] Corpus: 100,000 candidates | 49.8s elapsed
+20:51:32 [INFO] Shard [Noida]: 4,283 candidates indexed.
+20:51:32 [INFO] Shard [Pune]: 4,186 candidates indexed.
+20:51:32 [INFO] Shard [Hyderabad]: 4,283 candidates indexed.
+20:51:32 [INFO] Shard [Other]: 87,248 candidates indexed.
+20:51:32 [INFO] Phase 2/4: Hybrid semantic scoring (First-pass: BM25 + TF-IDF)...
+20:51:32 [INFO] Using pure-Python TF-IDF
+20:51:32 [WARNING] sentence-transformers NOT available. Skipping dense semantic scoring.
+20:51:32 [INFO] Annoy not available. Defaulting to NumPy vectorized ANN matching.
+20:51:32 [INFO] BM25-Okapi (pure Python) ready ✓
+20:51:32 [INFO] Running BM25-Okapi...
+20:51:49 [WARNING] Failed to save BM25 to Redis: Timeout reading from socket
+20:51:49 [INFO] BM25 done
+20:51:49 [INFO] Running TF-IDF...
+20:51:51 [INFO] Loading TF-IDF Inverted Index from memory cache...
+20:52:01 [WARNING] Failed to save TF-IDF to Redis: Timeout reading from socket
+20:52:02 [INFO] TF-IDF done
+20:52:02 [WARNING] Dense embeddings skipped (model not loaded or no cache_path).
+20:52:02 [INFO] First-pass semantic scoring done: 29.7s
+20:52:02 [INFO] Filtered corpus to top 1500 candidates. Running second-pass dense vector search...
+20:52:02 [INFO] Dense vector search and RRF fusion completed.
+20:52:02 [INFO] Phase 3/4: Structured & behavioral scoring (parallel) on top 1500 candidates...
+20:52:02 [INFO] Using weights: {'semantic': 0.28, 'skill_match': 0.28, 'career_quality': 0.22, 'experience_fit': 0.1, 'behavioral': 0.12}
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:04 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:05 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:05 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:09 [INFO] Connected to Redis via REDIS_URL client connection ✓
+20:52:09 [INFO] Scoring done: 7.6s
+20:52:09 [INFO] Phase 4/4: Sorting and generating output...
+20:52:09 [INFO] Phase 3b/4: LLM Re-ranking of top 15 candidates...
+20:52:09 [INFO] Calling Gemini API for 15 candidates...
+20:53:30 [ERROR] Error calling Gemini API: HTTP Error 429: Too Many Requests. Falling back to rule-based explanations.
+20:53:30 [INFO] Top-100 raw score range: 0.7436 – 0.9429
+20:53:30 [INFO] Done! Written 100 candidates to: D:\project\nexthire\ranker\..\submission.csv
+20:53:30 [INFO] Sidecar JSON: D:\project\nexthire\ranker\..\submission_debug.json
+20:53:30 [INFO] Total runtime: 167.9s
+
+========================================================================
+                    NEXTHIRE HYBRID RANKING RESULTS                     
+========================================================================
+Rk   Score   Candidate ID     Title                        YoE   Sem    Ski   
+------------------------------------------------------------------------
+1    0.9900  CAND_0081846     Lead AI Engineer             6.7   0.97   0.96  
+2    0.9781  CAND_0018499     Senior Machine Learning Eng  7.2   0.88   0.98  
+3    0.9563  CAND_0039754     Senior Applied Scientist     16.2  1.00   0.98  
+4    0.9419  CAND_0046064     Senior NLP Engineer          8.9   0.97   0.91  
+5    0.9357  CAND_0011687     Senior NLP Engineer          7.8   0.89   0.98  
+6    0.8279  CAND_0008425     Senior NLP Engineer          7.8   0.91   0.98  
+7    0.8262  CAND_0086022     Senior Applied Scientist     5.3   0.84   0.98  
+8    0.8083  CAND_0077337     Staff Machine Learning Engi  7.0   0.82   0.96  
+9    0.8016  CAND_0033861     Senior NLP Engineer          8.0   0.93   0.97  
+10   0.7999  CAND_0055905     Senior Machine Learning Eng  8.1   0.96   0.87  
+------------------------------------------------------------------------
+
+Full results: D:\project\nexthire\ranker\..\submission.csv
+Debug sidecar: D:\project\nexthire\ranker\..\submission_debug.json
+

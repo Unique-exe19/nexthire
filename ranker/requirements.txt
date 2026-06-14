@@ -1,8 +1,24 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Core dependencies — REQUIRED for the ranking step that produces submission.csv.
+# The ranking step is CPU-only and network-free (Redrob spec §3).
+# A clean `pip install -r requirements.txt && python ranker/ranker.py` must work
+# with only these two packages installed.
+# ─────────────────────────────────────────────────────────────────────────────
 numpy>=1.24
-pandas>=2.0
 scikit-learn>=1.3
-tqdm>=4.65
-rank-bm25>=0.2.2
-redis>=5.0.0
-annoy>=1.17.0
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Optional extras — NOT needed for the timed ranking step. The code degrades
+# gracefully when these are absent (see hybrid_ranker.py import guards).
+# ─────────────────────────────────────────────────────────────────────────────
+# Web dashboard Redis cache/queue (enable with NEXTHIRE_USE_REDIS=1):
+#   redis>=5.0.0
+#   python-dotenv>=1.0.0
+#
+# Optional dense second-pass embeddings (run via precompute.py only — never
+# required, and never downloaded/used during the timed ranking step):
+#   sentence-transformers>=2.2.0
+#   torch>=2.0
+#
+# Benchmark suite only (ranker/benchmark.py):
+#   psutil>=5.9

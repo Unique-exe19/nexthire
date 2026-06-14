@@ -25,7 +25,7 @@ from job_description import (
     BEHAVIORAL_WEIGHTS, JD_SALARY_MIDPOINT_LPA,
 )
 
-TODAY = date(2026, 6, 3)
+TODAY = date.today()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -38,6 +38,40 @@ def _normalize_text(text: str) -> str:
 
 def _text_contains(text: str, keyword: str) -> bool:
     return keyword.lower() in text.lower()
+
+
+# Token extractor for word-boundary matching. Keeps alphanumerics plus the few
+# in-token symbols that appear in tech terms (+, #, ., -), e.g. "c++", "a/b",
+# "bm25", "e5", "sentence-transformers".
+_TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9\+\#\.\-]*")
+
+
+def _token_set(text: str) -> set:
+    return set(_TOKEN_RE.findall(text.lower()))
+
+
+def _kw_matches(kw: str, text_lower: str, token_set: set) -> bool:
+    """
+    Robust keyword match that avoids substring false positives.
+
+    The naive `kw in text` approach matched non-AI profiles on short codes:
+    "ann" hit "channel/planning/scanned", "rag" hit "storage/fragment",
+    "go" hit "google/category", "java" hit "javascript", "map" hit "mapping".
+    That inflated skill scores across the whole pool and helped keyword-stuffer
+    honeypots. Rules:
+      - multi-token phrases ("vector search", "sentence-transformers", "a/b testing")
+        → substring match on normalized text (low false-positive risk),
+      - short single tokens (≤4 chars: ann, rag, e5, go, map, bge, bm25, java, …)
+        → EXACT token membership only,
+      - longer single tokens (python, pinecone, retrieval, …)
+        → token membership OR substring (handles minor morphology).
+    """
+    kw = kw.lower()
+    if any(ch in kw for ch in (" ", "/")):
+        return kw in text_lower
+    if len(kw) <= 4:
+        return kw in token_set
+    return kw in token_set or kw in text_lower
 
 
 def _any_match(text: str, keyword_set: set) -> bool:
@@ -86,12 +120,18 @@ def score_skills(c: dict, candidate_text: str) -> tuple:
     evidence_dict contains must_have_hits, nice_hits for explainability.
     """
     skills_list = c.get("skills", [])
-    skill_names_lower = {s["name"].lower() for s in skills_list}
+    skill_names_lower = {s.get("name", "").lower() for s in skills_list}
+    skill_token_set = _token_set(" ".join(skill_names_lower))
+    text_lower = candidate_text.lower()
+    text_token_set = _token_set(candidate_text)
+    combined_tokens = skill_token_set | text_token_set
 
     def has_skill(kw: str) -> bool:
+        # Exact skill-name match first, then word-boundary-aware match in the
+        # combined skill + free-text token space (no substring false positives).
         if kw in skill_names_lower:
             return True
-        return _text_contains(candidate_text, kw)
+        return _kw_matches(kw, text_lower, combined_tokens)
 
     # Track which keywords actually hit (for explainability)
     must_hits_kws = [kw for kw in MUST_HAVE_SKILLS if has_skill(kw)]
@@ -105,7 +145,8 @@ def score_skills(c: dict, candidate_text: str) -> tuple:
     all_jd_kws = MUST_HAVE_SKILLS | NICE_TO_HAVE_SKILLS
     matched_skill_objs = [
         s for s in skills_list
-        if any(_text_contains(s["name"], kw) for kw in all_jd_kws)
+        if any(_kw_matches(kw, s.get("name", "").lower(), _token_set(s.get("name", "")))
+               for kw in all_jd_kws)
     ]
     if matched_skill_objs:
         weighted = []
@@ -123,7 +164,7 @@ def score_skills(c: dict, candidate_text: str) -> tuple:
     if assessment_scores:
         relevant = [
             v / 100.0 for k, v in assessment_scores.items()
-            if any(_text_contains(k, kw) for kw in all_jd_kws)
+            if any(_kw_matches(kw, k.lower(), _token_set(k)) for kw in all_jd_kws)
         ]
         if relevant:
             assessment_score = sum(relevant) / len(relevant)
@@ -169,7 +210,7 @@ def _is_consulting_only(c: dict) -> bool:
 
 def _has_job_hopping(c: dict) -> tuple:
     """
-    Detect job-hopping: avg tenure < 12 months across 3+ roles.
+    Detect job-hopping: avg tenure < 14 months with 2+ short stints across 3+ roles.
     Returns (is_hopper, avg_tenure_months, short_stint_count).
     """
     history = c.get("career_history", [])
@@ -468,58 +509,93 @@ def score_behavioral(c: dict) -> float:
 # Reasoning Generator — Short (CSV column)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def generate_reasoning(c: dict, scores: dict, rank: int, evidence: dict = None) -> str:
-    """Generate a concise recruiter-style reasoning string for the CSV."""
+def _soft_concern(c: dict, scores: dict, rank: int) -> str:
+    """Derive one honest concern from the profile when no hard disqualifier fired."""
+    p = c.get("profile", {})
+    sig = c.get("redrob_signals", {})
+    yoe = p.get("years_of_experience", 0) or 0
+    notice = sig.get("notice_period_days", 90)
+    rr = sig.get("recruiter_response_rate", 1.0)
+    days_inactive = _days_since(sig.get("last_active_date", "2020-01-01"))
+    if yoe > 12:
+        return f"{yoe:.0f}y is above the JD's 5-9y sweet spot"
+    if yoe and yoe < 5:
+        return f"{yoe:.1f}y is below the JD's 5-9y target"
+    if days_inactive > 120:
+        return f"inactive ~{days_inactive // 30} months"
+    if rr < 0.3:
+        return f"low recruiter response rate ({rr:.0%})"
+    if notice and notice > 60:
+        return f"long notice period ({notice}d)"
+    if scores.get("semantic", 1) < 0.4:
+        return "fit rests on career signal more than explicit JD keywords"
+    return ""
+
+
+def generate_reasoning(c: dict, scores: dict, rank: int, evidence: dict = None,
+                       disqualifiers: list = None) -> str:
+    """
+    Concise, recruiter-style reasoning for the CSV column.
+
+    Designed to pass the Stage-4 reasoning checks (spec §3): references specific
+    profile facts, connects to the JD (Senior AI/ML retrieval/ranking role), is
+    rank-aware in tone, and states an honest concern where one exists.
+    """
     p = c.get("profile", {})
     sig = c.get("redrob_signals", {})
     title = p.get("current_title", "Unknown")
-    yoe = p.get("years_of_experience", 0)
+    yoe = p.get("years_of_experience", 0) or 0
     location = p.get("location", "")
 
-    # Best AI skills
-    skills_list = c.get("skills", [])
-    ai_skill_kws = [
-        "nlp", "ml", "llm", "embedding", "vector", "transformer", "bert", "gpt",
-        "rag", "pytorch", "tensorflow", "faiss", "ranking", "retrieval", "pinecone",
-        "search", "fine-tun", "lora", "sentence", "huggingface", "milvus",
-        "elasticsearch", "opensearch", "mlflow", "recommendation", "bm25",
-    ]
-    ai_skills = [
-        s["name"] for s in skills_list
-        if any(kw in s["name"].lower() for kw in ai_skill_kws)
-    ][:4]
+    # Prefer verified must-have JD-skill hits as evidence (no hallucinated skills).
+    jd_skills = (evidence or {}).get("must_have_hits", [])[:3]
 
-    # Use evidence hits if provided
-    if evidence and evidence.get("must_have_hits"):
-        ai_skills = evidence["must_have_hits"][:3] or ai_skills
-
-    rr = sig.get("recruiter_response_rate", 0)
-    notice = sig.get("notice_period_days", 90)
-    open_work = sig.get("open_to_work_flag", False)
-    gh = sig.get("github_activity_score", -1)
-
-    parts = [f"{title} with {yoe:.1f} yrs exp"]
+    # 1. Fact clause: who they are.
+    head = f"{title}, {yoe:.1f}y"
     if location:
-        parts.append(f"based in {location}")
-    if ai_skills:
-        parts.append(f"AI/ML skills: {', '.join(ai_skills[:3])}")
+        head += f", {location}"
+    head += ". "
 
-    signals = []
-    if open_work:
-        signals.append("open to work")
-    if notice <= 30:
-        signals.append(f"{notice}d notice")
-    if rr >= 0.6:
-        signals.append(f"high response rate ({rr:.0%})")
-    if gh >= 50:
-        signals.append(f"GitHub score {gh:.0f}")
+    # 2. JD-linked evidence clause.
+    if jd_skills:
+        evidence_clause = f"Direct JD-skill evidence: {', '.join(jd_skills)}. "
+    else:
+        evidence_clause = "Fit rests on career trajectory rather than explicit retrieval/ranking keywords. "
 
-    reason = "; ".join(parts)
-    if signals:
-        reason += ". " + ", ".join(signals) + "."
+    # 3. Rank-aware framing (tone matches position).
+    if rank <= 10:
+        frame = "Strong fit for the retrieval/ranking role. "
+    elif rank <= 50:
+        frame = "Solid adjacent fit. "
+    else:
+        frame = "Below the clear cutoff; included on balance of signals. "
 
-    if len(reason) > 200:
-        reason = reason[:197] + "..."
+    # 4. Availability signal (the JD weights "actually hireable" heavily). Lowest priority.
+    avail = []
+    if sig.get("open_to_work_flag", False):
+        avail.append("open to work")
+    notice = sig.get("notice_period_days", 90)
+    if notice is not None and notice <= 30:
+        avail.append(f"{notice}d notice")
+    avail_clause = (", ".join(avail) + ". ") if avail else ""
+
+    # 5. Honest concern (hard disqualifier first, else a derived soft concern). High priority.
+    concern = (disqualifiers[0] if disqualifiers else _soft_concern(c, scores, rank))
+    if concern and len(concern) > 90:
+        concern = concern[:87] + "..."
+    concern_clause = f"Concern: {concern}." if concern else ""
+
+    # Assemble with priority: head + evidence + frame + concern are kept; the
+    # availability clause is dropped first if we exceed the length budget, so the
+    # honest concern is never the truncated tail.
+    CAP = 240
+    core = (head + evidence_clause + frame + concern_clause).strip()
+    if len(core) + len(avail_clause) <= CAP:
+        reason = (head + evidence_clause + frame + avail_clause + concern_clause).strip()
+    else:
+        reason = core
+    if len(reason) > CAP:
+        reason = reason[:CAP].rsplit(" ", 1)[0].rstrip(",.;") + "."
     return reason
 
 

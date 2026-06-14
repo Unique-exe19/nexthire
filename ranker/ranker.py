@@ -6,7 +6,7 @@ Upgraded with Redis caching, GPU-acceleration, Candidate Sharding,
 and Explainable AI scoring breakdowns.
 
 Usage:
-    py ranker.py [--input PATH] [--output PATH] [--top-k N] [--sample]
+    py ranker.py [--input PATH] [--output PATH] [--top-k N]
 """
 
 import sys
@@ -18,7 +18,7 @@ import argparse
 import logging
 import hashlib
 import pickle
-from typing import Any, List, Dict, Tuple
+from typing import Any, List, Dict, Tuple, Optional
 
 # ── Setup logging ──────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -48,6 +48,7 @@ from score_utils import (
     generate_long_reasoning,
 )
 from hybrid_ranker import HybridRanker, _rank_list, reciprocal_rank_fusion, _normalize, redis_client, redis_available
+from honeypot import honeypot_flags
 from concurrent.futures import ProcessPoolExecutor
 
 
@@ -74,6 +75,15 @@ def _score_candidate_worker(item):
 
     # Disqualifier penalty
     penalty, disqualifiers = compute_disqualifier_penalty(c, text)
+
+    # Honeypot / impossible-profile penalty (spec §7: >10% honeypots in top 100 ⇒ DQ).
+    # Detects internal contradictions (impossible timelines, inflated proficiency)
+    # so honeypots collapse below the top 100 without special-casing IDs.
+    hp_penalty, hp_flags = honeypot_flags(c)
+    penalty *= hp_penalty
+    if hp_flags:
+        disqualifiers.extend(hp_flags)
+
     final_score = raw_score * penalty
 
     scores_dict = {
@@ -90,7 +100,7 @@ def _score_candidate_worker(item):
         {
             "dimension": "Semantic Relevance", 
             "delta": round(w["semantic"] * sem_s, 4), 
-            "reason": f"Semantic semantic overlap with job profile (cosine: {sem_s:.2f})"
+            "reason": f"Semantic overlap with job profile (cosine: {sem_s:.2f})"
         },
         {
             "dimension": "Skills Depth", 
@@ -219,7 +229,9 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_we
     mtime = os.path.getmtime(input_path)
     dataset_hash = hashlib.sha256(f"{input_path}_{file_size}_{mtime}".encode('utf-8')).hexdigest()
 
-    cache_file = input_path.replace(".json", "_cache.pkl")
+    # Derive cache path robustly for BOTH candidates.json and candidates.jsonl.
+    # (input_path.replace(".json", ...) corrupted ".jsonl" paths.)
+    cache_file = os.path.splitext(input_path)[0] + "_cache.pkl"
     use_cache = False
     cache_data = {}
 
@@ -391,25 +403,11 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_we
     log.info(f"Scoring done: {time.time()-t2:.1f}s")
 
     # ── Phase 4: Sort, rank, normalize, output ─────────────────────────────
+    # NOTE: All scoring is fully local, deterministic, CPU-only and network-free.
+    # The previous hosted-LLM (Gemini) re-ranking phase was removed because the
+    # Redrob spec (§3) forbids any external API / network call during the ranking
+    # step. Long-form reasoning is generated locally below via generate_long_reasoning.
     log.info("Phase 4/4: Sorting and generating output...")
-    results.sort(key=lambda x: (-x["score"], x["candidate_id"]))
-
-    # LLM Re-ranking of Top 15 Candidates (Cognitive layer)
-    log.info("Phase 3b/4: LLM Re-ranking of top 15 candidates...")
-    from llm_reranker import rerank_top_candidates
-    top_15 = results[:15]
-    llm_results = rerank_top_candidates(top_15, JD_TEXT)
-    
-    for r in top_15:
-        cid = r["candidate_id"]
-        if cid in llm_results:
-            r["score"] = max(0.0, r["score"] + llm_results[cid]["score_adjustment"])
-            r["scores"]["final"] = r["score"]
-            r["llm_reasoning_long"] = llm_results[cid]["reasoning_long"]
-        else:
-            r["llm_reasoning_long"] = None
-
-    # Re-sort results
     results.sort(key=lambda x: (-x["score"], x["candidate_id"]))
 
     # Normalize scores to [0.10 .. 0.999] monotonically
@@ -439,15 +437,13 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_we
 
         r["scores"]["final"] = norm_score
 
-        # Short reasoning for CSV
-        reasoning = generate_reasoning(c, r["scores"], rank_idx, r["skill_evidence"])
+        # Short reasoning for CSV (local, rank-aware, fact-grounded, concern-bearing)
+        reasoning = generate_reasoning(c, r["scores"], rank_idx, r["skill_evidence"], r["disqualifiers"])
 
-        # Long reasoning
-        long_reasoning = r.get("llm_reasoning_long")
-        if not long_reasoning:
-            long_reasoning = generate_long_reasoning(
-                c, r["scores"], rank_idx, r["skill_evidence"], r["disqualifiers"]
-            )
+        # Long reasoning (local, deterministic — no network)
+        long_reasoning = generate_long_reasoning(
+            c, r["scores"], rank_idx, r["skill_evidence"], r["disqualifiers"]
+        )
 
         rows.append({
             "candidate_id": r["candidate_id"],
@@ -546,8 +542,6 @@ def main():
     parser.add_argument("--input",  "-i", default=DEFAULT_INPUT)
     parser.add_argument("--output", "-o", default=DEFAULT_OUTPUT)
     parser.add_argument("--top-k",  "-k", type=int, default=100)
-    parser.add_argument("--sample", action="store_true",
-                        help="Use sample_candidates.json (50 candidates)")
     parser.add_argument("--weights", "-w", type=str, default=None,
                         help="Custom weight json string e.g. '{\"semantic\": 0.3, \"skill_match\": 0.3, ...}'")
     args = parser.parse_args()
@@ -564,14 +558,6 @@ def main():
         except Exception as e:
             log.error(f"Failed to parse weights JSON: {e}")
             sys.exit(1)
-
-    if args.sample:
-        args.input = os.path.join(
-            SCRIPT_DIR, "..", "dataset",
-            "India_runs_data_and_ai_challenge", "sample_candidates.json"
-        )
-        args.output = os.path.join(SCRIPT_DIR, "..", "sample_submission_out.csv")
-        log.info("Running on SAMPLE dataset (50 candidates)")
 
     if not os.path.exists(args.input):
         log.error(f"Input file not found: {args.input}")

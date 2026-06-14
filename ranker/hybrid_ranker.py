@@ -24,25 +24,42 @@ RRF_K = 60
 BM25_K1 = 1.5   # term frequency saturation
 BM25_B  = 0.75  # length normalization
 
-# ── Redis Client Initialization ──────────────────────────────────────────────
-import redis
-from dotenv import load_dotenv
-
-# Load environment configurations
-load_dotenv(os.path.join(os.path.dirname(__file__), "..", "web", ".env"))
-load_dotenv()
+# ── Redis Client Initialization (OPTIONAL, OFF by default) ─────────────────────
+# The Redrob spec (§3) forbids network calls during the ranking step. Redis is a
+# convenience cache for the web dashboard ONLY. It is disabled unless the operator
+# explicitly opts in via NEXTHIRE_USE_REDIS=1, and every failure path degrades to
+# the local file cache. This guarantees the ranking step is network-free out of the box.
+try:
+    from dotenv import load_dotenv
+    load_dotenv(os.path.join(os.path.dirname(__file__), "..", "web", ".env"))
+    load_dotenv()
+except Exception:
+    # python-dotenv is optional; environment variables still work without it.
+    pass
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379")
+REDIS_ENABLED = os.environ.get("NEXTHIRE_USE_REDIS", "0").lower() in ("1", "true", "yes")
 
-try:
-    redis_client = redis.Redis.from_url(REDIS_URL, decode_responses=False)
-    redis_client.ping()
-    redis_available = True
-    log.info("Connected to Redis via REDIS_URL client connection ✓")
-except Exception as e:
-    redis_available = False
-    redis_client = None
-    log.warning(f"Redis not available: {e}. Falling back to file-based cache.")
+redis_client = None
+redis_available = False
+
+if REDIS_ENABLED:
+    try:
+        import redis
+        # Short connect timeout so an unreachable host never stalls the ranking step.
+        redis_client = redis.Redis.from_url(
+            REDIS_URL, decode_responses=False,
+            socket_connect_timeout=2, socket_timeout=2,
+        )
+        redis_client.ping()
+        redis_available = True
+        log.info("Connected to Redis via REDIS_URL client connection ✓")
+    except Exception as e:
+        redis_available = False
+        redis_client = None
+        log.warning(f"Redis not available: {e}. Falling back to file-based cache.")
+else:
+    log.info("Redis disabled (set NEXTHIRE_USE_REDIS=1 to enable). Using local file cache only.")
 
 # ── Semantic Skill Graph ──────────────────────────────────────────────────────
 SKILL_SYNONYMS = {
@@ -162,11 +179,16 @@ class BM25OkapiPure:
         for term, count in tf.items():
             if term not in self.inverted_index:
                 self.inverted_index[term] = []
-            
-            # Remove any pre-existing entry for this doc_id
+
+            # Remove any pre-existing entry for this doc_id. Only bump DF when the
+            # term was not already attributed to this document (avoid double-counting
+            # on re-add/update of an existing doc_id).
+            before = len(self.inverted_index[term])
             self.inverted_index[term] = [(d, c) for (d, c) in self.inverted_index[term] if d != doc_id]
+            already_present = len(self.inverted_index[term]) != before
             self.inverted_index[term].append((doc_id, count))
-            self._df[term] += 1
+            if not already_present:
+                self._df[term] += 1
 
     def remove_document(self, doc_id: int):
         """Incrementally remove a document from the BM25 index."""
@@ -247,13 +269,17 @@ class HybridRanker:
             import torch
             import numpy as np
             self._np = np
-            # GPU auto-detection
-            self._device = "cuda" if torch.cuda.is_available() else "cpu"
+            # CPU-only by default to honour the spec's "no GPU during ranking" rule.
+            # Set NEXTHIRE_ALLOW_GPU=1 only for offline experimentation.
+            allow_gpu = os.environ.get("NEXTHIRE_ALLOW_GPU", "0").lower() in ("1", "true", "yes")
+            self._device = "cuda" if (allow_gpu and torch.cuda.is_available()) else "cpu"
             self._dense_model = SentenceTransformer('all-MiniLM-L6-v2', device=self._device)
             self._dense_available = True
             log.info(f"sentence-transformers dense model loaded on {self._device} ✓")
-        except ImportError:
-            log.warning("sentence-transformers NOT available. Skipping dense semantic scoring.")
+        except Exception as e:
+            # Catch ImportError *and* offline model-download failures (OSError/HTTPError):
+            # either way, degrade to sparse-only scoring instead of crashing the ranker.
+            log.warning(f"sentence-transformers unavailable ({type(e).__name__}). Skipping dense semantic scoring.")
 
         try:
             from annoy import AnnoyIndex
