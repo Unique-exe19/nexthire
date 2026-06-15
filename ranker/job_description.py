@@ -190,3 +190,65 @@ def notice_period_score(days: int) -> float:
 
 # ── Salary Range for JD (estimated INR LPA) ───────────────────────────────────
 JD_SALARY_MIDPOINT_LPA = 40.0  # estimated for senior AI role in India
+
+# ── JD-Intent Signal Vocabulary ───────────────────────────────────────────────
+# These encode the JD's *explicit* "what we mean / do NOT want" sections, which
+# are how the hidden ground truth was built. Used by jd_intent.py.
+
+# NLP / IR evidence — the JD's core domain.
+NLP_IR_KWS = {
+    "nlp", "natural language", "information retrieval", "retrieval", "ranking",
+    "reranking", "search", "embedding", "embeddings", "semantic", "bm25",
+    "vector search", "recommendation", "recommender", "learning to rank",
+}
+
+# Other ML domains the JD de-prioritizes WHEN NLP/IR is absent
+# ("primary expertise is computer vision, speech, or robotics without NLP/IR").
+OTHER_DOMAIN_KWS = {
+    "computer vision", "image classification", "object detection", "segmentation",
+    "speech recognition", "tts", "asr", "robotics", "autonomous", "gan", "gans",
+    "image generation", "video", "ocr",
+}
+
+# "Shipped end-to-end ranking/search/recsys at scale" — the ideal-candidate line.
+SHIPPING_KWS = {
+    "shipped", "deployed", "production", "launched", "built and",
+    "end-to-end", "end to end", "at scale", "real users", "owned",
+}
+
+# Recent-LangChain-only signal: framework-tutorial style, no systems depth.
+RECENT_LLM_FRAMEWORK_KWS = {
+    "langchain", "llamaindex", "llama-index", "prompt engineering",
+    "openai api", "chatgpt", "gpt wrapper",
+}
+
+# Pre-LLM-era ML depth (JD wants people who "understood retrieval before it was fashionable").
+PRE_LLM_DEPTH_KWS = {
+    "xgboost", "learning to rank", "ltr", "svm", "random forest",
+    "collaborative filtering", "matrix factorization", "tf-idf", "bm25",
+    "word2vec", "glove", "lsa", "lda", "gradient boosting", "feature engineering",
+}
+
+# Pure-research / academic signal (penalized WITHOUT production deployment).
+RESEARCH_ONLY_KWS = {
+    "research scholar", "phd researcher", "postdoc", "post-doc",
+    "academic", "publication", "research assistant", "research fellow",
+    "thesis", "university research",
+}
+
+# External-validation signals (papers / talks / OSS — JD: "need to see how you think").
+EXTERNAL_VALIDATION_KWS = {
+    "open source", "open-source", "github", "published", "paper", "patent",
+    "conference", "talk", "speaker", "kaggle", "blog",
+}
+
+# ── JD-Intent Adjustment Weights (multipliers; env-tunable) ────────────────────
+# Each is a multiplier applied to the final score. 1.0 = neutral.
+JD_INTENT_WEIGHTS = {
+    "domain_mismatch":      0.55,  # CV/speech/robotics without NLP/IR
+    "pure_research":        0.55,  # research-only, no production
+    "recent_framework_only":0.70,  # only-recent LangChain/OpenAI, no depth
+    "shipping_boost":       1.12,  # demonstrable end-to-end shipping at scale
+    "pre_llm_depth_boost":  1.08,  # pre-LLM ML fundamentals
+    "external_valid_boost": 1.05,  # papers / talks / OSS
+}

@@ -49,7 +49,47 @@ from score_utils import (
 )
 from hybrid_ranker import HybridRanker, _rank_list, reciprocal_rank_fusion, _normalize, redis_client, redis_available
 from honeypot import honeypot_flags
+from jd_intent import jd_intent_adjustment
 from concurrent.futures import ProcessPoolExecutor
+
+
+def _availability_multiplier(c: dict) -> tuple:
+    """
+    A3: availability as a MULTIPLIER, not just an additive behavioral term.
+    The JD is explicit: "a perfect-on-paper candidate who hasn't logged in for 6
+    months and has a 5% recruiter response rate is, for hiring purposes, not
+    actually available. Down-weight them appropriately." A great-on-paper but
+    unreachable candidate should not sit in the top 10, so we scale the whole
+    score. Returns (multiplier in [~0.6, 1.0], reason_or_None).
+    """
+    import os
+    if os.environ.get("NEXTHIRE_AVAILABILITY", "1").lower() not in ("1", "true", "yes"):
+        return 1.0, None
+    sig = c.get("redrob_signals", {})
+    rr = sig.get("recruiter_response_rate", 0.5)
+    open_flag = sig.get("open_to_work_flag", False)
+
+    # Days since last active.
+    from datetime import date, datetime
+    try:
+        d = datetime.strptime(sig.get("last_active_date", "2020-01-01"), "%Y-%m-%d").date()
+        days = (date.today() - d).days
+    except Exception:
+        days = 9999
+
+    mult = 1.0
+    reason = None
+    # Hard unavailability: long-dormant AND low responsiveness AND not open.
+    if days > 180 and rr < 0.10 and not open_flag:
+        mult = 0.60
+        reason = f"Effectively unavailable: inactive {days//30}mo, {rr:.0%} response, not open to work"
+    elif days > 180 and rr < 0.20:
+        mult = 0.78
+        reason = f"Low availability: inactive {days//30}mo, {rr:.0%} recruiter response"
+    elif days > 365:
+        mult = 0.85
+        reason = f"Dormant: last active ~{days//30} months ago"
+    return mult, reason
 
 
 def _score_candidate_worker(item):
@@ -84,7 +124,16 @@ def _score_candidate_worker(item):
     if hp_flags:
         disqualifiers.extend(hp_flags)
 
-    final_score = raw_score * penalty
+    # JD-intent layer: explicit "do NOT want" penalties + prized-signal boosts
+    # (domain fit, pure-research, recent-framework-only, shipping, pre-LLM depth).
+    jd_mult, jd_reasons = jd_intent_adjustment(c)
+
+    # A3: availability multiplier (JD: unreachable ⇒ "not actually available").
+    avail_mult, avail_reason = _availability_multiplier(c)
+
+    final_score = raw_score * penalty * jd_mult * avail_mult
+    if avail_reason:
+        disqualifiers.append(avail_reason)
 
     scores_dict = {
         "semantic":    sem_s,
@@ -133,11 +182,30 @@ def _score_candidate_worker(item):
             "reason": f"Applied -{penalty_pct}% penalty for: {', '.join(disqualifiers)}"
         })
 
+    # JD-intent and availability adjustments (multiplicative) as XAI contributions.
+    if abs(jd_mult - 1.0) > 1e-9:
+        contributions.append({
+            "dimension": "JD-Intent Adjustment",
+            "delta": round(raw_score * penalty * (jd_mult - 1.0), 4),
+            "reason": ("; ".join(jd_reasons) if jd_reasons else
+                       f"JD-intent multiplier {jd_mult:.2f}")
+        })
+    if abs(avail_mult - 1.0) > 1e-9:
+        contributions.append({
+            "dimension": "Availability",
+            "delta": round(raw_score * penalty * jd_mult * (avail_mult - 1.0), 4),
+            "reason": avail_reason or f"Availability multiplier {avail_mult:.2f}"
+        })
+
+    # Effective penalty (all multiplicative factors) so downstream contribution
+    # scaling in rank_candidates() reflects the true final score.
+    eff_penalty = penalty * jd_mult * avail_mult
+
     return {
         "candidate_id":  c.get("candidate_id"),
         "score":         final_score,
         "raw_score":     raw_score,
-        "penalty":       penalty,
+        "penalty":       eff_penalty,
         "scores":        scores_dict,
         "skill_evidence": skill_evidence,
         "disqualifiers": disqualifiers,

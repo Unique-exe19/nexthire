@@ -5,6 +5,7 @@ import type { RankedCandidate, WorkMode, SortField } from '@/types/candidate';
 import { CandidateDrawer } from '@/components/CandidateDrawer';
 import { PodiumCard } from '@/components/PodiumCard';
 import { ScoreHistogram } from '@/components/ScoreHistogram';
+import { EvalMetricsPanel } from '@/components/EvalMetricsPanel';
 
 // ── Inline SVGs ─────────────────────────────────────────────────────────────
 const GlobeIcon = () => (
@@ -1289,6 +1290,11 @@ export default function HomePage() {
             <ScoreHistogram scores={allScores} />
           </div>
         )}
+
+        {/* ── Offline evaluation metrics (NDCG/MAP/honeypot) ────────────────── */}
+        <div className="animate-stagger" style={{ marginBottom: 28 }}>
+          <EvalMetricsPanel />
+        </div>
 
         {/* ── Top-3 Podium ─────────────────────────────────────────────────── */}
         {top3.length === 3 && !loading && (

@@ -1,208 +1,204 @@
-# NextHire: AI Recruiter Ranking Engine & Dashboard
+# NextHire — AI Recruiter Ranking Engine
 
-NextHire is an end-to-end, high-performance hybrid semantic ranking system and web dashboard designed for the **Redrob Hackathon: AI Recruiter Challenge**. It parses a corpus of 100,000 candidates against a target Job Description (Senior AI/ML Engineer), computes highly accurate multi-dimensional fit scores, generates human-readable rationales, and visualizes the results on a premium monochrome interface.
+A CPU-only, **network-free**, reproducible ranking system for the **Redrob Hackathon — Intelligent Candidate Discovery & Ranking Challenge**. It ranks the top-100 candidates from a **100,000-profile** pool against a Senior AI/ML Engineer JD, with fact-grounded reasoning for every pick — plus a premium Next.js recruiter dashboard and an offline evaluation harness.
+
+> **Core insight (from the JD itself):** *"The right answer is not finding candidates whose skills section contains the most AI keywords — that's a trap we built into the dataset. The right answer involves reasoning about the gap between what the JD says and what the JD means."* NextHire is built around reading **profiles**, not keywords, and encoding the JD's **explicit intent** as scoring signals.
 
 ---
 
-## 🏗️ System Architecture & Data Flow
+## ⚡ TL;DR — reproduce the submission
 
-NextHire is structured into two main components:
-1. **Python Ranking Pipeline (`/ranker`)**: A high-speed candidate search, scoring, and re-ranking engine.
-2. **Next.js Recruiter Dashboard (`/web`)**: A premium, pure black monochrome web application to inspect and filter candidate metrics with zero-latency.
+```bash
+pip install -r ranker/requirements.txt          # numpy + scikit-learn only
+make reproduce CANDIDATES=./candidates.jsonl OUT=./submission.csv
+# or:  python ranker/ranker.py --input ./candidates.jsonl --output ./submission.csv
+```
+
+Ranking step: **~20s** on CPU for 100k candidates, **0 network calls**, **0 GPU**. Then:
+
+```bash
+make validate     # spec format check (100 rows, unique ranks, monotonic scores…)
+make evaluate     # offline NDCG@10/50, MAP, P@10 + honeypot rate (proxy ground truth)
+```
+
+---
+
+## 📁 Repository structure
+
+```
+nexthire/
+├── README.md                    ← you are here
+├── Makefile                     ← reproduce / evaluate / docker shortcuts
+├── Dockerfile                   ← CPU-only, network-off containerised reproduction
+├── submission.csv               ← the deliverable (top-100 ranking)
+├── submission_metadata.yaml     ← portal metadata mirror (spec §10.3)
+│
+├── ranker/                      ← all ranking source (the engine)
+│   ├── ranker.py                ← entrypoint + pipeline orchestration
+│   ├── job_description.py       ← JD constants, weights, skill lists, intent keywords
+│   ├── hybrid_ranker.py         ← BM25 + TF-IDF + (optional) dense + RRF fusion
+│   ├── score_utils.py           ← skills / career / behavioral scoring + reasoning
+│   ├── jd_intent.py             ← JD-intent multipliers (the "reads between the lines" layer)
+│   ├── honeypot.py              ← impossible-profile (honeypot) detection
+│   ├── evaluate.py              ← offline NDCG/MAP/P@10 + honeypot-rate harness
+│   ├── precompute.py            ← optional, untimed index/cache prebuild
+│   ├── validate.py              ← CSV format validator
+│   ├── benchmark.py             ← performance benchmark suite
+│   ├── worker.py                ← optional Redis background worker (dashboard only)
+│   └── requirements.txt
+│
+├── docs/
+│   ├── METHODOLOGY.md           ← design rationale + ablations (Stage 4/5 read)
+│   ├── ppt.md                   ← presentation blueprint
+│   └── submission_spec.pdf      ← the official spec (source of truth)
+│
+├── scripts/run.bat              ← Windows one-click runner
+├── dataset/…                    ← candidates.json (gitignored), schema, reference docs
+└── web/                         ← Next.js recruiter dashboard (sandbox/demo)
+```
+
+---
+
+## 🏗️ Architecture & pipeline
 
 ```mermaid
 graph TD
-    JD[Job Description Text] --> |Input| R[ranker.py]
-    JSONL[candidates.json 100K Pool] --> |Streaming Loader| R
-    
-    subgraph Python Ranking Pipeline
-        R --> P1[Phase 1: Build Corpus]
-        P1 --> P2[Phase 2: Hybrid Semantic Scoring]
-        P2 --> |Inverted Index BM25| P2_BM25[BM25 Scoring]
-        P2 --> |Inverted Index TF-IDF| P2_TFIDF[TF-IDF Cosine Scoring]
-        P2_BM25 & P2_TFIDF --> |Reciprocal Rank Fusion| P2_RRF[RRF Filter Top 1500]
-        
-        P2_RRF --> P3[Phase 3: Parallel Structured Scoring]
-        P3 --> |ProcessPoolExecutor| P3_Workers[Multi-Core Scoring Workers]
-        P3_Workers --> |Analyze| Dim1[Skills Depth]
-        P3_Workers --> |Analyze| Dim2[Career Quality]
-        P3_Workers --> |Analyze| Dim3[Experience Fit]
-        P3_Workers --> |Analyze| Dim4[Behavioral Signals]
-        P3_Workers --> |Apply| Penalty[Disqualifier Penalties]
-        
-        Dim1 & Dim2 & Dim3 & Dim4 & Penalty --> P3_Ensemble[Composite Ranker]
-        P3_Ensemble --> Local[Local deterministic reasoning: short + long rationale]
+    JD[Job Description] --> R[ranker.py]
+    POOL[candidates.jsonl · 100K] --> R
+    subgraph STAGE1[Stage 1 — Sparse retrieval on FULL pool]
+        R --> BM25[BM25-Okapi · inverted index]
+        R --> TFIDF[TF-IDF cosine · scikit-learn 1-2 grams]
+        BM25 & TFIDF --> RRF[Reciprocal Rank Fusion k=60 → top ~1500]
     end
-    
-    Local --> |Output| CSV[submission.csv]
-    Local --> |Output| DebugJSON[submission_debug.json]
-    
-    subgraph Web App Frontend
-        CSV & DebugJSON --> |JSON API Server| NextJS[Next.js App Router]
-        NextJS --> |React Hooks| UI[Monochrome Recruiter Dashboard]
+    subgraph STAGE2[Stage 2 — Structured deep scoring · parallel]
+        RRF --> ENS[5-dim weighted ensemble]
+        ENS --> DISQ[× disqualifier penalty]
+        DISQ --> HONEY[× honeypot penalty]
+        HONEY --> INTENT[× JD-intent multiplier]
+        INTENT --> AVAIL[× availability multiplier]
     end
+    AVAIL --> OUT[Sort · normalize · local reasoning]
+    OUT --> CSV[submission.csv]
+    OUT --> DBG[submission_debug.json · XAI breakdowns]
+    CSV & DBG --> WEB[Next.js dashboard]
+    CSV --> EVAL[evaluate.py → eval_report.json]
 ```
 
----
+**Final score**
 
+```
+raw   = 0.28·semantic + 0.28·skills + 0.22·career + 0.10·experience + 0.12·behavioral
+final = raw × penalty_disqualifier × penalty_honeypot × mult_jd_intent × mult_availability
+```
 
----
-
-## ⚡ Performance Optimizations & Scalability
-
-The ranking pipeline is designed to efficiently process a **487MB** candidate dataset containing over **100,000** profiles while maintaining low latency, minimal memory usage, and production-grade reliability.
-
-### 🔍 Inverted Index Sparse Retrieval
-The BM25 and TF-IDF retrieval systems in [hybrid_ranker.py](file:///d:/project/nexthire/ranker/hybrid_ranker.py) use custom inverted indices (`term → posting list`) to avoid expensive linear scans across the full dataset.
-* **Complexity Reduction**: Instead of evaluating all 100,000 candidates, the engine only scores profiles containing relevant keywords from the job description.
-* **Impact**: Reduces retrieval complexity from `O(N)` linear scans to targeted sparse lookups, enabling millisecond-level candidate matching and lowering compute overhead.
-
-### 📦 Stream-Based Dataset Processing
-The dataset is processed using streaming parsers in both Python and Node.js to avoid loading the full 487MB corpus into memory.
-* **Python Generator Iteration**: In [ranker.py](file:///d:/project/nexthire/ranker/ranker.py), candidates are streamed line-by-line using a generator, keeping heap memory footprint low and preventing heap allocation spikes.
-* **Early-Exit Next.js Loader**: In the Next.js backend ([data.ts](file:///d:/project/nexthire/web/lib/data.ts)), the profile loader parses `candidates.json` line-by-line. The moment it collects details for the top 100 shortlist candidates, it exits the file handle loop immediately.
-* **Impact**: Reduces API response times from over 5 seconds to under 2 seconds, eliminating unnecessary disk I/O.
-
-### 🎯 Two-Stage Retrieve-and-Rerank Pipeline
-* **Stage 1 (Sparse Retrieval)**: Fuses BM25 and TF-IDF scores on the full 100K pool using **Reciprocal Rank Fusion (RRF)** to select the top 1,500 candidates.
-* **Stage 2 (Deep Reranking)**: Runs expensive structured scoring logic, career trajectory analysis, skills depth matching, and behavioral signals evaluating **only** on the top 1,500 candidates, bypassing 98.5% of the database entirely.
-* **Impact**: Significant reduction in model compute cost and CPU cycles.
-
-### ⚙️ Multi-Core Parallel Processing
-Structured candidate evaluation is parallelized using Python’s `ProcessPoolExecutor` in [ranker.py](file:///d:/project/nexthire/ranker/ranker.py).
-* Concurrently calculates skill proficiency overlaps, career company tiers, experience weights, and notices periods across all available CPU cores.
-* **Impact**: Utilizes 100% of host CPU resources to score 1,500 shortlisted candidates in **~1.8 seconds**.
-
-### Local, Deterministic Final Reasoning
-* The ranking step is **fully local, CPU-only, and network-free**, per the Redrob spec (no hosted LLM APIs, no network during ranking).
-* Short- and long-form rationales are generated by deterministic, fact-grounded templates in `ranker/score_utils.py` that cite only facts present in the candidate's profile — no external calls, no hallucination risk.
+Additive ensemble for *fit*; multiplicative gates for *viability / reality / availability* — a fatal flaw suppresses the whole score instead of subtracting a slice.
 
 ---
 
-## 📊 Detailed Scoring Rubric & Weights
+## 🚀 Features
 
-Scores are compiled using a structured ensemble of **5 weighted components**:
+### 1. Two-stage retrieve-and-rerank
+- **Stage 1 (full pool):** custom **BM25-Okapi** inverted index + **scikit-learn TF-IDF** (1–2 grams), fused via **Reciprocal Rank Fusion** → top ~1,500. Skips 98.5% of the pool from expensive scoring.
+- **Stage 2 (shortlist):** deep structured scoring in parallel (`ProcessPoolExecutor`).
+- **Optional dense pass:** sentence-transformer embeddings supported, run only in `precompute.py` so the timed ranking step stays sparse and fast.
 
-| Weight | Dimension | Scoring Focus |
-| :---: | :--- | :--- |
-| **28%** | **Semantic Fit** | Lexical overlap with the target role description, fused via RRF. |
-| **28%** | **Skills Depth** | Overlap of Must-Have and Nice-to-Have skills, weighted by proficiency level (Expert/Advanced), skill duration, endorsements, and assessments. |
-| **22%** | **Career Quality** | Title seniorities, product company tenure ratio, location/relocation preferences, and education university tier. |
-| **10%** | **Experience Fit** | Experience fit based on years of experience, peaking at the sweet spot of 5–9 years. |
-| **12%** | **Behavioral Signals** | Notice period (≤30 days preferred), last active recency, response rates, and GitHub score. |
+### 2. Word-boundary skill matching (fixed a real bug)
+Naive `keyword in text` matching made short codes false-match: `ann`→"ch**ann**el", `rag`→"sto**rag**e", `go`→"**Go**ogle", `map`→"**map**ping", `java`→"**java**script". This inflated skill scores pool-wide and *helped keyword-stuffer honeypots*. Now: phrases match as substrings; short tokens (≤4 chars) require **exact token** membership. A non-AI Operations Manager went from matching 3 must-have skills → **0**.
 
-### 🚫 Disqualifiers & Multipliers (Penalty Layer)
-To prevent keyword stuffing or bad placements, candidates are penalized using multipliers:
-1. **Consulting/IT Services career (>85% tenure at consulting giants)**: Multiplied by `0.40` (60% penalty).
-2. **Keyword Trap (listed AI skills but 0 mentions in career history)**: Multiplied by `0.50` (50% penalty).
-3. **Junior Candidate (< 2 years of experience)**: Multiplied by `0.50` (50% penalty).
-4. **Job-Hopping (average tenure < 14 months)**: Multiplied by `0.75` (25% penalty).
-5. **Expected Salary (over 2x of target budget midpoint)**: Multiplied by `0.85` (15% penalty).
+### 3. Five-dimension scoring ensemble
+| Weight | Dimension | What it captures |
+|:---:|---|---|
+| 28% | Semantic | BM25 + TF-IDF (+ optional dense) via RRF |
+| 28% | Skills | must/nice JD-skill overlap × proficiency × duration × endorsements × Redrob assessments |
+| 22% | Career | title seniority, recency-weighted product-company trajectory, location, education tier |
+| 10% | Experience | YoE fit, peaking at the JD's 5–9y sweet spot |
+| 12% | Behavioral | recency, availability, responsiveness, engagement, GitHub, recruiter saves |
 
----
+### 4. Disqualifier penalties (keyword-stuffing defense)
+Wrong current role, consulting-only career (TCS/Infosys/…), keyword-trap (AI skills with no AI in career history), too-junior, job-hopping, salary-mismatch — each a multiplicative penalty with a human-readable reason.
 
-## 🔮 Advanced Production Architecture Features
+### 5. Honeypot detection (Stage-3 DQ filter) — `honeypot.py`
+Spec §7: ~80 honeypots with *subtly impossible profiles*, forced to tier 0; **>10% in your top-100 ⇒ disqualified**. We detect **internal contradictions** (no ID special-casing):
+- total career months > 2× stated experience,
+- a single role longer than the entire career,
+- ≥5 "expert" skills with 0 months of usage.
 
-We have built several enterprise-grade scaling enhancements to elevate the NextHire platform:
+> **Calibration we're proud of:** our first cut flagged **15,378** "honeypots" because one rule penalized professionals who earned a later degree *while working* (normal in India). We caught it via the eval harness, removed the rule, and landed on **~28** high-confidence, zero-false-positive detections. **Result: 0 honeypots in the submitted top-100.**
 
-1. **Redis Caching Layer**: Precomputed candidate embeddings, TF-IDF index tables, and BM25 index parameters are serialized and cached in a local Redis database using SHA-256 hashes. Search reloads bypass indexing and execute in **~3.6s**.
-2. **Distributed Redis Task Queue**: The scoring and ranking execution is decoupled from Next.js server requests. Rekeying/recalculation requests are pushed to a Redis Queue (`BullMQ` / `rq`) and processed by an asynchronous Python background worker daemon ([worker.py](file:///d:/project/nexthire/ranker/worker.py)). Real-time stdout logs are pushed back via Redis Pub/Sub events.
-3. **Circuit Breaker Fallback**: In the absence of a running Redis instance, the API route activates a circuit breaker and dynamically falls back to running the child process directly, guaranteeing 100% service availability.
-4. **Explainable AI (XAI) Score Contributions**: Selected candidate views show exactly how a candidate's score is compiled—listing delta percentage values (e.g. `+22.0% Semantic Match`, `-15.0% Disqualifier Penalty`) and reasons behind it.
-5. **Approximate Nearest Neighbor (ANN) Vector Search**: Support is integrated for the Annoy indexer, falling back to NumPy matrix-vector multiplication (cosine similarity dot products) for super-fast retrieval.
-6. **Candidate Sharding**: Supports geographical/skill partitioning of candidate pools to parallelize sparse and dense search pipelines across processes.
-7. **Performance Benchmarking Suite**: Includes [benchmark.py](file:///d:/project/nexthire/ranker/benchmark.py) to evaluate cold vs. cached index construction, retrieval latency, memory usage, and parallel scoring execution.
+### 6. JD-intent layer — `jd_intent.py` (the differentiator)
+The JD's *"What we mean"* and *"Things we explicitly do NOT want"* sections are how the ground truth was built, so we encode them directly as multipliers:
+- **Penalties:** CV/speech/robotics with no NLP/IR; pure-research with no production; recent-LangChain-only with no pre-LLM depth.
+- **Boosts:** demonstrable end-to-end shipping at scale; pre-LLM ML/IR fundamentals (XGBoost/LTR/classical IR); external validation (OSS/papers/strong GitHub).
 
----
+Every top-10 placement now traces to an explicit JD sentence.
 
-## 🔮 System Scalability Roadmap
+### 7. Availability multiplier (`ranker.py`)
+The JD: *"a perfect-on-paper candidate who hasn't logged in for 6 months and has a 5% response rate is, for hiring purposes, not actually available — down-weight them appropriately."* Implemented as a multiplier on dormant + unresponsive + not-open candidates.
 
-Planned future improvements include:
-* **True ANN Sharded Indices**: Sharding FAISS or HNSW indices across multiple search nodes based on geo-regions.
-* **Real-Time Incremental Index Updates**: Maintain posting-list updates in memory allowing candidate insertion/update without rebuilding full indices.
-* **GPU-Accelerated Reranking**: Compiling dense embedding extraction with PyTorch CUDA / ONNX Runtime to run on GPU clusters.
-* **Recruiter Feedback Reinforcement Loops**: Adjusting static scoring weights based on recruiter interaction metrics (clicks, hides, and shortlisting actions).
+### 8. Local, fact-grounded reasoning (Stage-4 ready)
+Short (CSV) and long (dashboard) rationales generated **locally** — no LLM, no network, nothing to hallucinate. Each is **rank-aware** (tone matches position), **JD-linked**, cites only **verified profile facts**, and states an **honest concern** where one exists (70/100 rows). Designed against the six Stage-4 reasoning checks.
 
----
+### 9. Explainable AI (XAI) breakdowns
+`submission_debug.json` carries per-candidate dimension scores, skill evidence, disqualifiers, penalties, and signed contribution deltas (e.g. `+12% JD-intent`, `−40% honeypot`) for the dashboard.
 
-## 📊 Benchmark Summary
-
-| Metric | Result |
-| :--- | :--- |
-| **Dataset Size** | 487MB |
-| **Candidate Pool** | 100,000+ |
-| **Sparse Retrieval Latency** | Millisecond-level (< 0.5 ms) |
-| **Next.js API Response Time** | < 2 seconds |
-| **Structured Multi-Core Scoring** | ~1.8 seconds (for N=1,500) |
-| **Rerank Filter Threshold** | Top 1,500 |
-| **LLM Rerank Finalists** | Top 15 |
-| **Processing Strategy** | Stream-based Generators |
-| **Redis Cache Recalculation Time** | **~3.6 seconds** (down from 66 seconds) |
+### 10. Offline evaluation harness — `evaluate.py`
+The leaderboard is hidden (spec §8), and the JD wants engineers who *design eval frameworks (NDCG/MRR/MAP)* — so we built one. A rule-based **proxy ground truth** (relevance tiers 0–5, honeypots forced to 0) scored with the **official metric**:
+```
+composite = 0.50·NDCG@10 + 0.30·NDCG@50 + 0.15·MAP + 0.05·P@10
+```
+plus the honeypot-rate DQ check. Use it for **ablations and regression-catching** (deltas, not absolutes). See `docs/METHODOLOGY.md`.
 
 ---
 
-## 🚀 Running the Project
+## ✅ Compute compliance (spec §3)
 
-### 1. Setup & Installation
-Ensure you have Python 3.9+ and Node.js 18+ installed on your system.
+| Constraint | Limit | NextHire |
+|---|---|---|
+| Runtime | ≤ 5 min | **~20s** (100k, warm cache) ✓ |
+| Memory | ≤ 16 GB | within budget ✓ |
+| Compute | CPU only, no GPU | CPU-only (`NEXTHIRE_ALLOW_GPU=0`) ✓ |
+| Network | off | **no network calls in ranking path** ✓ |
+| Disk | ≤ 5 GB intermediate | cache < 1.5 GB ✓ |
+
+Determinism: stable tie-break `(-score, candidate_id)`; no RNG in the ranking path.
+
+---
+
+## 🔁 Reproducibility
 
 ```bash
-# Clone the repository
-cd nexthire
-
-# Install Python requirements
-pip install -r ranker/requirements.txt
-
-# Install Web dependencies
-cd web
-npm install
+make reproduce      # single command → submission.csv (the Stage-3 command)
+make precompute     # optional, untimed: build index cache out of the timed run (spec §10.3)
+make evaluate       # offline metrics + honeypot rate
+make validate       # CSV format check
+make docker-build   # build CPU-only, network-off image
+make docker-run     # run the ranker in the container
 ```
 
-### 2. Reproducing the Submission CSV (single command)
-
-The ranking step is **CPU-only, network-free, and deterministic** — it runs well within the Redrob compute budget (≤5 min, ≤16 GB RAM, no GPU, no network).
-
-```bash
-# Single command that produces the submission CSV from the candidates file:
-python ranker/ranker.py --input ./candidates.jsonl --output ./<participant_id>.csv
-```
-
-`--input` accepts either the gzip-unpacked `candidates.jsonl` or the JSON-array `candidates.json`. The default output is `submission.csv`.
-
-#### Optional: precompute indices outside the timed window
-
-The spec (§10.3) allows precomputation to exceed the 5-minute window. To move corpus parsing + index construction out of the timed ranking run:
-
-```bash
-python ranker/precompute.py --input ./candidates.jsonl   # one-time, untimed
-python ranker/ranker.py     --input ./candidates.jsonl --output ./<participant_id>.csv  # loads cache, fast
-```
-
-### 3. Run Performance Benchmarks
-```bash
-python ranker/benchmark.py
-```
-
-### 4. Running the Web Dashboard & Background Worker
-Start the background worker in a separate terminal:
-```bash
-python ranker/worker.py
-```
-Start the Next.js development server to view the premium monochrome recruiter panel:
-```bash
-cd web
-npm run dev
-```
-Open `http://localhost:3000` in your browser.
+`Dockerfile` pins CPU-only + network-off via env and installs only manylinux wheels (numpy, scikit-learn) — builds and runs unmodified, doubling as the mandatory sandbox (spec §10.5).
 
 ---
 
-## 🎨 Recruiter Dashboard Highlights
+## 🖥️ Web dashboard (`web/`)
 
-* **Pure Black Monochrome Theme**: Designed with a sleek, premium developer aesthetic. No distracting colors—colors are used strictly for status/active signals (Green = Active/Verified, Amber = Warn, Red = Flag).
-* **Zero Emojis, Pure SVGs**: Custom, clean inline vector graphic SVGs represent all tags, tabs, work modes, and action points.
-* **Architecture Panel**: An expandable **Recruiter Engine Pillars & Architecture** drawer showcasing how search is parsed.
-* **Interactive Filter Controls**: Search terms, slide minimum score cutoffs, filter by work-mode (Remote/Hybrid/Onsite), or filter for candidates actively "Open to work" in real-time.
-* **AI Rationale Drawer**: Click any candidate to open a slide-out drawer containing a Radar Chart score breakdown, candidate career timeline, Redrob activity signals, and the long-form AI Rationale.
+Premium pure-black monochrome recruiter console (Next.js App Router):
+- ranked candidate list with score histogram, podium, and filters (search, min-score, work-mode, open-to-work);
+- per-candidate drawer: radar score breakdown, career timeline, Redrob signals, long-form rationale, disqualifier/honeypot flags, XAI contributions;
+- **offline-eval widget** (`/api/eval`) surfacing live NDCG/MAP/P@10 + honeypot rate;
+- interactive weight sliders with real-time re-ranking (optional Redis worker, with a circuit-breaker fallback to direct subprocess).
 
+```bash
+cd web && npm install && npm run dev   # http://localhost:3000
+```
 
+---
+
+## 📚 Further reading
+- **`docs/METHODOLOGY.md`** — design rationale, scoring formula, honeypot calibration story, and ablation tables.
+- **`docs/submission_spec.pdf`** — the official Redrob spec (source of truth).
+- **`docs/ppt.md`** — presentation blueprint.
+
+---
+
+## 🧰 Dependencies
+Core ranking step needs only **`numpy`** + **`scikit-learn`** (see `ranker/requirements.txt`). Redis, python-dotenv, sentence-transformers, torch, and psutil are **optional** (dashboard / precompute / benchmark) and guarded by import checks — their absence never breaks the ranking step.
