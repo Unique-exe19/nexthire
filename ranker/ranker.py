@@ -417,11 +417,46 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_we
         except Exception:
             pass
 
-    # Filter to top candidates for second-pass dense embeddings
+    # Filter to top candidates for second-pass dense embeddings.
     FILTER_LIMIT = 1500 if n > 1500 else n
     sorted_indices = sorted(range(n), key=lambda i: first_pass_scores[i], reverse=True)
     top_indices = sorted_indices[:FILTER_LIMIT]
-    
+
+    # ── High-recall safety net (A1) ─────────────────────────────────────────────
+    # The JD's "right answer" includes Tier-5 candidates who *built* ranking/search
+    # systems but don't stuff their profile with buzzwords — exactly the people a
+    # pure keyword first-pass can drop before they're ever scored. So we UNION the
+    # keyword top-1500 with any candidate carrying a strong STRUCTURAL signal:
+    # a positive AI/ML title AND real AI/ML evidence in their career history.
+    # This is cheap (string checks, no model) and recovers high-tier misses.
+    if n > FILTER_LIMIT:
+        from job_description import POSITIVE_TITLES
+        already = set(top_indices)
+        ai_hist_kws = ("machine learning", "deep learning", "nlp", "information retrieval",
+                       "ranking", "retrieval", "embedding", "recommendation", "search engine",
+                       "semantic search", "learning to rank")
+        recovered = []
+        for i in range(n):
+            if i in already:
+                continue
+            c = candidates[i]
+            title = (c.get("profile", {}).get("current_title", "") or "").lower()
+            if not any(pt in title for pt in POSITIVE_TITLES):
+                continue
+            hist = " ".join(
+                (j.get("description", "") + " " + j.get("title", ""))
+                for j in c.get("career_history", [])
+            ).lower()
+            if any(kw in hist for kw in ai_hist_kws):
+                recovered.append(i)
+        if recovered:
+            # Cap the recall expansion so the shortlist stays bounded and fast.
+            recovered = recovered[: max(0, 2500 - len(top_indices))]
+            top_indices = top_indices + recovered
+            log.info(f"High-recall union recovered {len(recovered)} strong-signal candidates "
+                     f"missed by keyword retrieval (shortlist now {len(top_indices)}).")
+    FILTER_LIMIT = len(top_indices)
+
     log.info(f"Filtered corpus to top {FILTER_LIMIT} candidates. Running second-pass dense vector search...")
     top_semantic_texts = [candidate_semantic_texts[i] for i in top_indices]
     
