@@ -532,14 +532,52 @@ def _soft_concern(c: dict, scores: dict, rank: int) -> str:
     return ""
 
 
+# Verbs/phrases that signal a concrete shipped artifact in a job description.
+_SHIPPED_PHRASES = (
+    "recommendation system", "search engine", "ranking system", "retrieval system",
+    "recommender", "vector search", "semantic search", "rag pipeline", "search platform",
+    "ranking pipeline", "personalization", "matching system", "embedding pipeline",
+)
+
+
+def _career_fact(c: dict) -> str:
+    """
+    Extract ONE concrete, verifiable fact from career history to ground the
+    reasoning (Stage-4 'specific facts' + 'variation'). Returns '' if none found.
+    Cites only what is literally in the profile — never invented.
+    """
+    history = c.get("career_history", []) or []
+    # Prefer the current/most-recent role.
+    ordered = sorted(history, key=lambda j: j.get("start_date", ""), reverse=True)
+    for j in ordered:
+        company = (j.get("company", "") or "").strip()
+        desc = (j.get("description", "") or "").lower()
+        for ph in _SHIPPED_PHRASES:
+            if ph in desc:
+                if company:
+                    return f"built a {ph} at {company}"
+                return f"built a {ph}"
+    # Fallback: name current company + industry (still a real, specific fact).
+    if ordered:
+        j = ordered[0]
+        company = (j.get("company", "") or "").strip()
+        industry = (j.get("industry", "") or "").strip()
+        if company and industry:
+            return f"currently at {company} ({industry})"
+        if company:
+            return f"currently at {company}"
+    return ""
+
+
 def generate_reasoning(c: dict, scores: dict, rank: int, evidence: dict = None,
                        disqualifiers: list = None) -> str:
     """
     Concise, recruiter-style reasoning for the CSV column.
 
     Designed to pass the Stage-4 reasoning checks (spec §3): references specific
-    profile facts, connects to the JD (Senior AI/ML retrieval/ranking role), is
-    rank-aware in tone, and states an honest concern where one exists.
+    profile facts (incl. a concrete career-history fact), connects to the JD
+    (Senior AI/ML retrieval/ranking role), is rank-aware in tone, and states an
+    honest concern where one exists.
     """
     p = c.get("profile", {})
     sig = c.get("redrob_signals", {})
@@ -561,6 +599,10 @@ def generate_reasoning(c: dict, scores: dict, rank: int, evidence: dict = None,
         evidence_clause = f"Direct JD-skill evidence: {', '.join(jd_skills)}. "
     else:
         evidence_clause = "Fit rests on career trajectory rather than explicit retrieval/ranking keywords. "
+
+    # 2b. Concrete career-history fact (grounds the reasoning, boosts variation).
+    fact = _career_fact(c)
+    fact_clause = (fact[0].upper() + fact[1:] + ". ") if fact else ""
 
     # 3. Rank-aware framing (tone matches position).
     if rank <= 10:
@@ -585,17 +627,21 @@ def generate_reasoning(c: dict, scores: dict, rank: int, evidence: dict = None,
         concern = concern[:87] + "..."
     concern_clause = f"Concern: {concern}." if concern else ""
 
-    # Assemble with priority: head + evidence + frame + concern are kept; the
-    # availability clause is dropped first if we exceed the length budget, so the
-    # honest concern is never the truncated tail.
+    # Assemble with priority. The honest concern must never be the truncated tail,
+    # so head + evidence + frame + concern is the guaranteed "core". The career
+    # fact and availability clause are added only while we stay within budget,
+    # fact first (more specific). Pick the richest variant that fits.
     CAP = 240
     core = (head + evidence_clause + frame + concern_clause).strip()
-    if len(core) + len(avail_clause) <= CAP:
-        reason = (head + evidence_clause + frame + avail_clause + concern_clause).strip()
-    else:
-        reason = core
-    if len(reason) > CAP:
-        reason = reason[:CAP].rsplit(" ", 1)[0].rstrip(",.;") + "."
+    candidates = [
+        (head + evidence_clause + fact_clause + frame + avail_clause + concern_clause).strip(),
+        (head + evidence_clause + fact_clause + frame + concern_clause).strip(),
+        (head + evidence_clause + frame + avail_clause + concern_clause).strip(),
+        core,
+    ]
+    reason = next((c for c in candidates if len(c) <= CAP), None)
+    if reason is None:
+        reason = core[:CAP].rsplit(" ", 1)[0].rstrip(",.;") + "."
     return reason
 
 
