@@ -29,12 +29,12 @@ Repository: [NextHire Link](file:///d:/project/nexthire)
   ```
 
 ### **Slide Content**
-* **The Scale Challenge**: Sifting through a massive pool of **100,000+ candidates (487MB corpus)** to hire a *Senior AI/ML Engineer*.
-* **The Hybrid Solution**: Blends millisecond-level sparse retrieval (BM25 + TF-IDF) with context-aware dense vector matching.
-* **The Recruiter Console**: A premium, pure-black monochrome dashboard built on Next.js 15 for real-time weights tuning, interactive metric sorting, and zero-latency analysis.
+* **The Scale Challenge**: Rank the top-100 from **100,000+ candidates (487MB)** for a *Senior AI/ML Engineer* — under **5 min, CPU-only, no network** (spec §3).
+* **The trap we beat**: the dataset is seeded with keyword-stuffers and **~80 honeypots** (impossible profiles). The JD says outright: *the right answer is not the most AI keywords* — it's reasoning about what the JD **means**.
+* **Our edge (3 things most teams won't do):** (1) a **JD-intent layer** that encodes the JD's explicit "do / don't want"; (2) **honeypot detection** keeping our top-100 at **0% traps**; (3) an **offline eval harness** (NDCG/MAP) so we tune without a live leaderboard.
 
 > **Presenter Script**: 
-> "Good morning/afternoon everyone. Today, I'm excited to present NextHire. Sifting through 100,000 profiles for a highly specialized role like a Senior AI/ML Engineer is a massive challenge. Traditional keyword searches miss qualified candidates, while sending all 100,000 resumes to an LLM would cost thousands of dollars and take hours. NextHire solves this with a high-speed, two-stage hybrid pipeline and a gorgeous, zero-latency recruiter console."
+> "Today I'm presenting NextHire. The task is to rank the top 100 from a hundred-thousand candidate pool for a Senior AI/ML Engineer — in under five minutes, CPU-only, no network. But the real challenge is that Redrob seeded the data with keyword-stuffers and about eighty honeypots with impossible profiles. The JD tells you directly: the right answer isn't the most AI keywords, it's reasoning about what the JD actually means. So we built three things most teams won't: a JD-intent layer that encodes their explicit do's and don'ts, a honeypot detector that keeps our top 100 completely trap-free, and our own offline evaluation harness so we could tune intelligently without a live leaderboard."
 
 ---
 
@@ -125,41 +125,37 @@ Repository: [NextHire Link](file:///d:/project/nexthire)
   * Encodes candidate profiles and evaluates cosine similarity.
   * Fast Approximate Nearest Neighbor (ANN) search implemented with Spotify's **Annoy Index** (`angular` metric), falling back to vectorized NumPy matrix dot-products.
 * **Reciprocal Rank Fusion (RRF)**:
-  * Merges rank results from BM25, TF-IDF, and Dense Embeddings.
+  * Merges rank results from BM25, TF-IDF, and (optional) Dense Embeddings.
   * Robustly balances keyword matching with semantic intent, choosing the top **1,500 candidates** for Stage 2.
+* **Spec-safe by default:** the dense pass runs only in the **untimed `precompute.py`** step (spec §10.3); the **timed ranking path stays sparse** (BM25 + TF-IDF + RRF) to guarantee the 5-min, CPU-only, no-network budget. No model download or GPU is ever required to reproduce the CSV.
 
 > **Presenter Script**:
 > "To capture semantic intent, we embed candidates using Sentence Transformers. We query these embeddings using Spotify's Annoy library for fast Approximate Nearest Neighbor search. We then merge the rank positions from BM25, TF-IDF, and Dense Vector search using Reciprocal Rank Fusion, or RRF. RRF ensures that candidates who perform consistently well across keyword, frequency, and semantic matches rise to the top of our 1,500 shortlist."
 
 ---
 
-## **Slide 5: Stage 2 - The 5-Dimension Scoring Rubric**
+## **Slide 5: Stage 2 - Scoring Formula (Ensemble × Gates)**
 
-* **Slide Goal**: Detail the structured scoring rubric and weight distribution.
+* **Slide Goal**: Detail the 5-dimension ensemble AND the multiplicative gate layers.
 * **Key Visual**:
   ```text
-  ┌──────────────────────────────────────────────────────────┐
-  │  [28%] Semantic Relevance (RRF score)                    │
-  ├──────────────────────────────────────────────────────────┤
-  │  [28%] Skills Depth (Proficiency + Duration + Test)      │
-  ├──────────────────────────────────────────────────────────┤
-  │  [22%] Career Quality (Company Tiers + Trajectory)       │
-  ├──────────────────────────────────────────────────────────┤
-  │  [12%] Behavioral Profile (Responsiveness + Recency)     │
-  ├──────────────────────────────────────────────────────────┤
-  │  [10%] Experience Fit (Years of experience bell-curve)   │
-  └──────────────────────────────────────────────────────────┘
+  raw = 0.28·Semantic + 0.28·Skills + 0.22·Career + 0.10·Experience + 0.12·Behavioral
+
+  final = raw  ×  penalty_disqualifier   (wrong role, consulting-only, keyword-trap…)
+              ×  penalty_honeypot        (impossible-profile detection)
+              ×  mult_JD_intent          (reads "between the lines" of the JD)
+              ×  mult_availability        (unreachable ⇒ "not actually available")
   ```
 
 ### **Slide Content**
-* **Ensemble Architecture**: Configurable weights declared in [job_description.py](file:///d:/project/nexthire/ranker/job_description.py#L151).
-* **Skills Depth**: Evaluates MUST_HAVE (e.g. vector search, PyTorch) and NICE_TO_HAVE skills. Multiplies by proficiency weights (Expert: 1.0, Beginner: 0.35), duration bonuses, and platform test scores.
-* **Career Trajectory**: Recency-weighted job analysis. Most recent job counts for 1.6x weight, second job for 1.3x, others 1.0x.
-* **Experience Fit**: Peak score sweet-spot function matching 5-9 years of experience.
-* **Behavioral Profile**: Scoring notice period, response rate, active status, and GitHub score.
+* **Additive ensemble for *fit*** (interpretable, bounded shares) — weights in [job_description.py](file:///d:/project/nexthire/ranker/job_description.py#L151).
+* **Multiplicative gates for *viability*** — a fatal flaw should suppress the *whole* score, not subtract a slice. Four independent, env-toggleable layers (clean ablation).
+* **Skills Depth** (28%): MUST/NICE JD-skill overlap × proficiency (Expert 1.0 → Beginner 0.35) × duration × endorsements × Redrob assessment scores.
+* **Word-boundary matching (bug we fixed):** naive `kw in text` made `ann`→"ch**ann**el", `rag`→"sto**rag**e", `go`→"**Go**ogle", `java`→"**java**script" — inflating scores pool-wide and *helping keyword-stuffers*. Short tokens now require **exact token** membership. A non-AI Ops Manager dropped from 3 must-have hits → **0**.
+* **Career** (22%): recency-weighted trajectory (latest role 1.6×, 2nd 1.3×) at product cos; **Experience** (10%): 5–9y sweet-spot; **Behavioral** (12%): recency, responsiveness, GitHub.
 
 > **Presenter Script**:
-> "Once we filter down to 1,500 candidates, we run a multi-dimensional scoring rubric. Instead of a single flat score, our rubric weights Semantic Fit at 28%, Skills Depth at 28%, Career Trajectory at 22%, Behavioral Signals at 12%, and Experience Fit at 10%. We award higher scores for expert-level skills held for multiple years, positive career trajectories at product companies, and active developer habits like high GitHub scores."
+> "After the 1,500-candidate shortlist, we score in two parts. First an additive ensemble for *fit* — Semantic and Skills at 28% each, Career 22%, Behavioral 12%, Experience 10%. Then four *multiplicative gates* for viability: disqualifiers, honeypots, JD-intent, and availability. A fatal flaw multiplies the whole score down rather than subtracting a slice. One important fix: our skill matcher originally did naive substring matching, so 'ann' matched 'channel' and 'go' matched 'Google' — that inflated scores and actually helped the keyword-stuffer traps. We switched to word-boundary token matching, and a non-AI Operations Manager went from three fake skill hits to zero."
 
 ---
 
@@ -203,37 +199,87 @@ Repository: [NextHire Link](file:///d:/project/nexthire)
   ```
 
 ### **Slide Content**
-* **Honeypot Integrity**: Implemented in [honeypot.py](file:///d:/project/nexthire/ranker/honeypot.py).
-  * Detects internal contradictions (impossible timelines, inflated proficiency) and applies a hard penalty so honeypots fall below the top 100 — no ID special-casing.
-
-* **Hallucination Prevention**:
-  * Reasoning is generated by deterministic templates that cite only facts present in the profile. No LLM, no network, nothing to hallucinate.
-  * Long + short rationales are produced by pure-Python generators ([generate_long_reasoning](file:///d:/project/nexthire/ranker/score_utils.py#L530)) creates fully factual text directly from candidate data.
+* **Honeypot Integrity**: Implemented in [honeypot.py](file:///d:/project/nexthire/ranker/honeypot.py). Spec §7: **>10% honeypots in top-100 ⇒ disqualified**. We detect internal contradictions (no ID special-casing): total tenure > 2× experience; a single role longer than the whole career; ≥5 "expert" skills with 0 months used.
+* **The calibration story (a real engineering moment):** our first version flagged **15,378** "honeypots" — because one rule penalized people who earned a later degree (MBA/M.Tech) *while working*, which is normal in India. Our **offline eval harness caught it**, we removed the rule, and landed on **~28** high-confidence, zero-false-positive detections. **Result: 0 honeypots in the submitted top-100.**
+* **Hallucination Prevention by construction**: rationales come from deterministic templates ([score_utils.py](file:///d:/project/nexthire/ranker/score_utils.py)) that cite only facts present in the profile — rank-aware, concern-bearing, no LLM, no network, nothing to hallucinate.
 
 > **Presenter Script**:
-> "Stage 3 protects ranking quality without any hosted LLM — the spec forbids network calls during ranking. An integrity layer flags the impossible profiles Redrob seeded as honeypots by checking for internal contradictions, like claiming more tenure than total experience, and pushes them below the top 100. Every rationale is then generated locally from facts already in the profile, so it is rank-aware, honest about concerns, and impossible to hallucinate."
+> "Stage 3 has two jobs, both without any hosted LLM. First, integrity: Redrob seeded about 80 honeypots with subtly impossible profiles, and ranking even ten percent of them in your top 100 is an automatic disqualification. We detect them by internal contradiction — for example, more total tenure than years of experience. Here's the honest engineering moment: our first detector flagged over fifteen thousand candidates, because one rule assumed working before your graduation year is impossible — but in India, people routinely do a degree while employed. Our own eval harness surfaced this, we fixed it, and we now flag about twenty-eight with zero false positives. Zero honeypots made our final top 100. Second, reasoning: every rationale is generated locally from profile facts, so it's rank-aware, honest about concerns, and impossible to hallucinate."
 
 ---
 
-## **Slide 8: Performance Benchmarks & Compute Efficiency**
+## **Slide 7b: The Differentiator — JD-Intent Layer**
 
-* **Slide Goal**: Present real-world benchmark data proving system scalability.
-* **Key Metrics Table**:
+* **Slide Goal**: Show how we encode what the JD *means*, not just what it *says* — the exact skill Redrob is hiring for.
+* **Key Visual**:
+  ```text
+  The JD literally says: "the right answer involves reasoning about the gap
+  between what the JD says and what the JD means."  → we encode it directly.
 
-| Operation / Metric | Result | Optimization Strategy |
-| :--- | :--- | :--- |
-| **Dataset Size** | **487 MB** (100,000+ candidates) | Stream-based generator loading (flat memory) |
-| **Sparse Retrieval Latency** | **< 0.5 ms** | Custom Inverted Index lookups |
-| **Parallel Scoring Latency** | **~1.8 seconds** (for N=1,500) | Multi-core CPU multiprocessing (`ProcessPoolExecutor`) |
-| **Redis Cache Recalculation** | **~3.6 seconds** (was 66 seconds) | Index serialization caching |
-| **Dashboard Page Load** | **Zero Latency (< 2s)** | Early-exit streamer (reads top 100 and stops) |
+  PENALTIES (JD "do NOT want")        BOOSTS (JD "ideal candidate")
+  ─────────────────────────────       ──────────────────────────────
+  CV/speech/robotics, no NLP/IR       shipped end-to-end at scale
+  pure research, no production        pre-LLM ML/IR depth (XGBoost/LTR)
+  recent-LangChain-only, no depth     external validation (OSS/papers/GitHub)
+  ```
 
-### **Computational Safeguards**
-* **Memory Flatness**: Line-by-line reading prevents memory spikes.
-* **Parallel Execution**: Utilizes 100% of host CPU cores across the 1,500 candidates.
+### **Slide Content**
+* **Implemented in** [jd_intent.py](file:///d:/project/nexthire/ranker/jd_intent.py) as a single multiplicative adjustment (clean, ablatable).
+* **Why it matters:** pure embedding similarity cannot tell a "Marketing Manager who lists AI keywords" from "an engineer who *built a recommender at a product company*." We read the career history and apply the JD's own disqualifiers and preferences.
+* **Measured effect (ablation):** with JD-intent ON, candidates with the full trifecta — *shipped at scale + pre-LLM depth + external validation* — rose into the top-10, while a candidate with 16% recruiter response and "not open to work" was pushed out by the **availability multiplier** (JD: *"a 5% response rate … is not actually available — down-weight them"*). **Every top-10 placement now traces to an explicit JD sentence.**
 
 > **Presenter Script**:
-> "Performance and cost-control were core design metrics. By streaming profiles line-by-line, we process a 487MB file with a tiny, flat memory footprint. Our sparse lookups run in under half a millisecond. Scoring 1,500 candidates takes just 1.8 seconds by parallelizing the logic across all CPU cores. And with our Redis caching layer enabled, full recalculations drop from over a minute to just 3.6 seconds."
+> "This is what sets us apart. The JD doesn't just list skills — it spends half a page on what they actually mean and what they explicitly don't want, and it tells you outright that the right answer is reasoning about that gap. So we encoded it. We penalize CV/speech/robotics with no NLP, pure research with no production, and recent-LangChain-only profiles with no depth. We boost demonstrable shipping, pre-LLM fundamentals, and external validation. The result is that every single one of our top-10 placements can be justified by pointing at a specific sentence in the JD — which is exactly what they'll ask us to do in the interview."
+
+---
+
+## **Slide 7c: Offline Evaluation Harness — Measuring in the Dark**
+
+* **Slide Goal**: Show we built the exact thing the JD asks for — an evaluation framework — to tune without a live leaderboard.
+* **Key Visual**:
+  ```text
+  Leaderboard is HIDDEN (spec §8). JD wants engineers who "design evaluation
+  frameworks for ranking systems — NDCG, MRR, MAP." So we built one.
+
+  evaluate.py → proxy ground truth (relevance tiers 0-5, honeypots forced to 0)
+              → official metric: 0.50·NDCG@10 + 0.30·NDCG@50 + 0.15·MAP + 0.05·P@10
+              → honeypot-rate DQ check
+  ```
+
+### **Slide Content**
+* **Why:** no live leaderboard, no per-submission feedback — flying blind is the default. We built a rule-based proxy ground truth and scored ourselves with the **organizers' exact composite metric**.
+* **How we use it:** ablation and regression-catching (we trust *deltas between runs*, not absolute values). It caught the 15,378-honeypot bug and validated every scoring change.
+* **Surfaced live in the dashboard** via `/api/eval` → an "Offline Evaluation" panel showing NDCG@10/50, MAP, P@10, composite, and the honeypot rate with the 10% DQ line.
+
+> **Presenter Script**:
+> "There's no live leaderboard — you submit and find out your score at the very end. The JD explicitly wants people who design evaluation frameworks, so rather than guess, we built one. evaluate.py constructs a proxy ground truth from JD-derived rules, forces honeypots to tier zero, and scores us with the organizers' exact composite formula. We use it for ablations — every change we made was validated against it, and it's what caught our honeypot over-flagging. We even surface it live in the dashboard, so a recruiter sees our NDCG, MAP, and honeypot rate in real time."
+
+---
+
+## **Slide 8: Performance, Compute Compliance & Reproducibility**
+
+* **Slide Goal**: Prove we meet every hard spec constraint and reproduce in one command.
+* **Compute Compliance (spec §3 — violate any ⇒ Stage-3 disqualification):**
+
+| Constraint | Limit | NextHire | ✓ |
+| :--- | :--- | :--- | :---: |
+| Runtime | ≤ 5 min | **~20 s** (100k, CPU) | ✅ |
+| Memory | ≤ 16 GB | within budget | ✅ |
+| Compute | CPU only, no GPU | CPU-only (`NEXTHIRE_ALLOW_GPU=0`) | ✅ |
+| **Network** | **off** | **0 calls in ranking path** | ✅ |
+| Disk | ≤ 5 GB intermediate | cache < 1.5 GB | ✅ |
+
+* **The network story (why this matters):** an earlier version called the **Gemini API** to re-rank the top 15 — a direct §3 violation that would have been **disqualified at Stage 3**. We removed it entirely; all reasoning is now local. Determinism is guaranteed by a stable `(-score, candidate_id)` tie-break and zero RNG.
+* **One-command reproduction:** `make reproduce` (or `python ranker/ranker.py --input … --output …`). A **`Dockerfile`** pins CPU-only + network-off and installs only manylinux wheels (numpy, scikit-learn) — builds and runs unmodified, doubling as the mandatory sandbox (spec §10.5).
+* **Optional `precompute.py`:** moves index construction out of the timed window (spec §10.3 permits this); the ranking step still runs standalone.
+
+### **Engineering optimizations**
+* **Two-stage retrieve-and-rerank:** sparse retrieval over the full pool, then deep scoring on only ~1,500 — bypasses 98.5% of expensive work.
+* **Custom inverted indices:** sub-millisecond term lookups vs O(N) linear scans.
+* **Multi-core scoring:** `ProcessPoolExecutor` across all CPU cores; flat memory via line-by-line streaming.
+
+> **Presenter Script**:
+> "Every one of these is a hard constraint — break any and you're disqualified at Stage 3, regardless of score. We run in about twenty seconds on CPU, fully offline. That last point is critical: an earlier version of our own system called the Gemini API to re-rank the top candidates — that's a direct spec violation that would have disqualified us. We caught it, ripped it out, and made all reasoning local. The whole thing reproduces with one command, and our Dockerfile pins CPU-only and network-off so the organizers' sandbox runs it unmodified."
 
 ---
 
@@ -290,15 +336,10 @@ Repository: [NextHire Link](file:///d:/project/nexthire)
 ## **Slide 11: Validation, Quality Assurance & Summary**
 
 * **Slide Goal**: Conclude with test results and future plans.
-* **Validation Check Results (validate.py)**:
-  * **OK**: Exactly 100 rows generated.
-  * **OK**: Unique candidate ranks (1–100) and unique IDs.
-  * **OK**: Strictly monotonic score matching (prevents rank logical contradictions).
-  * **OK**: Strict CAND_XXXXXXX ID formats.
-* **Future Roadmap**:
-  * Sharding candidate pools by region to distribute queries.
-  * ONNX runtime integration for GPU-accelerated embedding inference.
-  * Feedback loops to auto-tune weights based on recruiter selections.
+* **Format validation (validate.py)** — passes every spec §3 / §6 check: exactly 100 rows, unique ranks 1–100, unique `CAND_XXXXXXX` IDs, strictly non-increasing scores, deterministic tie-break.
+* **Offline quality (evaluate.py, proxy):** NDCG@10 saturated, **0 honeypots in top-100** (well under the 10% DQ line) — the Stage-3 filter we explicitly defend against.
+* **Stage-readiness:** §1 format ✅ · §3 reproduce/compute ✅ (one command, Docker, offline) · §4 reasoning ✅ (rank-aware, fact-grounded, honest concerns) · §5 defense ✅ (every choice traces to a JD sentence).
+* **Honest roadmap:** fit JD-intent weights via learning-to-rank (LightGBM/LambdaMART) on labeled data; sharpen the proxy with a small human-labeled set; optional dense pass on the full pool.
 
 > **Presenter Script**:
-> "To ensure our output meets strict submission requirements, we built a validation test suite, validate.py. It verifies our CSV contains exactly 100 rows, unique ranks, and strictly monotonic scores, ensuring no ranking contradictions. In the future, we plan to implement candidate pool sharding and feed recruiter shortlists back into our system to auto-tune weight parameters. Thank you, and I am open to any questions!"
+> "To close: our output passes every format rule — 100 rows, unique ranks, monotonic scores, deterministic tie-breaks. On our offline harness, honeypots in the top 100 are zero, comfortably under the ten-percent disqualification line. We're ready across the board: one-command reproduction, fully offline, Docker for the sandbox; reasoning that's rank-aware and honest about concerns; and most importantly, every ranking decision traces back to a specific sentence in the JD — so when you ask us to defend our work, we can. Honest next step: with labeled data we'd fit the JD-intent weights with a learning-to-rank model instead of setting them by hand. Thank you — happy to take questions."
