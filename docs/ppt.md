@@ -12,7 +12,7 @@ color: #ffffff
 *Ranking 100,000 candidates the way a great recruiter would — by understanding fit, not matching keywords.*
 
 Redrob Hackathon — Intelligent Candidate Discovery & Ranking Challenge
-Presenter: [Your Name]  ·  Repository: github.com/Unique-exe19/nexthire
+Presenter: NextHire Team  ·  Repository: github.com/Unique-exe19/nexthire
 
 ---
 
@@ -145,7 +145,7 @@ final = ensemble
 └───────────────────────────────────────────────────────────────────────────────────────────┘
         │ submission.csv + submission_debug.json + eval_report.json
         ▼
-┌──────────────────────── Next.js 15 Recruiter Dashboard ──────────────────────────────────┐
+┌──────────────────────── Next.js 16 Recruiter Dashboard ──────────────────────────────────┐
 │  /api/candidates · /api/eval   ·   radar charts, career timeline, AI rationale, eval panel │
 └───────────────────────────────────────────────────────────────────────────────────────────┘
    Reproducibility: Dockerfile + Makefile  ·  `make reproduce` = single Stage-3 command
@@ -191,7 +191,7 @@ final = ensemble
 | **Pure-Python BM25-Okapi** | sparse retrieval | Custom inverted index → sub-ms lookups, zero heavy deps |
 | **RRF** | rank fusion | Robustly merges BM25/TF-IDF/dense without score calibration |
 | **ProcessPoolExecutor** | parallel scoring | Uses all CPU cores; 1,700 candidates in ~2 s |
-| **Next.js 15 + React** | dashboard | Server components, streaming, fast recruiter UI |
+| **Next.js 16 + React** | dashboard | Server components, streaming, fast recruiter UI |
 | **Docker + Makefile** | reproduction | One-command Stage-3 reproduction, offline, unmodified |
 | *(optional)* sentence-transformers | precompute only | Dense recall **off the timed path** — keeps ranking network/GPU-free |
 

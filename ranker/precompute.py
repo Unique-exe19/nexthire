@@ -60,7 +60,12 @@ def build_cache(input_path: str):
         "candidate_semantic_texts": candidate_semantic_texts,
     }
 
-    # Populate BM25 + TF-IDF index state into cache_data (and dense embeddings if available).
+    # Populate BM25 + TF-IDF index state into cache_data. Precompute is the ONLY
+    # place dense embeddings may be built (it is untimed, spec §10.3). Opt in with
+    # `NEXTHIRE_USE_DENSE=1 python ranker/precompute.py`; the model is fetched here,
+    # outside the timed ranking step, so the ranker itself never touches the network.
+    if os.environ.get("NEXTHIRE_USE_DENSE", "0").lower() in ("1", "true", "yes"):
+        log.info("NEXTHIRE_USE_DENSE=1 → dense embeddings will be built (untimed precompute).")
     ranker = HybridRanker()
     embeddings_cache = cache_file.replace(".pkl", "_embeddings.npy")
     ranker.fit_transform(

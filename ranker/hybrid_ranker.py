@@ -264,22 +264,34 @@ class HybridRanker:
         except ImportError:
             log.info("Using pure-Python TF-IDF")
 
-        try:
-            from sentence_transformers import SentenceTransformer
-            import torch
-            import numpy as np
-            self._np = np
-            # CPU-only by default to honour the spec's "no GPU during ranking" rule.
-            # Set NEXTHIRE_ALLOW_GPU=1 only for offline experimentation.
-            allow_gpu = os.environ.get("NEXTHIRE_ALLOW_GPU", "0").lower() in ("1", "true", "yes")
-            self._device = "cuda" if (allow_gpu and torch.cuda.is_available()) else "cpu"
-            self._dense_model = SentenceTransformer('all-MiniLM-L6-v2', device=self._device)
-            self._dense_available = True
-            log.info(f"sentence-transformers dense model loaded on {self._device} ✓")
-        except Exception as e:
-            # Catch ImportError *and* offline model-download failures (OSError/HTTPError):
-            # either way, degrade to sparse-only scoring instead of crashing the ranker.
-            log.warning(f"sentence-transformers unavailable ({type(e).__name__}). Skipping dense semantic scoring.")
+        # Dense embeddings are OFF by default and gated behind NEXTHIRE_USE_DENSE=1.
+        # Reason: SentenceTransformer('all-MiniLM-L6-v2') reaches huggingface.co to
+        # fetch the model on first use — a network call the Redrob spec (§3) forbids
+        # during the ranking step. The timed ranker therefore runs sparse-only
+        # (BM25 + TF-IDF + RRF). Dense recall is available only via precompute.py
+        # (untimed, spec §10.3) which sets this flag explicitly. To force fully
+        # offline behaviour even when enabled, set HF_HUB_OFFLINE=1 / TRANSFORMERS_OFFLINE=1.
+        use_dense = os.environ.get("NEXTHIRE_USE_DENSE", "0").lower() in ("1", "true", "yes")
+        if not use_dense:
+            log.info("Dense embeddings disabled (NEXTHIRE_USE_DENSE=0). "
+                     "Ranking is sparse-only and network-free per spec §3.")
+        else:
+            try:
+                from sentence_transformers import SentenceTransformer
+                import torch
+                import numpy as np
+                self._np = np
+                # CPU-only by default to honour the spec's "no GPU during ranking" rule.
+                # Set NEXTHIRE_ALLOW_GPU=1 only for offline experimentation.
+                allow_gpu = os.environ.get("NEXTHIRE_ALLOW_GPU", "0").lower() in ("1", "true", "yes")
+                self._device = "cuda" if (allow_gpu and torch.cuda.is_available()) else "cpu"
+                self._dense_model = SentenceTransformer('all-MiniLM-L6-v2', device=self._device)
+                self._dense_available = True
+                log.info(f"sentence-transformers dense model loaded on {self._device} ✓")
+            except Exception as e:
+                # Catch ImportError *and* offline model-download failures (OSError/HTTPError):
+                # either way, degrade to sparse-only scoring instead of crashing the ranker.
+                log.warning(f"sentence-transformers unavailable ({type(e).__name__}). Skipping dense semantic scoring.")
 
         try:
             from annoy import AnnoyIndex

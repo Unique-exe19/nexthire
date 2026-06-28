@@ -243,14 +243,45 @@ export async function getRankedCandidates(): Promise<RankedCandidate[]> {
     }
   }
 
-  // 4. Load candidate profiles
+  // 4. Resolve candidate profiles.
+  //    Preferred path: the ranker bakes a compact `profile` snapshot into each
+  //    sidecar entry, so the dashboard is fully self-contained from
+  //    submission.csv + submission_debug.json (no 487MB file, works on a fresh
+  //    clone / sandbox). We only stream candidates.json for any IDs missing a
+  //    baked snapshot (older sidecars / partial data).
   const targetIds = new Set(rows.map(r => r.candidate_id));
-  const profileMap = await loadProfileMap(jsonPath, targetIds);
+  const missingFromSidecar = new Set(
+    [...targetIds].filter(id => !sidecarMap[id]?.profile),
+  );
+  const profileMap = missingFromSidecar.size > 0
+    ? await loadProfileMap(jsonPath, missingFromSidecar)
+    : new Map<string, RawProfile>();
 
   // 5. Build enriched candidates
   const enriched = rows.map(row => {
-    const profile = profileMap.get(row.candidate_id);
     const sidecar = sidecarMap[row.candidate_id];
+    // Prefer the baked snapshot; fall back to the streamed full profile.
+    const baked = sidecar?.profile;
+    const streamed = profileMap.get(row.candidate_id);
+    const profile: RawProfile | undefined = baked
+      ? ({ candidate_id: row.candidate_id, profile: {
+            anonymized_name: baked.anonymized_name,
+            headline: baked.headline,
+            summary: baked.summary,
+            current_title: baked.current_title,
+            current_company: baked.current_company,
+            current_company_size: baked.current_company_size,
+            current_industry: baked.current_industry,
+            location: baked.location,
+            country: baked.country,
+            years_of_experience: baked.years_of_experience,
+          },
+          skills: baked.skills ?? [],
+          career_history: baked.career_history ?? [],
+          education: baked.education ?? [],
+          redrob_signals: baked.redrob_signals,
+        } as RawProfile)
+      : streamed;
 
     const dims: DimensionDetail | undefined = sidecar?.dimensions;
     const scoreBreakdown = buildScoreBreakdown(dims, row.score);

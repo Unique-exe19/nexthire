@@ -2,20 +2,20 @@
 # Mirrors the Redrob Hackathon portal metadata (submission_spec §10.2 / §10.3).
 # Replace every <PLACEHOLDER> with your real values before submitting.
 
-team_name: "<YOUR_TEAM_NAME>"
+team_name: "Quantum"
 participant_id: "<YOUR_REGISTERED_PARTICIPANT_ID>"   # also the submission CSV filename: <participant_id>.csv
 
 primary_contact:
-  name: "<CONTACT_NAME>"
-  email: "<CONTACT_EMAIL>"
-  phone: "<CONTACT_PHONE>"
+  name: "Kuldip Sundesha"
+  email: "Kuldipsundesha290@gmail.com"
+  phone: "9773298079"
 
 team_members:
-  - name: "<MEMBER_1_NAME>"
-    email: "<MEMBER_1_EMAIL>"
+  - name: "Montu Padhiyar"
+    email: "tapumali4242@gmail.com"
 
-github_repository_url: "https://github.com/<USERNAME>/<REPO>"
-sandbox_demo_link: "<HOSTED_SANDBOX_URL>"   # HF Spaces / Streamlit / Replit / Colab / docker run / Binder
+github_repository_url: "https://github.com/Unique-exe19/nexthire.git"
+sandbox_demo_link: "docker build -t nexthire-ranker . && docker run --rm -v $(pwd):/data nexthire-ranker --input /data/candidates.jsonl --output /data/submission.csv"   # HF Spaces / Streamlit / Replit / Colab / docker run / Binder
 
 # Honest declaration — not penalized (spec §10.4).
 ai_tools_declared:

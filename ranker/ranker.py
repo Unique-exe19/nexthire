@@ -225,6 +225,81 @@ def build_candidate_semantic_text(c: dict) -> str:
     return " ".join(filter(None, parts))
 
 
+def _profile_snapshot(c: dict) -> dict:
+    """
+    Compact, self-contained profile snapshot baked into the sidecar JSON so the web
+    dashboard can render full candidate detail WITHOUT streaming the 487MB
+    candidates file (which is gitignored and absent on a fresh clone / sandbox).
+    Mirrors the fields web/lib/data.ts consumes.
+    """
+    p = c.get("profile", {})
+    sig = c.get("redrob_signals", {})
+    return {
+        "anonymized_name":      p.get("anonymized_name", ""),
+        "headline":             p.get("headline", ""),
+        "summary":              p.get("summary", ""),
+        "current_title":        p.get("current_title", ""),
+        "current_company":      p.get("current_company", ""),
+        "current_company_size": p.get("current_company_size", ""),
+        "current_industry":     p.get("current_industry", ""),
+        "location":             p.get("location", ""),
+        "country":              p.get("country", ""),
+        "years_of_experience":  p.get("years_of_experience", 0),
+        "skills": [
+            {
+                "name": s.get("name", ""),
+                "proficiency": s.get("proficiency", ""),
+                "endorsements": s.get("endorsements", 0),
+                "duration_months": s.get("duration_months", 0),
+            }
+            for s in c.get("skills", [])
+        ],
+        "career_history": [
+            {
+                "company": j.get("company", ""),
+                "title": j.get("title", ""),
+                "start_date": j.get("start_date", ""),
+                "end_date": j.get("end_date"),
+                "duration_months": j.get("duration_months", 0),
+                "is_current": j.get("is_current", False),
+                "industry": j.get("industry", ""),
+                "company_size": j.get("company_size", ""),
+                "description": j.get("description", ""),
+            }
+            for j in c.get("career_history", [])
+        ],
+        "education": [
+            {
+                "institution": e.get("institution", ""),
+                "degree": e.get("degree", ""),
+                "field_of_study": e.get("field_of_study", ""),
+                "start_year": e.get("start_year"),
+                "end_year": e.get("end_year"),
+                "tier": e.get("tier", "unknown"),
+            }
+            for e in c.get("education", [])
+        ],
+        "redrob_signals": {
+            "open_to_work_flag":        sig.get("open_to_work_flag", False),
+            "notice_period_days":       sig.get("notice_period_days", 90),
+            "recruiter_response_rate":  sig.get("recruiter_response_rate", 0),
+            "avg_response_time_hours":  sig.get("avg_response_time_hours", 0),
+            "github_activity_score":    sig.get("github_activity_score", -1),
+            "last_active_date":         sig.get("last_active_date", ""),
+            "preferred_work_mode":      sig.get("preferred_work_mode", ""),
+            "interview_completion_rate": sig.get("interview_completion_rate", 0),
+            "profile_completeness_score": sig.get("profile_completeness_score", 0),
+            "willing_to_relocate":      sig.get("willing_to_relocate", False),
+            "linkedin_connected":       sig.get("linkedin_connected", False),
+            "verified_email":           sig.get("verified_email", False),
+            "verified_phone":           sig.get("verified_phone", False),
+            "offer_acceptance_rate":    sig.get("offer_acceptance_rate", -1),
+            "saved_by_recruiters_30d":  sig.get("saved_by_recruiters_30d", 0),
+            "expected_salary_range_inr_lpa": sig.get("expected_salary_range_inr_lpa", {"min": 0, "max": 0}),
+        },
+    }
+
+
 # ── Sharding Helper ───────────────────────────────────────────────────────────
 
 def shard_dataset(candidates: list) -> dict:
@@ -590,6 +665,10 @@ def rank_candidates(input_path: str, output_path: str, top_k: int = 100, user_we
             "reasoning_long": long_reasoning,
             "penalty": round(r["penalty"], 4),
             "contributions": scaled_contributions, # Push explainable AI breakdowns to JSON
+            # Pre-baked profile snapshot so the web dashboard never has to stream the
+            # 487MB candidates file (it isn't shipped to a fresh clone / sandbox anyway).
+            # This makes the dashboard self-contained from submission.csv + this sidecar.
+            "profile": _profile_snapshot(c),
         }
 
     # Ensure strictly monotonic scores

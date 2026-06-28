@@ -472,8 +472,7 @@ function CandidateRow({
 
   return (
     <div
-      className={`candidate-row ${isActive ? 'active' : ''}`}
-      style={{ gridTemplateColumns: '44px 1fr 110px 80px' }}
+      className={`candidate-row cand-row-grid ${isActive ? 'active' : ''}`}
       onClick={onClick}
       role="button"
       tabIndex={0}
@@ -854,6 +853,7 @@ function FiltersPanel({
 export default function HomePage() {
   const [candidates, setCandidates] = useState<RankedCandidate[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [selected, setSelected] = useState<RankedCandidate | null>(null);
 
   // Dynamic recruiter weights
@@ -1025,8 +1025,19 @@ export default function HomePage() {
   useEffect(() => {
     fetch('/api/candidates')
       .then(r => r.json())
-      .then(data => { setCandidates(data); setLoading(false); })
-      .catch(() => setLoading(false));
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setCandidates(data);
+          setLoadError(null);
+        } else {
+          setLoadError('No ranking found. Run the ranker first: `python ranker/ranker.py` (or `make reproduce`).');
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoadError('Could not load /api/candidates. Is the ranker output (submission.csv) present?');
+        setLoading(false);
+      });
   }, []);
 
   // Normalize weights to sum up to exactly 1.0 (100%)
@@ -1281,7 +1292,7 @@ export default function HomePage() {
 
         {/* ── Stats + histogram row ────────────────────────────────────────── */}
         {stats && (
-          <div className="animate-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr) 1.2fr', gap: 14, marginBottom: 28 }}>
+          <div className="animate-stagger stat-grid">
             <StatCard value={stats.total.toLocaleString()} label="Candidates Ranked" sub="Full 100K pool" />
             <StatCard value={`${(stats.avgScore * 100).toFixed(0)}%`} label="Avg Match Score" sub="Weighted ensemble" />
             <StatCard value={String(stats.openCount)} label="Open to Work" sub="In top 100" />
@@ -1338,14 +1349,13 @@ export default function HomePage() {
         </div>
 
         {/* ── Table header ─────────────────────────────────────────────────── */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: '44px 1fr 110px 80px', gap: 16,
+        <div className="cand-row-grid" style={{
           padding: '6px 20px', fontSize: '0.68rem', color: 'var(--text-muted)',
           textTransform: 'uppercase', letterSpacing: '0.8px', fontWeight: 600,
         }}>
           <span>Rank</span>
           <span>Candidate</span>
-          <span style={{ textAlign: 'right' }}>Activity</span>
+          <span className="col-hide-sm" style={{ textAlign: 'right' }}>Activity</span>
           <span style={{ textAlign: 'right' }}>Score</span>
         </div>
 
@@ -1359,6 +1369,29 @@ export default function HomePage() {
                 animationDelay: `${i * 0.1}s`,
               }} />
             ))}
+          </div>
+        ) : loadError ? (
+          <div className="glass" style={{ textAlign: 'center', padding: '56px 24px', color: 'var(--text-secondary)' }}>
+            <div style={{ marginBottom: 14, color: 'var(--accent-amber)' }}>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ margin: '0 auto' }}>
+                <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>
+            </div>
+            <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: 8 }}>
+              No ranking loaded yet
+            </div>
+            <div style={{ fontSize: '0.85rem', maxWidth: 440, margin: '0 auto 14px', lineHeight: 1.5 }}>
+              {loadError}
+            </div>
+            <code style={{
+              display: 'inline-block', padding: '8px 14px', borderRadius: 8,
+              background: 'var(--bg-card)', border: '1px solid var(--border)',
+              fontFamily: 'var(--font-mono, monospace)', fontSize: '0.8rem', color: 'var(--text-primary)',
+            }}>
+              python ranker/ranker.py
+            </code>
           </div>
         ) : filtered.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
